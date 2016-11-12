@@ -127,8 +127,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\gulpfile.js" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\package.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -139,6 +140,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="TemplateOriginal\gulpfile.js" />
+    <Content Include="TemplateOriginal\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -151,10 +154,24 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="TemplateOriginal\.gitignore" />
+    <Content Include="TemplateOriginal\LICENSE" />
+    <Content Include="TemplateOriginal\package.json" />
+    <Content Include="TemplateOriginal\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\css\" />
+    <Folder Include="Content\img\" />
+    <Folder Include="Content\js\" />
+    <Folder Include="Content\less\" />
+    <Folder Include="Content\vendor\" />
     <Folder Include="Models\" />
+    <Folder Include="TemplateOriginal\css\" />
+    <Folder Include="TemplateOriginal\img\" />
+    <Folder Include="TemplateOriginal\js\" />
+    <Folder Include="TemplateOriginal\less\" />
+    <Folder Include="TemplateOriginal\vendor\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
