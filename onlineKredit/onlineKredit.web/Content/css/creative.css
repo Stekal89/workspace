@@ -23,11 +23,14 @@ a {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
-  color: #F05F40;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
 }
 a:hover,
 a:focus {
-  color: #eb3812;
+  color: white;
+  font-weight: bolder;
 }
 h1,
 h2,
@@ -94,7 +97,7 @@ aside {
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus:hover {
-  color: #F05F40;
+  color: white;
 }
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
@@ -107,7 +110,7 @@ aside {
 }
 @media (min-width: 768px) {
   .navbar-default {
-    background-color: transparent;
+    background-color: rgb(6, 4, 123);
     border-color: rgba(255, 255, 255, 0.3);
   }
   .navbar-default .navbar-header .navbar-brand {
@@ -155,9 +158,14 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../img/header.jpg');
+  background-image: url('../img/Deutsche_Bank_Background-min.jpg');
   text-align: center;
   color: white;
+  /* Hier versuche ich das Bild etwas in den Hintergrund zu bringen, alle 
+      anderen Elemente versuche ich in den Vordergrund zu bringen.
+  */
+  opacity: 0.5;
+  z-index: -1;
 }
 header .header-content {
   position: relative;
@@ -413,4 +421,16 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #222222;
+}
+
+.logo {
+    float: left;
+    margin-left:15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-image: url(/Content/img/Deutsche_Bank_logo.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 35px;
 }
