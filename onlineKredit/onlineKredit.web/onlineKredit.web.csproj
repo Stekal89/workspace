@@ -130,9 +130,10 @@
     <Content Include="Content\css\creative.css" />
     <Content Include="Content\css\creative.min.css" />
     <Content Include="Content\gulpfile.js" />
-    <Content Include="Content\img\Deutsche_Bank_logo.png" />
+    <Content Include="Content\img\Deutsche_Bank_Background-min.jpg" />
+    <Content Include="Content\img\Deutsche_Bank_logo6.jpg" />
+    <Content Include="Content\img\Deutsche_Bank_logo.jpg" />
     <Content Include="Content\img\header.jpg" />
-    <Content Include="Content\img\DeutscheBankAG.jpg" />
     <Content Include="Content\img\portfolio\fullsize\1.jpg" />
     <Content Include="Content\img\portfolio\fullsize\2.jpg" />
     <Content Include="Content\img\portfolio\fullsize\3.jpg" />
@@ -242,6 +243,7 @@
     <Folder Include="TemplateOriginal\js\" />
     <Folder Include="TemplateOriginal\less\" />
     <Folder Include="TemplateOriginal\vendor\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -12,7 +12,7 @@ body {
   font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
 }
 hr {
-  border-color: #F05F40;
+  border-color:rgb(95, 92, 253);
   border-width: 3px;
   max-width: 50px;
 }
@@ -23,11 +23,14 @@ a {
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
   transition: all 0.35s;
-  color: #F05F40;
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
 }
 a:hover,
 a:focus {
-  color: #eb3812;
+  color: white;
+  font-weight: bolder;
 }
 h1,
 h2,
@@ -43,7 +46,7 @@ p {
   margin-bottom: 20px;
 }
 .bg-primary {
-  background-color: #F05F40;
+  background-color: rgb(6, 4, 123);
 }
 .bg-dark {
   background-color: #222222;
@@ -72,8 +75,7 @@ aside {
 .navbar-default .navbar-header .navbar-brand {
   color: #F05F40;
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
+  font-weight: bold;
 }
 .navbar-default .navbar-header .navbar-brand:hover,
 .navbar-default .navbar-header .navbar-brand:focus {
@@ -94,7 +96,8 @@ aside {
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus:hover {
-  color: #F05F40;
+  color: white;
+  font-size: 16px;
 }
 .navbar-default .nav > li.active > a,
 .navbar-default .nav > li.active > a:focus {
@@ -107,7 +110,7 @@ aside {
 }
 @media (min-width: 768px) {
   .navbar-default {
-    background-color: transparent;
+    background-color: rgb(6, 4, 123);
     border-color: rgba(255, 255, 255, 0.3);
   }
   .navbar-default .navbar-header .navbar-brand {
@@ -116,6 +119,7 @@ aside {
   .navbar-default .navbar-header .navbar-brand:hover,
   .navbar-default .navbar-header .navbar-brand:focus {
     color: white;
+    font-size: 22px;
   }
   .navbar-default .nav > li > a,
   .navbar-default .nav > li > a:focus {
@@ -130,8 +134,10 @@ aside {
     border-color: rgba(34, 34, 34, 0.05);
   }
   .navbar-default.affix .navbar-header .navbar-brand {
-    color: #F05F40;
-    font-size: 14px;
+    color: rgb(6, 4, 123);
+    font-size: 20px;
+    font-weight: bold;
+    
   }
   .navbar-default.affix .navbar-header .navbar-brand:hover,
   .navbar-default.affix .navbar-header .navbar-brand:focus {
@@ -139,7 +145,7 @@ aside {
   }
   .navbar-default.affix .nav > li > a,
   .navbar-default.affix .nav > li > a:focus {
-    color: #222222;
+    color: rgb(6, 4, 123);
   }
   .navbar-default.affix .nav > li > a:hover,
   .navbar-default.affix .nav > li > a:focus:hover {
@@ -155,9 +161,14 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../img/header.jpg');
+  background-image: url('../img/Deutsche_Bank_Background-min.jpg');
   text-align: center;
   color: white;
+  /* Hier versuche ich das Bild etwas in den Hintergrund zu bringen, alle 
+      anderen Elemente versuche ich in den Vordergrund zu bringen.
+  */
+  opacity: 0.5;
+  z-index: -1;
 }
 header .header-content {
   position: relative;
@@ -413,4 +424,15 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #222222;
+}
+
+.logo {
+    float: left;
+    margin-right: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* background-image: url(../img/Deutsche_Bank_logo.jpg); */
+    background-repeat: no-repeat;
+    background-size: 30px;
+    padding-left: 40px;
 }

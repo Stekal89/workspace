@@ -194,6 +194,7 @@
 }
 .fa-heart:before {
   content: "\f004";
+  color: rgb(6, 4, 123);
 }
 .fa-star:before {
   content: "\f005";
@@ -1541,6 +1542,7 @@
 .fa-send:before,
 .fa-paper-plane:before {
   content: "\f1d8";
+  color: rgb(6, 4, 123);
 }
 .fa-send-o:before,
 .fa-paper-plane-o:before {
@@ -1594,6 +1596,7 @@
 }
 .fa-newspaper-o:before {
   content: "\f1ea";
+  color: rgb(6, 4, 123);
 }
 .fa-wifi:before {
   content: "\f1eb";
@@ -1728,6 +1731,7 @@
 }
 .fa-diamond:before {
   content: "\f219";
+  color: rgb(6, 4, 123);
 }
 .fa-ship:before {
   content: "\f21a";
