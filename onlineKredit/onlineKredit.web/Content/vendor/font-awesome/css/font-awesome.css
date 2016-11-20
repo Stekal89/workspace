@@ -246,6 +246,7 @@
 }
 .fa-home:before {
   content: "\f015";
+  color: rgb(6, 4, 123);
 }
 .fa-file-o:before {
   content: "\f016";
@@ -615,6 +616,7 @@
 }
 .fa-phone:before {
   content: "\f095";
+  color: rgb(6, 4, 123);
 }
 .fa-square-o:before {
   content: "\f096";
@@ -771,6 +773,7 @@
 }
 .fa-money:before {
   content: "\f0d6";
+  color: rgb(6, 4, 123);
 }
 .fa-caret-down:before {
   content: "\f0d7";
@@ -2037,6 +2040,7 @@
 }
 .fa-credit-card-alt:before {
   content: "\f283";
+  color: rgb(6, 4, 123);
 }
 .fa-codiepie:before {
   content: "\f284";
