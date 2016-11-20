@@ -116,7 +116,8 @@ aside {
     border-color: rgba(255, 255, 255, 0.3);
   }
   .navbar-default .navbar-header .navbar-brand {
-    color: rgb(6, 4, 123);
+    border-color: rgb(6, 4, 123);
+    color: rgba(255, 255, 255, 0.7);
   }
   .navbar-default .navbar-header .navbar-brand:hover,
   .navbar-default .navbar-header .navbar-brand:focus {

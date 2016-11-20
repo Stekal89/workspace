@@ -121,9 +121,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\KonsumKreditController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ArbeitgeberModel.cs" />
+    <Compile Include="Models\FinanzielleSituationModel.cs" />
+    <Compile Include="Models\KontoInformationenModel.cs" />
+    <Compile Include="Models\KreditRahmenModel.cs" />
+    <Compile Include="Models\PersoenlicheDatenModel.cs" />
+    <Compile Include="Models\ZusammenFassungModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -234,10 +241,10 @@
     <Content Include="TemplateOriginal\LICENSE" />
     <Content Include="TemplateOriginal\package.json" />
     <Content Include="TemplateOriginal\README.md" />
+    <Content Include="Views\KonsumKredit\KreditRahmen.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="TemplateOriginal\css\" />
     <Folder Include="TemplateOriginal\img\" />
     <Folder Include="TemplateOriginal\js\" />
