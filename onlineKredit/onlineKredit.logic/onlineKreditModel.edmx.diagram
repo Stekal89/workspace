@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="da63a1f54c8b43e39b8b7ce270641230" Name="Diagram1" ZoomLevel="89">
+        <EntityTypeShape EntityType="dbOnlineKreditModel.tblArbeitgeber" Width="1.5" PointX="3.875" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Beschaeftigungsart" Width="1.5" PointX="4.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Branche" Width="1.5" PointX="2.875" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Einstellungen" Width="1.5" PointX="5.875" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Familienstand" Width="1.5" PointX="0.5" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.FinanzielleSituation" Width="1.5" PointX="5.875" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.IdentifikationsArt" Width="1.5" PointX="2" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.KontaktDaten" Width="1.5" PointX="0.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.KontoDaten" Width="1.5" PointX="6.125" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Kredit" Width="1.5" PointX="3.875" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.tblKunde" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Land" Width="1.5" PointX="0.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Ort" Width="1.5" PointX="0.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Schulabschluss" Width="1.5" PointX="5.875" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Titel" Width="1.5" PointX="5.875" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Wohnart" Width="1.5" PointX="2.125" PointY="15.375" IsExpanded="true" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblArbeit__FKBes__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblArbeit__FKBra__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblArbeit__IDArb__35BCFE0A" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKFami__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblFinanz__IDFin__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKIden__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontak__FKOrt__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontak__IDKon__2D27B809" ManuallyRouted="true" >
+          <ConnectorPoint PointX="3.0539136988915838" PointY="13.441712239583332" />
+          <ConnectorPoint PointX="3.0539136988915838" PointY="14.604166666666666" />
+          <ConnectorPoint PointX="2" PointY="14.604166666666666" />
+        </AssociationConnector>
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontoD__IDKon__3A81B327" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.5" PointY="13.294427181166974" />
+          <ConnectorPoint PointX="5.2923387530939143" PointY="13.294427181166974" />
+          <ConnectorPoint PointX="5.2923387530939143" PointY="13.75" />
+          <ConnectorPoint PointX="6.875" PointY="13.75" />
+          <ConnectorPoint PointX="6.875" PointY="14" />
+        </AssociationConnector>
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKredit__IDKre__3D5E1FD2" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.3283116167619351" PointY="13.441712239583332" />
+          <ConnectorPoint PointX="4.3476759472635988" PointY="16" />
+        </AssociationConnector>
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKSchu__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKStaa__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKTite__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKWohn__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblOrt__FKLand__1273C1CD" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

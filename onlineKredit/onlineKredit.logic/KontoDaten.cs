@@ -20,6 +20,6 @@ namespace onlineKredit.logic
         public bool HatKonto { get; set; }
         public string Bank { get; set; }
     
-        public virtual Kunde Kunde { get; set; }
+        public virtual tblKunde Kunde { get; set; }
     }
 }

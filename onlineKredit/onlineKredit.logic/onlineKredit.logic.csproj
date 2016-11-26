@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2F36C89A-B601-4DC9-A8C7-4EDBCD71BEE8}</ProjectGuid>
+    <ProjectGuid>{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>onlineKredit.logic</RootNamespace>
@@ -63,70 +63,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arbeitgeber.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Beschaeftigungsart.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Branche.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Einstellungen.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Familienstand.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="FinanzielleSituation.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IdentifikationsArt.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KonsumKreditModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KonsumKreditModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KonsumKreditModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="KonsumKreditModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KonsumKreditModel.edmx</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="KonsumKreditVerwaltung.cs" />
     <Compile Include="KontaktDaten.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="KontoDaten.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Kredit.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Kunde.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Land.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="onlineKreditModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>onlineKreditModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="onlineKreditModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="onlineKreditModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Ort.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schulabschluss.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblArbeitgeber.cs">
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblKunde.cs">
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Titel.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Wohnart.cs">
-      <DependentUpon>KonsumKreditModel.tt</DependentUpon>
+      <DependentUpon>onlineKreditModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -137,27 +137,27 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>dbOnlineKredit.mdf</DependentUpon>
     </Content>
-    <Content Include="KonsumKreditModel.Context.tt">
+    <Content Include="onlineKreditModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KonsumKreditModel.Context.cs</LastGenOutput>
-      <DependentUpon>KonsumKreditModel.edmx</DependentUpon>
+      <LastGenOutput>onlineKreditModel.Context.cs</LastGenOutput>
+      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
     </Content>
-    <Content Include="KonsumKreditModel.tt">
+    <Content Include="onlineKreditModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KonsumKreditModel.edmx</DependentUpon>
-      <LastGenOutput>KonsumKreditModel.cs</LastGenOutput>
+      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
+      <LastGenOutput>onlineKreditModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="KonsumKreditModel.edmx">
+    <EntityDeploy Include="onlineKreditModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KonsumKreditModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>onlineKreditModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="KonsumKreditModel.edmx.diagram">
-      <DependentUpon>KonsumKreditModel.edmx</DependentUpon>
+    <None Include="onlineKreditModel.edmx.diagram">
+      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

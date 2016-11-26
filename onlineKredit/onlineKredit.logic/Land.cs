@@ -16,14 +16,14 @@ namespace onlineKredit.logic
     {
         public Land()
         {
-            this.AlleKunden = new HashSet<Kunde>();
+            this.AlleKunden = new HashSet<tblKunde>();
             this.AlleOrte = new HashSet<Ort>();
         }
     
         public string ID { get; set; }
         public string Bezeichnung { get; set; }
     
-        public virtual ICollection<Kunde> AlleKunden { get; set; }
+        public virtual ICollection<tblKunde> AlleKunden { get; set; }
         public virtual ICollection<Ort> AlleOrte { get; set; }
     }
 }

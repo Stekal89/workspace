@@ -22,7 +22,7 @@ namespace onlineKredit.logic
         public int ID { get; set; }
         public string PLZ { get; set; }
         public string FKLand { get; set; }
-        public string OrtsName { get; set; }
+        public string Bezeichnung { get; set; }
     
         public virtual ICollection<KontaktDaten> AlleKontaktDaten { get; set; }
         public virtual Land Land { get; set; }

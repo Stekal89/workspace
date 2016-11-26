@@ -21,6 +21,6 @@ namespace onlineKredit.logic
         public Nullable<decimal> Unterhalt { get; set; }
         public Nullable<decimal> Raten { get; set; }
     
-        public virtual Kunde Kunde { get; set; }
+        public virtual tblKunde Kunde { get; set; }
     }
 }

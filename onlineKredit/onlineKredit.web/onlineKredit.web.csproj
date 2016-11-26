@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="Models\ArbeitgeberModel.cs" />
     <Compile Include="Models\FinanzielleSituationModel.cs" />
+    <Compile Include="Models\KontaktDatenModel.cs" />
     <Compile Include="Models\KontoInformationenModel.cs" />
     <Compile Include="Models\KreditRahmenModel.cs" />
     <Compile Include="Models\PersoenlicheDatenModel.cs" />
@@ -136,6 +137,13 @@
   <ItemGroup>
     <Content Include="Content\css\creative.css" />
     <Content Include="Content\css\creative.min.css" />
+    <Content Include="Content\css\ion.rangeSlider.css" />
+    <Content Include="Content\css\ion.rangeSlider.skinFlat.css" />
+    <Content Include="Content\css\ion.rangeSlider.skinHTML5.css" />
+    <Content Include="Content\css\ion.rangeSlider.skinModern.css" />
+    <Content Include="Content\css\ion.rangeSlider.skinNice.css" />
+    <Content Include="Content\css\ion.rangeSlider.skinSimple.css" />
+    <Content Include="Content\css\normalize.css" />
     <Content Include="Content\gulpfile.js" />
     <Content Include="Content\img\Deutsche_Bank_Background-min.jpg" />
     <Content Include="Content\img\Deutsche_Bank_logo6.jpg" />
@@ -153,8 +161,14 @@
     <Content Include="Content\img\portfolio\thumbnails\4.jpg" />
     <Content Include="Content\img\portfolio\thumbnails\5.jpg" />
     <Content Include="Content\img\portfolio\thumbnails\6.jpg" />
+    <Content Include="Content\img\sprite-skin-flat.png" />
+    <Content Include="Content\img\sprite-skin-modern.png" />
+    <Content Include="Content\img\sprite-skin-nice.png" />
+    <Content Include="Content\img\sprite-skin-simple.png" />
     <Content Include="Content\js\creative.js" />
     <Content Include="Content\js\creative.min.js" />
+    <Content Include="Content\js\ion.rangeSlider.js" />
+    <Content Include="Content\js\ion.rangeSlider.min.js" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\vendor\bootstrap\fonts\glyphicons-halflings-regular.svg" />
@@ -163,6 +177,7 @@
     <Content Include="Content\vendor\font-awesome\css\font-awesome.css" />
     <Content Include="Content\vendor\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\vendor\jquery\jquery-1.12.3.min.js" />
     <Content Include="Content\vendor\jquery\jquery.js" />
     <Content Include="Content\vendor\jquery\jquery.min.js" />
     <Content Include="Content\vendor\magnific-popup\jquery.magnific-popup.js" />

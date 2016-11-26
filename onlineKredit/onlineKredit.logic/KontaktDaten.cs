@@ -14,7 +14,7 @@ namespace onlineKredit.logic
     
     public partial class KontaktDaten
     {
-        public int IDKontaktDaten { get; set; }
+        public int ID { get; set; }
         public Nullable<int> FKOrt { get; set; }
         public string Strasse { get; set; }
         public string Hausnummer { get; set; }
@@ -24,6 +24,6 @@ namespace onlineKredit.logic
         public string Telefonnummer { get; set; }
     
         public virtual Ort Ort { get; set; }
-        public virtual Kunde Kunde { get; set; }
+        public virtual tblKunde Kunde { get; set; }
     }
 }

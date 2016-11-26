@@ -16,12 +16,12 @@ namespace onlineKredit.logic
     {
         public Familienstand()
         {
-            this.AlleKunden = new HashSet<Kunde>();
+            this.AlleKunden = new HashSet<tblKunde>();
         }
     
         public int ID { get; set; }
         public string Bezeichnung { get; set; }
     
-        public virtual ICollection<Kunde> AlleKunden { get; set; }
+        public virtual ICollection<tblKunde> AlleKunden { get; set; }
     }
 }

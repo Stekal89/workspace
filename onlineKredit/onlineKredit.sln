@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onlineKredit.web", "onlineKredit.web\onlineKredit.web.csproj", "{20907C82-BB96-436F-BA00-CB3141ADE3AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onlineKredit.logic", "onlineKredit.logic\onlineKredit.logic.csproj", "{2F36C89A-B601-4DC9-A8C7-4EDBCD71BEE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "onlineKredit.logic", "onlineKredit.logic\onlineKredit.logic.csproj", "{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{20907C82-BB96-436F-BA00-CB3141ADE3AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20907C82-BB96-436F-BA00-CB3141ADE3AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20907C82-BB96-436F-BA00-CB3141ADE3AE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F36C89A-B601-4DC9-A8C7-4EDBCD71BEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F36C89A-B601-4DC9-A8C7-4EDBCD71BEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F36C89A-B601-4DC9-A8C7-4EDBCD71BEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F36C89A-B601-4DC9-A8C7-4EDBCD71BEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
