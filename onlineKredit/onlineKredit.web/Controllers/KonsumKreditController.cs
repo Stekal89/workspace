@@ -1,4 +1,5 @@
-﻿using onlineKredit.web.Models;
+﻿using onlineKredit.logic;
+using onlineKredit.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,15 +25,29 @@ namespace onlineKredit.web.Controllers
         {
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKredit - KreditRahmen");
-
-            /// Speichere Daten in die BusinessLogic
-            
-            /// gehe zum nächsten Schritt
-            
-            
             Debug.Unindent();
 
-            return RedirectToAction("FinanhzielleSituation");
+            if (ModelState.IsValid)
+            {
+                /// speichere Daten über BusinessLogic
+                Kunde neuerKunde = KonsumKreditVerwaltung.ErzeugeKunde();
+
+                if (neuerKunde != null && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, neuerKunde.ID))
+                {
+                    /// ich benötige für alle weiteren Schritte die ID
+                    /// des angelegten Kunden. Damit ich diese bei der nächsten Action
+                    /// habe, speichere ich sie für diesen Zweck in die TempData Variable
+                    /// (ähnlich wie Session)
+                    TempData["idKunde"] = neuerKunde.ID;
+
+                    /// gehe zum nächsten Schritt
+                    return RedirectToAction("FinanzielleSituation");
+                }
+            }
+
+            /// falls der ModelState NICHT valid ist, bleibe hier und
+            /// gib die Daten (falls vorhanden) wieder auf das UI
+            return View(model);
         }
 
         [HttpGet]
@@ -107,4 +122,7 @@ namespace onlineKredit.web.Controllers
             return View();
         }
     }
+
+
+
 }

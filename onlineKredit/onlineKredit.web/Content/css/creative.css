@@ -121,7 +121,7 @@ aside {
   }
   .navbar-default .navbar-header .navbar-brand:hover,
   .navbar-default .navbar-header .navbar-brand:focus {
-    color: #3535c5;
+    color: white;
     font-size: 22px;
   }
   .navbar-default .nav > li > a,

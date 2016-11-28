@@ -45,3 +45,8 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\onlineKredit.web.csprojResolveAssemblyReference.cache
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\ASP.NET MVC.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\ASP.NET MVC.pdb
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\onlineKredit.logic.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\EntityFramework.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\onlineKredit.logic.pdb
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\EntityFramework.xml
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\de\EntityFramework.resources.dll

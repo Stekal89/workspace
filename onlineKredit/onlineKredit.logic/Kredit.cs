@@ -19,6 +19,6 @@ namespace onlineKredit.logic
         public short GewuenschteLaufzeit { get; set; }
         public bool KreditBewilligt { get; set; }
     
-        public virtual tblKunde Kunde { get; set; }
+        public virtual Kunde Kunde { get; set; }
     }
 }

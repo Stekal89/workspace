@@ -25,20 +25,20 @@ namespace onlineKredit.logic
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<tblArbeitgeber> tblArbeitgeber { get; set; }
-        public DbSet<Beschaeftigungsart> AlleBeschaeftigungsarten { get; set; }
+        public DbSet<Arbeitgeber> AlleArbeitgeber { get; set; }
+        public DbSet<Beschaeftigungsart> tblBeschaeftigungsart { get; set; }
         public DbSet<Branche> AlleBranchen { get; set; }
         public DbSet<Einstellungen> AlleEinstellungen { get; set; }
-        public DbSet<Familienstand> AlleFamiliaenstande { get; set; }
+        public DbSet<Familienstand> AlleFamilienstaende { get; set; }
         public DbSet<FinanzielleSituation> AlleFinanzielleSituationen { get; set; }
         public DbSet<IdentifikationsArt> AlleIdentifikationsArten { get; set; }
         public DbSet<KontaktDaten> AlleKontaktDaten { get; set; }
         public DbSet<KontoDaten> AlleKontoDaten { get; set; }
         public DbSet<Kredit> AlleKredite { get; set; }
-        public DbSet<tblKunde> tblKunde { get; set; }
+        public DbSet<Kunde> AlleKunden { get; set; }
         public DbSet<Land> AlleLaender { get; set; }
         public DbSet<Ort> AlleOrte { get; set; }
-        public DbSet<Schulabschluss> AlleSchulabsluesse { get; set; }
+        public DbSet<Schulabschluss> AlleSchulabschluesse { get; set; }
         public DbSet<Titel> AlleTitel { get; set; }
         public DbSet<Wohnart> AlleWohnarten { get; set; }
     }

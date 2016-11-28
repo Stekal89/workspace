@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbOnlineKreditModelStoreContainer" CdmEntityContainer="dbOnlineKredit">
+    <EntitySetMapping Name="AlleArbeitgeber">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Arbeitgeber">
+        <MappingFragment StoreEntitySet="tblArbeitgeber">
+          <ScalarProperty Name="ID" ColumnName="IDArbeitgeber" />
+          <ScalarProperty Name="Firma" ColumnName="Firma" />
+          <ScalarProperty Name="FKBeschaeftigungsArt" ColumnName="FKBeschaeftigungsArt" />
+          <ScalarProperty Name="FKBranche" ColumnName="FKBranche" />
+          <ScalarProperty Name="BeschaeftigtSeit" ColumnName="BeschaeftigtSeit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblBeschaeftigungsart">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Beschaeftigungsart">
+        <MappingFragment StoreEntitySet="tblBeschaeftigungsart">
+          <ScalarProperty Name="ID" ColumnName="IDBeschaeftigungsart" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Beschaeftigungsart" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleBranchen">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Branche">
+        <MappingFragment StoreEntitySet="tblBranche">
+          <ScalarProperty Name="ID" ColumnName="IDBranche" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Branche" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleEinstellungen">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Einstellungen">
+        <MappingFragment StoreEntitySet="tblEinstellungen">
+          <ScalarProperty Name="IDEinstellungen" ColumnName="IDEinstellungen" />
+          <ScalarProperty Name="NormalZins" ColumnName="NormalZins" />
+          <ScalarProperty Name="EffektiverZins" ColumnName="EffektiverZins" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleFamilienstaende">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Familienstand">
+        <MappingFragment StoreEntitySet="tblFamilienstand">
+          <ScalarProperty Name="ID" ColumnName="IDFamilienstand" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Familienstand" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleFinanzielleSituationen">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.FinanzielleSituation">
+        <MappingFragment StoreEntitySet="tblFinanzielleSituation">
+          <ScalarProperty Name="ID" ColumnName="IDFinanzielleSituation" />
+          <ScalarProperty Name="MonatsEinkommenNetto" ColumnName="MonatsEinkommenNetto" />
+          <ScalarProperty Name="Wohnkosten" ColumnName="Wohnkosten" />
+          <ScalarProperty Name="SonstigeEinkommen" ColumnName="SonstigeEinkommen" />
+          <ScalarProperty Name="Unterhalt" ColumnName="Unterhalt" />
+          <ScalarProperty Name="Raten" ColumnName="Raten" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleIdentifikationsArten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.IdentifikationsArt">
+        <MappingFragment StoreEntitySet="tblIdentifikationsArt">
+          <ScalarProperty Name="ID" ColumnName="IDIdentifikationsArt" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="IdentifikationsArt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleKontaktDaten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.KontaktDaten">
+        <MappingFragment StoreEntitySet="tblKontaktDaten">
+          <ScalarProperty Name="ID" ColumnName="IDKontaktDaten" />
+          <ScalarProperty Name="FKOrt" ColumnName="FKOrt" />
+          <ScalarProperty Name="Strasse" ColumnName="Strasse" />
+          <ScalarProperty Name="Hausnummer" ColumnName="Hausnummer" />
+          <ScalarProperty Name="Stiege" ColumnName="Stiege" />
+          <ScalarProperty Name="Tür" ColumnName="Tür" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="Telefonnummer" ColumnName="Telefonnummer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleKontoDaten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.KontoDaten">
+        <MappingFragment StoreEntitySet="tblKontoDaten">
+          <ScalarProperty Name="ID" ColumnName="IDKontoDaten" />
+          <ScalarProperty Name="BIC" ColumnName="BIC" />
+          <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+          <ScalarProperty Name="HatKonto" ColumnName="HatKonto" />
+          <ScalarProperty Name="Bank" ColumnName="Bank" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleKredite">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Kredit">
+        <MappingFragment StoreEntitySet="tblKredit">
+          <ScalarProperty Name="ID" ColumnName="IDKredit" />
+          <ScalarProperty Name="GewuenschterKredit" ColumnName="GewuenschterKredit" />
+          <ScalarProperty Name="GewuenschteLaufzeit" ColumnName="GewuenschteLaufzeit" />
+          <ScalarProperty Name="KreditBewilligt" ColumnName="KreditBewilligt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleKunden">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Kunde">
+        <MappingFragment StoreEntitySet="tblKunde">
+          <ScalarProperty Name="ID" ColumnName="IDKunde" />
+          <ScalarProperty Name="Vorname" ColumnName="Vorname" />
+          <ScalarProperty Name="Nachname" ColumnName="Nachname" />
+          <ScalarProperty Name="Geschlecht" ColumnName="Geschlecht" />
+          <ScalarProperty Name="Geburtsdatum" ColumnName="Geburtsdatum" />
+          <ScalarProperty Name="FKTitel" ColumnName="FKTitel" />
+          <ScalarProperty Name="FKFamilienstand" ColumnName="FKFamilienstand" />
+          <ScalarProperty Name="FKStaatsangehoerigkeit" ColumnName="FKStaatsangehoerigkeit" />
+          <ScalarProperty Name="FKWohnart" ColumnName="FKWohnart" />
+          <ScalarProperty Name="FKSchulabschluss" ColumnName="FKSchulabschluss" />
+          <ScalarProperty Name="IdentifikationsNummer" ColumnName="IdentifikationsNummer" />
+          <ScalarProperty Name="FKIdentifikationsArt" ColumnName="FKIdentifikationsArt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleLaender">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Land">
+        <MappingFragment StoreEntitySet="tblLand">
+          <ScalarProperty Name="ID" ColumnName="IDLand" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Land" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleOrte">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Ort">
+        <MappingFragment StoreEntitySet="tblOrt">
+          <ScalarProperty Name="ID" ColumnName="IDOrt" />
+          <ScalarProperty Name="PLZ" ColumnName="PLZ" />
+          <ScalarProperty Name="FKLand" ColumnName="FKLand" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Ort" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleSchulabschluesse">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Schulabschluss">
+        <MappingFragment StoreEntitySet="tblSchulabschluss">
+          <ScalarProperty Name="ID" ColumnName="IDSchulabschluss" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Schulabschluss" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleTitel">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Titel">
+        <MappingFragment StoreEntitySet="tblTitel">
+          <ScalarProperty Name="ID" ColumnName="IDTitel" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Titel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleWohnarten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Wohnart">
+        <MappingFragment StoreEntitySet="tblWohnart">
+          <ScalarProperty Name="ID" ColumnName="IDWohnart" />
+          <ScalarProperty Name="Bezeichnung" ColumnName="Wohnart" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

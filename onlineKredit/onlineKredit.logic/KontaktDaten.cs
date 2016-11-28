@@ -24,6 +24,6 @@ namespace onlineKredit.logic
         public string Telefonnummer { get; set; }
     
         public virtual Ort Ort { get; set; }
-        public virtual tblKunde Kunde { get; set; }
+        public virtual Kunde Kunde { get; set; }
     }
 }

@@ -16,6 +16,6 @@ namespace onlineKredit.web.Models
         [Required(ErrorMessage ="Es muss eine gewünschte Laufzeit angegeben sein! (minimum 1 Monat)")]
         [Display(Name ="Laufzeit in Monaten")]
         [Range(1,120, ErrorMessage ="Laufzeit muss zwischen 1 und 120 Monaten liegen.")]
-        public int Laufzeit { get; set; }
+        public short Laufzeit { get; set; }
     }
 }

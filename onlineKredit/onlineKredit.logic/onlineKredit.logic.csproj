@@ -4,28 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3D722AF9-E6B6-444B-8D11-88288BDC7D2F}</ProjectGuid>
+    <ProjectGuid>{6BE4FFC7-0D12-4886-9C4C-8FEDBA007630}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>onlineKredit.logic</RootNamespace>
     <AssemblyName>onlineKredit.logic</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,118 +48,101 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arbeitgeber.cs">
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Beschaeftigungsart.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Branche.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Einstellungen.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Familienstand.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="FinanzielleSituation.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IdentifikationsArt.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="KonsumKreditVerwaltung.cs" />
     <Compile Include="KontaktDaten.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="KontoDaten.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Kredit.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Kunde.cs">
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Land.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="onlineKreditModel.Context.cs">
+    <Compile Include="OnlineKreditModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>onlineKreditModel.Context.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="onlineKreditModel.cs">
+    <Compile Include="OnlineKreditModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="onlineKreditModel.Designer.cs">
+    <Compile Include="OnlineKreditModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
+      <DependentUpon>OnlineKreditModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Ort.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schulabschluss.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblArbeitgeber.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblKunde.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Titel.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Wohnart.cs">
-      <DependentUpon>onlineKreditModel.tt</DependentUpon>
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dbOnlineKredit.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dbOnlineKredit_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>dbOnlineKredit.mdf</DependentUpon>
-    </Content>
-    <Content Include="onlineKreditModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>onlineKreditModel.Context.cs</LastGenOutput>
-      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="onlineKreditModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
-      <LastGenOutput>onlineKreditModel.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="onlineKreditModel.edmx">
+    <EntityDeploy Include="OnlineKreditModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>onlineKreditModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>OnlineKreditModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="onlineKreditModel.edmx.diagram">
-      <DependentUpon>onlineKreditModel.edmx</DependentUpon>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="OnlineKreditModel.edmx.diagram">
+      <DependentUpon>OnlineKreditModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="OnlineKreditModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OnlineKreditModel.Context.cs</LastGenOutput>
+      <DependentUpon>OnlineKreditModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="OnlineKreditModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineKreditModel.edmx</DependentUpon>
+      <LastGenOutput>OnlineKreditModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 und x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

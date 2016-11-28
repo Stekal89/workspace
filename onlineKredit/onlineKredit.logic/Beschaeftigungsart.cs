@@ -16,12 +16,12 @@ namespace onlineKredit.logic
     {
         public Beschaeftigungsart()
         {
-            this.AlleArbeitgeber = new HashSet<tblArbeitgeber>();
+            this.AlleArbeitgeber = new HashSet<Arbeitgeber>();
         }
     
         public int ID { get; set; }
         public string Bezeichnung { get; set; }
     
-        public virtual ICollection<tblArbeitgeber> AlleArbeitgeber { get; set; }
+        public virtual ICollection<Arbeitgeber> AlleArbeitgeber { get; set; }
     }
 }
