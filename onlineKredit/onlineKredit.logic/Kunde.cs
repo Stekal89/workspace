@@ -37,6 +37,6 @@ namespace onlineKredit.logic
         public virtual Schulabschluss Schulabschluss { get; set; }
         public virtual Land Land { get; set; }
         public virtual Titel Titel { get; set; }
-        public virtual Wohnart Wohnart { get; set; }
+        public virtual tblWohnart Wohnart { get; set; }
     }
 }

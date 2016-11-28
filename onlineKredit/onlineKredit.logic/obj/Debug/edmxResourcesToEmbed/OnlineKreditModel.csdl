@@ -31,9 +31,9 @@
   </EntityType>
   <EntityType Name="Einstellungen">
     <Key>
-      <PropertyRef Name="IDEinstellungen" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="IDEinstellungen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="NormalZins" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
     <Property Name="EffektiverZins" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
   </EntityType>
@@ -165,7 +165,7 @@
     <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="AlleKunden" Relationship="Self.FK__tblKunde__FKTite__25869641" FromRole="tblTitel" ToRole="tblKunde" />
   </EntityType>
-  <EntityType Name="Wohnart">
+  <EntityType Name="tblWohnart">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -330,7 +330,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__tblKunde__FKWohn__286302EC">
-    <End Role="tblWohnart" Type="dbOnlineKreditModel.Wohnart" Multiplicity="0..1" />
+    <End Role="tblWohnart" Type="Self.tblWohnart" Multiplicity="0..1" />
     <End Role="tblKunde" Type="dbOnlineKreditModel.Kunde" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tblWohnart">
@@ -355,7 +355,7 @@
   </Association>
   <EntityContainer Name="dbOnlineKredit" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="AlleArbeitgeber" EntityType="dbOnlineKreditModel.Arbeitgeber" />
-    <EntitySet Name="tblBeschaeftigungsart" EntityType="dbOnlineKreditModel.Beschaeftigungsart" />
+    <EntitySet Name="AlleBeschaeftigungsarten" EntityType="dbOnlineKreditModel.Beschaeftigungsart" />
     <EntitySet Name="AlleBranchen" EntityType="dbOnlineKreditModel.Branche" />
     <EntitySet Name="AlleEinstellungen" EntityType="dbOnlineKreditModel.Einstellungen" />
     <EntitySet Name="AlleFamilienstaende" EntityType="dbOnlineKreditModel.Familienstand" />
@@ -369,9 +369,9 @@
     <EntitySet Name="AlleOrte" EntityType="dbOnlineKreditModel.Ort" />
     <EntitySet Name="AlleSchulabschluesse" EntityType="dbOnlineKreditModel.Schulabschluss" />
     <EntitySet Name="AlleTitel" EntityType="dbOnlineKreditModel.Titel" />
-    <EntitySet Name="AlleWohnarten" EntityType="dbOnlineKreditModel.Wohnart" />
+    <EntitySet Name="tblWohnart" EntityType="Self.tblWohnart" />
     <AssociationSet Name="FK__tblArbeit__FKBes__36B12243" Association="Self.FK__tblArbeit__FKBes__36B12243">
-      <End Role="tblBeschaeftigungsart" EntitySet="tblBeschaeftigungsart" />
+      <End Role="tblBeschaeftigungsart" EntitySet="AlleBeschaeftigungsarten" />
       <End Role="tblArbeitgeber" EntitySet="AlleArbeitgeber" />
     </AssociationSet>
     <AssociationSet Name="FK__tblArbeit__FKBra__37A5467C" Association="Self.FK__tblArbeit__FKBra__37A5467C">
@@ -423,7 +423,7 @@
       <End Role="tblKunde" EntitySet="AlleKunden" />
     </AssociationSet>
     <AssociationSet Name="FK__tblKunde__FKWohn__286302EC" Association="Self.FK__tblKunde__FKWohn__286302EC">
-      <End Role="tblWohnart" EntitySet="AlleWohnarten" />
+      <End Role="tblWohnart" EntitySet="tblWohnart" />
       <End Role="tblKunde" EntitySet="AlleKunden" />
     </AssociationSet>
     <AssociationSet Name="FK__tblOrt__FKLand__1273C1CD" Association="Self.FK__tblOrt__FKLand__1273C1CD">

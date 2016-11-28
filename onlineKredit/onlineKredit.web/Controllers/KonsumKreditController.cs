@@ -15,7 +15,7 @@ namespace onlineKredit.web.Controllers
         public ActionResult KreditRahmen()
         {
             Debug.Indent();
-            Debug.WriteLine("GET - KonsumKredit - KreditRahmen");
+            Debug.WriteLine("GET - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
             return View();
         }
@@ -24,7 +24,7 @@ namespace onlineKredit.web.Controllers
         public ActionResult KreditRahmen(KreditRahmenModel model)
         {
             Debug.Indent();
-            Debug.WriteLine("GET - KonsumKredit - KreditRahmen");
+            Debug.WriteLine("POST - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
 
             if (ModelState.IsValid)
@@ -53,13 +53,42 @@ namespace onlineKredit.web.Controllers
         [HttpGet]
         public ActionResult FinanzielleSituation()
         {
-            return View();
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - FinanzielleSituation");
+            Debug.Unindent();
+
+            FinanzielleSituationModel model = new FinanzielleSituationModel()
+            {
+                KundenID = int.Parse(TempData["idKunde"].ToString())
+            };
+
+            return View(model);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult FinanzielleSituation(FinanzielleSituationModel model)
         {
-            return View();
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - FinanzielleSituation");
+            Debug.Unindent();
+
+
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.FinanzielleSituationSpeichern(model.NettoEinkommen,
+                                                                        model.Wohnkosten, 
+                                                                        model.EinkuenfteAlimenteUnterhalt, 
+                                                                        model.UnterhaltsZahlungen, 
+                                                                        model.RatenVerpflichtungen,
+                                                                        model.KundenID))
+                {
+                    TempData["idKunde"] = model.KundenID;
+                    return RedirectToAction("PersoenlicheDaten");
+                }
+            }
+
+            return View(model);
         }
 
         [HttpGet]
@@ -69,60 +98,98 @@ namespace onlineKredit.web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult PersoenlicheDaten(PersoenlicheDatenModel model)
         {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - PersoenlicheDaten");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpGet]
         public ActionResult Arbeitgeber()
         {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - Arbeitgeber");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Arbeitgeber(ArbeitgeberModel model)
         {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - Arbeitgeber");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpGet]
         public ActionResult KontaktDaten()
         {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult KontaktDaten(KontaktDatenModel model)
         {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpGet]
         public ActionResult KontoInformation()
         {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult KontoInformation(KontoInformationenModel model)
         {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpGet]
         public ActionResult ZusammenFassung()
         {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - ZusammenFassung");
+            Debug.Unindent();
+
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ZusammenFassung(ZusammenFassungModel  model)
         {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - ZusammenFassung");
+            Debug.Unindent();
+
             return View();
         }
     }
-
-
-
 }

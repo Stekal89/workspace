@@ -14,7 +14,7 @@ namespace onlineKredit.logic
     
     public partial class Einstellungen
     {
-        public int IDEinstellungen { get; set; }
+        public int ID { get; set; }
         public decimal NormalZins { get; set; }
         public decimal EffektiverZins { get; set; }
     }

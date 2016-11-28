@@ -63,6 +63,7 @@ namespace onlineKredit.logic
         /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
         public static bool KreditRahmenSpeichern(double kreditBetrag, short laufzeit, int idKunde)
         {
+            Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - KreditRahmenSpeichern");
             Debug.Indent();
 
@@ -72,7 +73,6 @@ namespace onlineKredit.logic
             {
                 using (var context = new dbOnlineKredit())
                 {
-
                     /// speichere zum Kunden die Angaben
                     Kunde aktKunde = context.AlleKunden.Where(x => x.ID == idKunde).FirstOrDefault();
 
@@ -95,7 +95,7 @@ namespace onlineKredit.logic
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Fehler in KreditRahmenSpeichern");
+                Debug.WriteLine("\nFehler bei " + "KonsumkreditVerwaltung - KreditRahmenSpeichern".ToUpper());
                 Debug.Indent();
                 Debug.WriteLine(ex.Message);
                 Debug.Unindent();
@@ -106,53 +106,52 @@ namespace onlineKredit.logic
             return erfolgreich;
         }
 
-        //public static bool FinanzielleSituationSpeichern(double nettoEinkommen, double ratenVerpflichtungen, double wohnkosten, double einkünfteAlimenteUnterhalt, double unterhaltsZahlungen, int idKunde)
-        //{
-        //    Debug.WriteLine("KonsumKreditVerwaltung - FinanzielleSituationSpeichern");
-        //    Debug.Indent();
+        public static bool FinanzielleSituationSpeichern(double nettoEinkommen, double wohnkosten, double einkuenfteAusAlimenten, double unterhaltsZahlungen, double ratenVerpflichtungen, int idKunde)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - FinanzielleSituationSpeichern");
+            Debug.Indent();
 
-        //    bool erfolgreich = false;
+            bool erfolgreich = false;
 
-        //    try
-        //    {
-        //        using (var context = new OnlineKredit())
-        //        {
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == idKunde).FirstOrDefault();
 
-        //            /// speichere zum Kunden die Angaben
-        //            Kunde aktKunde = context.AlleKunden.Where(x => x.ID == idKunde).FirstOrDefault();
+                    if (aktKunde != null)
+                    {
+                        FinanzielleSituation neueFinanzSituation = new FinanzielleSituation()
+                        {
+                            ID = idKunde,
+                            MonatsEinkommenNetto = (decimal)nettoEinkommen,
+                            Wohnkosten = (decimal)wohnkosten,
+                            SonstigeEinkommen = (decimal)einkuenfteAusAlimenten,
+                            Unterhalt = (decimal)unterhaltsZahlungen,
+                            Raten = (decimal)ratenVerpflichtungen
+                        };
 
-        //            if (aktKunde != null)
-        //            {
-        //                FinanzielleSituation neueFinanzielleSituation = new FinanzielleSituation()
-        //                {
-        //                    MonatsEinkommen = (decimal)nettoEinkommen,
-        //                    AusgabenALIUNT = (decimal)unterhaltsZahlungen,
-        //                    EinkuenfteAlimenteUnterhalt = (decimal)einkünfteAlimenteUnterhalt,
-        //                    Wohnkosten = (decimal)wohnkosten,
-        //                    RatenZahlungen = (decimal)ratenVerpflichtungen,
-        //                    ID = idKunde
-        //                };
+                        context.AlleFinanzielleSituationen.Add(neueFinanzSituation);
+                    }
 
-        //                context.AlleFinanzielleSituationen.Add(neueFinanzielleSituation);
-        //            }
+                    int anzahlZeilenBetroffen = context.SaveChanges();
+                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    Debug.WriteLine($"{anzahlZeilenBetroffen} FinanzielleSituation gespeichert!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("\nFehler bei " + "KonsumkreditVerwaltung - FinanzielleSituationSpeichern".ToUpper());
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
 
-        //            int anzahlZeilenBetroffen = context.SaveChanges();
-        //            erfolgreich = anzahlZeilenBetroffen >= 1;
-        //            Debug.WriteLine($"{anzahlZeilenBetroffen} FinanzielleSituation gespeichert!");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine("Fehler in FinanzielleSituation");
-        //        Debug.Indent();
-        //        Debug.WriteLine(ex.Message);
-        //        Debug.Unindent();
-        //        Debugger.Break();
-        //    }
 
-        //    Debug.Unindent();
-        //    return erfolgreich;
-        //}
+            Debug.Unindent();
+            return erfolgreich;
+        }
     }
 }
-

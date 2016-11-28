@@ -26,7 +26,7 @@ namespace onlineKredit.logic
         }
     
         public DbSet<Arbeitgeber> AlleArbeitgeber { get; set; }
-        public DbSet<Beschaeftigungsart> tblBeschaeftigungsart { get; set; }
+        public DbSet<Beschaeftigungsart> AlleBeschaeftigungsarten { get; set; }
         public DbSet<Branche> AlleBranchen { get; set; }
         public DbSet<Einstellungen> AlleEinstellungen { get; set; }
         public DbSet<Familienstand> AlleFamilienstaende { get; set; }
@@ -40,6 +40,6 @@ namespace onlineKredit.logic
         public DbSet<Ort> AlleOrte { get; set; }
         public DbSet<Schulabschluss> AlleSchulabschluesse { get; set; }
         public DbSet<Titel> AlleTitel { get; set; }
-        public DbSet<Wohnart> AlleWohnarten { get; set; }
+        public DbSet<tblWohnart> tblWohnart { get; set; }
     }
 }

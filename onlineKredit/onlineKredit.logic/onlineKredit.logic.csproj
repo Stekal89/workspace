@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6BE4FFC7-0D12-4886-9C4C-8FEDBA007630}</ProjectGuid>
+    <ProjectGuid>{8975DE0B-76D4-4399-8EC9-D4C07841BF32}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>onlineKredit.logic</RootNamespace>
@@ -107,10 +107,10 @@
     <Compile Include="Schulabschluss.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Titel.cs">
+    <Compile Include="tblWohnart.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Wohnart.cs">
+    <Compile Include="Titel.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -121,9 +121,7 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.Config" />
     <None Include="OnlineKreditModel.edmx.diagram">
       <DependentUpon>OnlineKreditModel.edmx</DependentUpon>
     </None>

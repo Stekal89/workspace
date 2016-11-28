@@ -257,6 +257,7 @@
     <Content Include="TemplateOriginal\package.json" />
     <Content Include="TemplateOriginal\README.md" />
     <Content Include="Views\KonsumKredit\KreditRahmen.cshtml" />
+    <Content Include="Views\KonsumKredit\FinanzielleSituation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -273,7 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\onlineKredit.logic\onlineKredit.logic.csproj">
-      <Project>{6BE4FFC7-0D12-4886-9C4C-8FEDBA007630}</Project>
+      <Project>{8975DE0B-76D4-4399-8EC9-D4C07841BF32}</Project>
       <Name>onlineKredit.logic</Name>
     </ProjectReference>
   </ItemGroup>

@@ -12,7 +12,7 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tblBeschaeftigungsart">
+    <EntitySetMapping Name="AlleBeschaeftigungsarten">
       <EntityTypeMapping TypeName="dbOnlineKreditModel.Beschaeftigungsart">
         <MappingFragment StoreEntitySet="tblBeschaeftigungsart">
           <ScalarProperty Name="ID" ColumnName="IDBeschaeftigungsart" />
@@ -31,7 +31,7 @@
     <EntitySetMapping Name="AlleEinstellungen">
       <EntityTypeMapping TypeName="dbOnlineKreditModel.Einstellungen">
         <MappingFragment StoreEntitySet="tblEinstellungen">
-          <ScalarProperty Name="IDEinstellungen" ColumnName="IDEinstellungen" />
+          <ScalarProperty Name="ID" ColumnName="IDEinstellungen" />
           <ScalarProperty Name="NormalZins" ColumnName="NormalZins" />
           <ScalarProperty Name="EffektiverZins" ColumnName="EffektiverZins" />
         </MappingFragment>
@@ -152,8 +152,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="AlleWohnarten">
-      <EntityTypeMapping TypeName="dbOnlineKreditModel.Wohnart">
+    <EntitySetMapping Name="tblWohnart">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.tblWohnart">
         <MappingFragment StoreEntitySet="tblWohnart">
           <ScalarProperty Name="ID" ColumnName="IDWohnart" />
           <ScalarProperty Name="Bezeichnung" ColumnName="Wohnart" />
