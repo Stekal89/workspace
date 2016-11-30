@@ -103,6 +103,7 @@
     <EntitySetMapping Name="AlleKunden">
       <EntityTypeMapping TypeName="dbOnlineKreditModel.Kunde">
         <MappingFragment StoreEntitySet="tblKunde">
+          <ScalarProperty Name="AnzahlKinder" ColumnName="AnzahlKinder" />
           <ScalarProperty Name="ID" ColumnName="IDKunde" />
           <ScalarProperty Name="Vorname" ColumnName="Vorname" />
           <ScalarProperty Name="Nachname" ColumnName="Nachname" />
@@ -152,8 +153,8 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tblWohnart">
-      <EntityTypeMapping TypeName="dbOnlineKreditModel.tblWohnart">
+    <EntitySetMapping Name="AlleWohnarten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.Wohnart">
         <MappingFragment StoreEntitySet="tblWohnart">
           <ScalarProperty Name="ID" ColumnName="IDWohnart" />
           <ScalarProperty Name="Bezeichnung" ColumnName="Wohnart" />

@@ -40,6 +40,6 @@ namespace onlineKredit.logic
         public DbSet<Ort> AlleOrte { get; set; }
         public DbSet<Schulabschluss> AlleSchulabschluesse { get; set; }
         public DbSet<Titel> AlleTitel { get; set; }
-        public DbSet<tblWohnart> tblWohnart { get; set; }
+        public DbSet<Wohnart> AlleWohnarten { get; set; }
     }
 }

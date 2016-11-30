@@ -107,10 +107,10 @@
     <Compile Include="Schulabschluss.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="tblWohnart.cs">
+    <Compile Include="Titel.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Titel.cs">
+    <Compile Include="Wohnart.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

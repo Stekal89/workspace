@@ -126,11 +126,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArbeitgeberModel.cs" />
+    <Compile Include="Models\FamilienStandsModel.cs" />
     <Compile Include="Models\FinanzielleSituationModel.cs" />
+    <Compile Include="Models\IdentifikationsArtModel.cs" />
     <Compile Include="Models\KontaktDatenModel.cs" />
     <Compile Include="Models\KontoInformationenModel.cs" />
     <Compile Include="Models\KreditRahmenModel.cs" />
+    <Compile Include="Models\LookUpModel.cs" />
     <Compile Include="Models\PersoenlicheDatenModel.cs" />
+    <Compile Include="Models\SchulabschlussModel.cs" />
+    <Compile Include="Models\LaenderModel.cs" />
+    <Compile Include="Models\TitelModel.cs" />
+    <Compile Include="Models\WohnartModel.cs" />
     <Compile Include="Models\ZusammenFassungModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -238,8 +245,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="TemplateOriginal\gulpfile.js" />
-    <Content Include="TemplateOriginal\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -252,20 +257,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="TemplateOriginal\.gitignore" />
-    <Content Include="TemplateOriginal\LICENSE" />
-    <Content Include="TemplateOriginal\package.json" />
-    <Content Include="TemplateOriginal\README.md" />
     <Content Include="Views\KonsumKredit\KreditRahmen.cshtml" />
     <Content Include="Views\KonsumKredit\FinanzielleSituation.cshtml" />
+    <Content Include="Views\KonsumKredit\PersoenlicheDaten.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="TemplateOriginal\css\" />
-    <Folder Include="TemplateOriginal\img\" />
-    <Folder Include="TemplateOriginal\js\" />
-    <Folder Include="TemplateOriginal\less\" />
-    <Folder Include="TemplateOriginal\vendor\" />
     <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>

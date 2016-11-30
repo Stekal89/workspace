@@ -106,8 +106,8 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Vorname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Nachname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Vorname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nachname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Geschlecht" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="Geburtsdatum" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="FKTitel" Type="Int32" />
@@ -128,6 +128,7 @@
     <NavigationProperty Name="Land" Relationship="Self.FK__tblKunde__FKStaa__276EDEB3" FromRole="tblKunde" ToRole="tblLand" />
     <NavigationProperty Name="Titel" Relationship="Self.FK__tblKunde__FKTite__25869641" FromRole="tblKunde" ToRole="tblTitel" />
     <NavigationProperty Name="Wohnart" Relationship="Self.FK__tblKunde__FKWohn__286302EC" FromRole="tblKunde" ToRole="tblWohnart" />
+    <Property Name="AnzahlKinder" Type="Int32" />
   </EntityType>
   <EntityType Name="Land">
     <Key>
@@ -165,7 +166,7 @@
     <Property Name="Bezeichnung" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="AlleKunden" Relationship="Self.FK__tblKunde__FKTite__25869641" FromRole="tblTitel" ToRole="tblKunde" />
   </EntityType>
-  <EntityType Name="tblWohnart">
+  <EntityType Name="Wohnart">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
@@ -330,7 +331,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK__tblKunde__FKWohn__286302EC">
-    <End Role="tblWohnart" Type="Self.tblWohnart" Multiplicity="0..1" />
+    <End Role="tblWohnart" Type="dbOnlineKreditModel.Wohnart" Multiplicity="0..1" />
     <End Role="tblKunde" Type="dbOnlineKreditModel.Kunde" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="tblWohnart">
@@ -369,7 +370,7 @@
     <EntitySet Name="AlleOrte" EntityType="dbOnlineKreditModel.Ort" />
     <EntitySet Name="AlleSchulabschluesse" EntityType="dbOnlineKreditModel.Schulabschluss" />
     <EntitySet Name="AlleTitel" EntityType="dbOnlineKreditModel.Titel" />
-    <EntitySet Name="tblWohnart" EntityType="Self.tblWohnart" />
+    <EntitySet Name="AlleWohnarten" EntityType="dbOnlineKreditModel.Wohnart" />
     <AssociationSet Name="FK__tblArbeit__FKBes__36B12243" Association="Self.FK__tblArbeit__FKBes__36B12243">
       <End Role="tblBeschaeftigungsart" EntitySet="AlleBeschaeftigungsarten" />
       <End Role="tblArbeitgeber" EntitySet="AlleArbeitgeber" />
@@ -423,7 +424,7 @@
       <End Role="tblKunde" EntitySet="AlleKunden" />
     </AssociationSet>
     <AssociationSet Name="FK__tblKunde__FKWohn__286302EC" Association="Self.FK__tblKunde__FKWohn__286302EC">
-      <End Role="tblWohnart" EntitySet="tblWohnart" />
+      <End Role="tblWohnart" EntitySet="AlleWohnarten" />
       <End Role="tblKunde" EntitySet="AlleKunden" />
     </AssociationSet>
     <AssociationSet Name="FK__tblOrt__FKLand__1273C1CD" Association="Self.FK__tblOrt__FKLand__1273C1CD">

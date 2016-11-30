@@ -94,10 +94,11 @@
       <PropertyRef Name="IDKunde" />
     </Key>
     <Property Name="IDKunde" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Vorname" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="Nachname" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Vorname" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nachname" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Geschlecht" Type="char" MaxLength="1" Nullable="false" />
     <Property Name="Geburtsdatum" Type="date" Nullable="false" />
+    <Property Name="AnzahlKinder" Type="int" />
     <Property Name="FKTitel" Type="int" />
     <Property Name="FKFamilienstand" Type="int" />
     <Property Name="FKStaatsangehoerigkeit" Type="char" MaxLength="3" />

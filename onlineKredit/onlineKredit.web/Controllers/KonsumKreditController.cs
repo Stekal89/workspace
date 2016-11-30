@@ -11,6 +11,9 @@ namespace onlineKredit.web.Controllers
 {
     public class KonsumKreditController : Controller
     {
+
+        #region Funktioniert
+
         [HttpGet]
         public ActionResult KreditRahmen()
         {
@@ -38,7 +41,12 @@ namespace onlineKredit.web.Controllers
                     /// des angelegten Kunden. Damit ich diese bei der nächsten Action
                     /// habe, speichere ich sie für diesen Zweck in die TempData Variable
                     /// (ähnlich wie Session)
-                    TempData["idKunde"] = neuerKunde.ID;
+                    //TempData["idKunde"] = neuerKunde.ID;
+
+                    /// ich benötige für alle weiteren Schritte die ID
+                    /// des angelegten Kunden. Damit ich diese bei der nächsten Action
+                    /// habe, speichere ich sie für diesen Zweck in ein Cookie
+                    Response.Cookies.Add(new HttpCookie("kundenID", neuerKunde.ID.ToString()));
 
                     /// gehe zum nächsten Schritt
                     return RedirectToAction("FinanzielleSituation");
@@ -59,7 +67,8 @@ namespace onlineKredit.web.Controllers
 
             FinanzielleSituationModel model = new FinanzielleSituationModel()
             {
-                KundenID = int.Parse(TempData["idKunde"].ToString())
+                //KundenID = int.Parse(TempData["idKunde"].ToString())
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
             };
 
             return View(model);
@@ -77,13 +86,13 @@ namespace onlineKredit.web.Controllers
             if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.FinanzielleSituationSpeichern(model.NettoEinkommen,
-                                                                        model.Wohnkosten, 
-                                                                        model.EinkuenfteAlimenteUnterhalt, 
-                                                                        model.UnterhaltsZahlungen, 
+                                                                        model.Wohnkosten,
+                                                                        model.EinkuenfteAlimenteUnterhalt,
+                                                                        model.UnterhaltsZahlungen,
                                                                         model.RatenVerpflichtungen,
                                                                         model.KundenID))
                 {
-                    TempData["idKunde"] = model.KundenID;
+                    //TempData["idKunde"] = model.KundenID;
                     return RedirectToAction("PersoenlicheDaten");
                 }
             }
@@ -94,7 +103,95 @@ namespace onlineKredit.web.Controllers
         [HttpGet]
         public ActionResult PersoenlicheDaten()
         {
-            return View();
+            #region LookupTabellenLaden
+
+
+            List<TitelModel> alleTitelAngabenWeb = new List<TitelModel>();
+
+            /// In der BL habe ich Methoden/Funktionen geschrieben, die es mir erlauben die Daten 
+            /// aus den Lookup-Tabellen in meiner Datenbank zu laden.
+            /// die Schnittstelle von Datenbank zu Projekt.
+            foreach (var titelAngabeWeb in KonsumKreditVerwaltung.TitelLaden())
+            {
+                alleTitelAngabenWeb.Add(new TitelModel()
+                {
+                    ID = titelAngabeWeb.ID.ToString(),
+                    Bezeichnung = titelAngabeWeb.Bezeichnung
+                });
+            }
+
+            List<LaenderModel> alleLaenderAngabenWeb = new List<LaenderModel>();
+
+            foreach (var landAngabeWeb in KonsumKreditVerwaltung.LaenderLaden())
+            {
+                alleLaenderAngabenWeb.Add(new LaenderModel()
+                {
+                    ID = landAngabeWeb.ID.ToString(),
+                    Bezeichnung = landAngabeWeb.Bezeichnung
+                });
+            }
+
+            List<FamilienStandsModel> alleFamilienStaendeAngabenWeb = new List<FamilienStandsModel>();
+
+            foreach (var familienStandAngabeWeb in KonsumKreditVerwaltung.FamilienstaendeLaden())
+            {
+                alleFamilienStaendeAngabenWeb.Add(new FamilienStandsModel()
+                {
+                    ID = familienStandAngabeWeb.ID.ToString(),
+                    Bezeichnung = familienStandAngabeWeb.Bezeichnung
+                });
+            }
+
+            List<SchulabschlussModel> alleSchulabschluesseAngabenWeb = new List<SchulabschlussModel>();
+
+            foreach (var schulAbschlussAngabeWeb in KonsumKreditVerwaltung.SchulabschluesseLaden())
+            {
+                alleSchulabschluesseAngabenWeb.Add(new SchulabschlussModel()
+                {
+                    ID = schulAbschlussAngabeWeb.ID.ToString(),
+                    Bezeichnung = schulAbschlussAngabeWeb.Bezeichnung
+                });
+            }
+
+            List<IdentifikationsArtModel> alleIdentifikationsArtenAngabenWeb = new List<IdentifikationsArtModel>();
+
+            foreach (var identifikationsArtWeb in KonsumKreditVerwaltung.IdentifikationsArtenLaden())
+            {
+                alleIdentifikationsArtenAngabenWeb.Add(new IdentifikationsArtModel()
+                {
+                    ID = identifikationsArtWeb.ID.ToString(),
+                    Bezeichnung = identifikationsArtWeb.Bezeichnung
+                });
+            }
+
+            List<WohnartModel> alleWohnartenAngabenWeb = new List<WohnartModel>();
+
+            foreach (var wohnartsAngabeWeb in KonsumKreditVerwaltung.WohnartenLadenr())
+            {
+                alleWohnartenAngabenWeb.Add(new WohnartModel()
+                {
+                    ID = wohnartsAngabeWeb.ID.ToString(),
+                    Bezeichnung = wohnartsAngabeWeb.Bezeichnung
+                });
+            }
+
+            #endregion
+
+            /// erzeugt das Model für die persönlichen Daten und 
+            /// fügt dem die Daten für die Lookup-Tabellen hinzu.
+            /// Id des Kunden wird auch mit übergeben
+            PersoenlicheDatenModel model = new PersoenlicheDatenModel()
+            {
+                AlleTitelAngabenWeb = alleTitelAngabenWeb,
+                AlleLaenderAngabenWeb = alleLaenderAngabenWeb,
+                AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb,
+                AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb,
+                AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb,
+                AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb,
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -105,8 +202,35 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - PersoenlicheDaten");
             Debug.Unindent();
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.PersoenlicheDatenSpeichern(
+                    model.Geschlecht == Geschlecht.Männlch ? "m" : "w",
+                    model.ID_Titel,
+                    model.Vorname,
+                    model.Nachname,
+                    model.GeburtsDatum,
+                    model.ID_Staatsbuergerschaft,
+                    model.AnzahlKinder,
+                    model.ID_Familienstand,
+                    model.ID_Wohnart,
+                    model.ID_SchulAbschluss,
+                    model.ID_IdentifikationsArt,
+                    model.IdentifikationsNummer,
+                    model.KundenID
+                    ))
+                {
+                    return RedirectToAction("Arbeitgeber");
+                }
+            }
+
+            return View(model);
         }
+
+        #endregion
+
+
+
 
         [HttpGet]
         public ActionResult Arbeitgeber()

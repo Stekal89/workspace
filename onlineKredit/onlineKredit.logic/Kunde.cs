@@ -26,6 +26,7 @@ namespace onlineKredit.logic
         public Nullable<int> FKSchulabschluss { get; set; }
         public string IdentifikationsNummer { get; set; }
         public Nullable<int> FKIdentifikationsArt { get; set; }
+        public Nullable<int> AnzahlKinder { get; set; }
     
         public virtual Arbeitgeber Arbeitgeber { get; set; }
         public virtual Familienstand Familienstand { get; set; }
@@ -37,6 +38,6 @@ namespace onlineKredit.logic
         public virtual Schulabschluss Schulabschluss { get; set; }
         public virtual Land Land { get; set; }
         public virtual Titel Titel { get; set; }
-        public virtual tblWohnart Wohnart { get; set; }
+        public virtual Wohnart Wohnart { get; set; }
     }
 }

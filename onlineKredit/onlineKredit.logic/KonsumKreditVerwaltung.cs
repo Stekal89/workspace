@@ -9,6 +9,8 @@ namespace onlineKredit.logic
 {
     public class KonsumKreditVerwaltung
     {
+        #region FunktionierendeRegion
+
         /// <summary>
         /// Erzeugt einen "leeren" dummy Kunden
         /// zu dem in Folge alle Konsumkredit Daten
@@ -106,6 +108,16 @@ namespace onlineKredit.logic
             return erfolgreich;
         }
 
+        /// <summary>
+        /// Speichert zu einer übergebenene ID_Kunde seine finanziellen Daten/Situation ab.
+        /// </summary>
+        /// <param name="nettoEinkommen"></param>
+        /// <param name="wohnkosten"></param>
+        /// <param name="einkuenfteAusAlimenten"></param>
+        /// <param name="unterhaltsZahlungen"></param>
+        /// <param name="ratenVerpflichtungen"></param>
+        /// <param name="idKunde"></param>
+        /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
         public static bool FinanzielleSituationSpeichern(double nettoEinkommen, double wohnkosten, double einkuenfteAusAlimenten, double unterhaltsZahlungen, double ratenVerpflichtungen, int idKunde)
         {
             Debug.Indent();
@@ -153,5 +165,292 @@ namespace onlineKredit.logic
             Debug.Unindent();
             return erfolgreich;
         }
+
+
+        #endregion
+
+        /// Hier werden die Daten für die Lookup-Tabellen aus der Datenbank gelesen
+        /// und anschliessend in jeder Funktion zuruckgegeben.
+        #region LookuptabellenDatenInOberflaecheGeben
+
+        /* 
+            public List<TitelModel> AlleTitelAngaben { get; set; }
+            public List<StaatsbuergerschaftsModel> AlleStaatsbuergerschaftsAngaben { get; set; }
+            public List<FamilienStandsModel> AlleFamilienstandsAngaben { get; set; }
+            public List<SchulabschlussModel> AlleSchulabschlussAngaben { get; set; }
+            public List<IdentifikationsArtModel> AlleIdentifikationsArtAngaben { get; set; }
+            public List<WohnartModel> AlleWohnartsAngaben { get; set; }
+        */
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Titel und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Die Liste aller Titel</returns>
+        public static List<Titel> TitelLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - TitelLaden");
+            Debug.Indent();
+
+            // Liste in der BusinessLogic
+            List<Titel> alleTitelBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleTitelBL = context.AlleTitel.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung TitelLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return alleTitelBL;
+        }
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Land und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Bei Erfolg eine Liste der Länder / ansonsten "null"</returns>
+        public static List<Land> LaenderLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - StaatsbuergerschaftenLaden");
+            Debug.Indent();
+
+            List <Land> alleLaenderBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleLaenderBL = context.AlleLaender.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung - StaatsbuergerschftenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return alleLaenderBL;
+        }
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Famililenstand und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Bei Erfolg eine Liste der Familienstände / ansonsten "null"</returns>
+        public static List<Familienstand> FamilienstaendeLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - FamilienstaendeLaden");
+            Debug.Indent();
+
+            List<Familienstand> alleFamilienstaendeBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleFamilienstaendeBL = context.AlleFamilienstaende.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung - FamilienstaendeLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return alleFamilienstaendeBL;
+        }
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Schulabschluss und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Bei Erfolg eine Liste der Schulabschlüsse / ansonsten "null"</returns>
+        public static List<Schulabschluss> SchulabschluesseLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - SchulabschluesseLaden");
+            Debug.Indent();
+
+            List<Schulabschluss> alleSchulabschluesseBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleSchulabschluesseBL = context.AlleSchulabschluesse.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung - SchulabschluesseLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return alleSchulabschluesseBL;
+        }
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: IdentifkationsArt und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Bei Erfolg eine Liste der Identifikationsarten / ansonsten "null"</returns>
+        public static List<IdentifikationsArt> IdentifikationsArtenLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - IdentifikationsArtenLaden");
+            Debug.Indent();
+
+            List<IdentifikationsArt> alleIdentifikationsArtenBl = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleIdentifikationsArtenBl = context.AlleIdentifikationsArten.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung - IdentifikationsArtenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return alleIdentifikationsArtenBl;
+        }
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Wohnart und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Bei Erfolg eine Liste der Wohnarten / ansonsten "null"</returns>
+        public static List<Wohnart> WohnartenLadenr()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - TitelLaden");
+            Debug.Indent();
+
+            List<Wohnart> alleWohnartenBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleWohnartenBL = context.AlleWohnarten.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in xxxxxxxx");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return alleWohnartenBL;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Speichert zu einer übergebenene ID_Kunde seine finanziellen Daten/Situation ab.
+        /// </summary>
+        /// <param name="geschlecht"></param>
+        /// <param name="titel"></param>
+        /// <param name="vorname"></param>
+        /// <param name="nachname"></param>
+        /// <param name="geburtsDatum"></param>
+        /// <param name="idStaatsbuergerschaft"></param>
+        /// <param name="anzahlKinder"></param>
+        /// <param name="idFamilienstand"></param>
+        /// <param name="idWohnart"></param>
+        /// <param name="idSchulAbschluss"></param>
+        /// <param name="idIdentifikationsArt"></param>
+        /// <param name="identifikationsNummer"></param>
+        /// <param name="kundenID"></param>
+        /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
+        public static bool PersoenlicheDatenSpeichern(string geschlecht, int? titel, string vorname, string nachname, DateTime geburtsDatum, string idStaatsbuergerschaft, int anzahlKinder, int idFamilienstand, int idWohnart, int idSchulAbschluss, int idIdentifikationsArt, string identifikationsNummer, int kundenID)
+        {
+
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - PersoenlicheDatenSpeichern");
+            Debug.Indent();
+
+            bool erfolgreich = false;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
+
+                    if (aktKunde != null)
+                    {
+                        aktKunde.Geschlecht = geschlecht;
+                        aktKunde.FKTitel = titel;
+                        aktKunde.Vorname = vorname;
+                        aktKunde.Nachname = nachname;
+                        aktKunde.Geburtsdatum = geburtsDatum;
+                        aktKunde.FKStaatsangehoerigkeit = idStaatsbuergerschaft;
+                        aktKunde.AnzahlKinder = anzahlKinder;
+                        aktKunde.FKFamilienstand = idFamilienstand;
+                        aktKunde.FKWohnart = idWohnart;
+                        aktKunde.FKSchulabschluss = idSchulAbschluss;
+                        aktKunde.FKIdentifikationsArt = idIdentifikationsArt;
+                        aktKunde.IdentifikationsNummer = identifikationsNummer;
+                    }
+
+                    int anzahlZeilenBetroffen = context.SaveChanges();
+                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    Debug.WriteLine($"{anzahlZeilenBetroffen} persönliche Daten gespeichert!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung - PersoenlicheDatenSpeichern");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return erfolgreich;
+        }
+
+
+
     }
 }

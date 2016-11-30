@@ -12,9 +12,9 @@ namespace onlineKredit.logic
     using System;
     using System.Collections.Generic;
     
-    public partial class tblWohnart
+    public partial class Wohnart
     {
-        public tblWohnart()
+        public Wohnart()
         {
             this.AlleKunden = new HashSet<Kunde>();
         }

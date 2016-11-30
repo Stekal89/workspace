@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="dbOnlineKreditModel.Ort" Width="1.5" PointX="7.5" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.Schulabschluss" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.Titel" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbOnlineKreditModel.tblWohnart" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Wohnart" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblArbeit__FKBes__36B12243" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblArbeit__FKBra__37A5467C" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblArbeit__IDArb__35BCFE0A" ManuallyRouted="false" />
