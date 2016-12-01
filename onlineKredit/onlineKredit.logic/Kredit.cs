@@ -18,6 +18,7 @@ namespace onlineKredit.logic
         public decimal GewuenschterKredit { get; set; }
         public short GewuenschteLaufzeit { get; set; }
         public bool KreditBewilligt { get; set; }
+        public Nullable<int> FKKunde { get; set; }
     
         public virtual Kunde Kunde { get; set; }
     }
