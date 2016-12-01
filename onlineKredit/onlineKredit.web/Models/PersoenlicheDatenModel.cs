@@ -27,19 +27,19 @@ namespace onlineKredit.web.Models
                                             // in der Tabelle auch NULL sein, deswegen verwenden
                                             // wir hier einen NULLABLE INTEGER "int?"
         
-        [Required]
+        [Required(ErrorMessage = "Bitte den Vornamen eingeben.")]
         [StringLength(50, ErrorMessage = "Maximal 50 Zeichen!")]
         public string Vorname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Nachnamen eingeben.")]
         [StringLength(50, ErrorMessage = "Maximal 50 Zeichen!")]
         public string Nachname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Geburtsdatum wählen.")]
         [DataType(DataType.Date)]
         public DateTime GeburtsDatum { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Staatsbürgerschaft auswählen.")]
         [StringLength(3, ErrorMessage = "Maximal 3 Zeichen!")]
         [Display(Name = "Staatsbürgerschaft")]
         public string ID_Staatsbuergerschaft { get; set; } // Von Tabelle Land
@@ -47,19 +47,19 @@ namespace onlineKredit.web.Models
         [Display(Name = "Anzahl unterhaltspflichtiger Kinder")]
         public int AnzahlKinder { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Familienstand auswählen")]
         [Display(Name = "aktueller Familienstand")]
         public int ID_Familienstand { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Wohnart auswählen")]
         [Display(Name = "aktuelle Wohnsituation")]
         public int ID_Wohnart { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Ihre höchst abgeschlossenen Ausbildung auswählen")]
         [Display(Name = "höchst abgeschlossene Ausbildung")]
         public int ID_SchulAbschluss { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Bitte Identifikationsart wählen. (Reisepass, Fürhrerschein,...")]
         [Display(Name = "Identifikationstyp")]
         public int ID_IdentifikationsArt { get; set; }
 

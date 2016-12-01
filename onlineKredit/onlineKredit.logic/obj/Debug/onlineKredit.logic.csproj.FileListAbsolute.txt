@@ -7,3 +7,12 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.log
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.pdb
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.csprojResolveAssemblyReference.cache
+C:\Workspace\onlineKredit\onlineKredit.logic\bin\Debug\onlineKredit.logic.dll.config
+C:\Workspace\onlineKredit\onlineKredit.logic\bin\Debug\onlineKredit.logic.dll
+C:\Workspace\onlineKredit\onlineKredit.logic\bin\Debug\onlineKredit.logic.pdb
+C:\Workspace\onlineKredit\onlineKredit.logic\bin\Debug\EntityFramework.dll
+C:\Workspace\onlineKredit\onlineKredit.logic\bin\Debug\EntityFramework.xml
+C:\Workspace\onlineKredit\onlineKredit.logic\bin\Debug\de\EntityFramework.resources.dll
+C:\Workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.csprojResolveAssemblyReference.cache
+C:\Workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.dll
+C:\Workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.pdb
