@@ -14,11 +14,6 @@ namespace onlineKredit.logic
     
     public partial class Kunde
     {
-        public Kunde()
-        {
-            this.Kredit = new HashSet<Kredit>();
-        }
-    
         public int ID { get; set; }
         public string Vorname { get; set; }
         public string Nachname { get; set; }
@@ -39,10 +34,10 @@ namespace onlineKredit.logic
         public virtual IdentifikationsArt IdentifikationsArt { get; set; }
         public virtual KontaktDaten KontaktDaten { get; set; }
         public virtual KontoDaten KontoDaten { get; set; }
+        public virtual Kredit Kredit { get; set; }
         public virtual Schulabschluss Schulabschluss { get; set; }
         public virtual Land Land { get; set; }
         public virtual Titel Titel { get; set; }
         public virtual Wohnart Wohnart { get; set; }
-        public virtual ICollection<Kredit> Kredit { get; set; }
     }
 }

@@ -126,18 +126,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArbeitgeberModel.cs" />
-    <Compile Include="Models\FamilienStandsModel.cs" />
+    <Compile Include="Models\Lookup\BeshaeftigungsArtModel.cs" />
+    <Compile Include="Models\Lookup\BrancheModel.cs" />
+    <Compile Include="Models\Lookup\FamilienStandsModel.cs" />
     <Compile Include="Models\FinanzielleSituationModel.cs" />
-    <Compile Include="Models\IdentifikationsArtModel.cs" />
+    <Compile Include="Models\Lookup\IdentifikationsArtModel.cs" />
     <Compile Include="Models\KontaktDatenModel.cs" />
     <Compile Include="Models\KontoInformationenModel.cs" />
     <Compile Include="Models\KreditRahmenModel.cs" />
-    <Compile Include="Models\LookUpModel.cs" />
+    <Compile Include="Models\Lookup\LookUpModel.cs" />
     <Compile Include="Models\PersoenlicheDatenModel.cs" />
-    <Compile Include="Models\SchulabschlussModel.cs" />
-    <Compile Include="Models\LaenderModel.cs" />
-    <Compile Include="Models\TitelModel.cs" />
-    <Compile Include="Models\WohnartModel.cs" />
+    <Compile Include="Models\Lookup\SchulabschlussModel.cs" />
+    <Compile Include="Models\Lookup\LaenderModel.cs" />
+    <Compile Include="Models\Lookup\TitelModel.cs" />
+    <Compile Include="Models\Lookup\WohnartModel.cs" />
     <Compile Include="Models\ZusammenFassungModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -260,6 +262,7 @@
     <Content Include="Views\KonsumKredit\KreditRahmen.cshtml" />
     <Content Include="Views\KonsumKredit\FinanzielleSituation.cshtml" />
     <Content Include="Views\KonsumKredit\PersoenlicheDaten.cshtml" />
+    <Content Include="Views\KonsumKredit\Arbeitgeber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

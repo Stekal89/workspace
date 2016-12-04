@@ -173,7 +173,11 @@ namespace onlineKredit.logic
         /// und anschliessend in jeder Funktion zuruckgegeben.
         #region LookuptabellenDatenInOberflaecheGeben
 
+        #region PersoenlicheDatenLookup
+
         /* 
+            Für das PersoenlicheDatenModel werden 6 Lookuptabellen benötigt
+         
             public List<TitelModel> AlleTitelAngaben { get; set; }
             public List<StaatsbuergerschaftsModel> AlleStaatsbuergerschaftsAngaben { get; set; }
             public List<FamilienStandsModel> AlleFamilienstandsAngaben { get; set; }
@@ -352,7 +356,7 @@ namespace onlineKredit.logic
         /// Nimmt alle Einträge aus der Datenbank/Tabelle: Wohnart und fügt sie in eine Liste ein. 
         /// </summary>
         /// <returns>Bei Erfolg eine Liste der Wohnarten / ansonsten "null"</returns>
-        public static List<Wohnart> WohnartenLadenr()
+        public static List<Wohnart> WohnartenLaden()
         {
             Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - TitelLaden");
@@ -383,8 +387,88 @@ namespace onlineKredit.logic
 
         #endregion
 
+        #region ArbeitgeberLookup
+
+        /* 
+           Für das Arbeitgeber Model werden 2 Lookuptabellen benötigt.
+
+           public List<BeschaeftigungsArtModel> AlleBeschaeftigungsArtenAngabenWeb { get; set; }
+           public List<BranchenModel> AlleBranchenArtenAngabenWeb { get; set; }   
+       */
+
         /// <summary>
-        /// Speichert zu einer übergebenene ID_Kunde seine finanziellen Daten/Situation ab.
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: BeschaeftigungsArt und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Die Liste aller Beschäftigungsarten</returns>
+        public static List<Beschaeftigungsart> BeschaeftigungsArtenLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - BeschaeftigungsArtenLaden");
+            Debug.Indent();
+
+            List<Beschaeftigungsart> alleBeschaeftigungsArtenBL = null;
+
+            try
+            {
+                using (var contex = new dbOnlineKredit())
+                {
+                    alleBeschaeftigungsArtenBL = contex.AlleBeschaeftigungsarten.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in BeschaeftigungsArtenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            Debug.Unindent();
+            return alleBeschaeftigungsArtenBL;
+        }
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Branche und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Die Liste aller Branchen</returns>
+        public static List<Branche> BranchenLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditverwaltung - BranchenLaden");
+            Debug.Indent();
+
+            List<Branche> alleBranchenBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleBranchenBL = context.AlleBranchen.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in xxxxxxxx");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            Debug.Unindent();
+
+            return alleBranchenBL;
+        }
+
+        #endregion
+
+        #endregion
+
+        /// <summary>
+        /// Speichert zu einer übergebenene ID_Kunde seine persönlichen Daten ab.
         /// </summary>
         /// <param name="geschlecht"></param>
         /// <param name="titel"></param>
@@ -402,7 +486,6 @@ namespace onlineKredit.logic
         /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
         public static bool PersoenlicheDatenSpeichern(string geschlecht, int? titel, string vorname, string nachname, DateTime geburtsDatum, string idStaatsbuergerschaft, int anzahlKinder, int idFamilienstand, int idWohnart, int idSchulAbschluss, int idIdentifikationsArt, string identifikationsNummer, int kundenID)
         {
-
             Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - PersoenlicheDatenSpeichern");
             Debug.Indent();
@@ -450,7 +533,55 @@ namespace onlineKredit.logic
             return erfolgreich;
         }
 
+        /// <summary>
+        /// Speicher zu einer übergegebene ID_Kunde (kundenID) seinen Arbeitgeber ab.
+        /// </summary>
+        /// <param name="firma"></param>
+        /// <param name="idBeschaeftigungsArt"></param>
+        /// <param name="idBranche"></param>
+        /// <param name="beschaeftigtSeit"></param>
+        /// <param name="kundenID"></param>
+        /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
+        public static bool ArbeitgeberSpeichern(string firma, int idBeschaeftigungsArt, int idBranche, DateTime beschaeftigtSeit, int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonusmKreditVerwaltung - ArbeitgeberSpeichern");
+            Debug.Indent();
 
+            bool erfolgreich = false;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
+
+                    if (aktKunde != null)
+                    {
+                        Arbeitgeber neuerArbeitgeber = new Arbeitgeber()
+                        {
+                            ID = kundenID,
+                            Firma = firma,
+                            FKBeschaeftigungsArt = idBeschaeftigungsArt,
+                            FKBranche = idBranche,
+                            BeschaeftigtSeit = beschaeftigtSeit
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in ArbeitgeberSpeichern");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+            return erfolgreich;
+        }
 
     }
 }

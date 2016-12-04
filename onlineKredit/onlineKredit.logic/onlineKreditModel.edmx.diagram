@@ -30,12 +30,12 @@
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontak__FKOrt__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontak__IDKon__2D27B809" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontoD__IDKon__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKredit__IDKre__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKSchu__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKStaa__276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKTite__25869641" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKWohn__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblOrt__FKLand__1273C1CD" ManuallyRouted="false" />
-        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKredit__FKKun__3D5E1FD2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
