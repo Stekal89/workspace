@@ -135,6 +135,7 @@
     <Compile Include="Models\KontoInformationenModel.cs" />
     <Compile Include="Models\KreditRahmenModel.cs" />
     <Compile Include="Models\Lookup\LookUpModel.cs" />
+    <Compile Include="Models\OrtModel.cs" />
     <Compile Include="Models\PersoenlicheDatenModel.cs" />
     <Compile Include="Models\Lookup\SchulabschlussModel.cs" />
     <Compile Include="Models\Lookup\LaenderModel.cs" />

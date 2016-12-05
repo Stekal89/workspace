@@ -450,7 +450,7 @@ namespace onlineKredit.logic
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Fehler in xxxxxxxx");
+                Debug.WriteLine("Fehler in BranchenLaden");
                 Debug.Indent();
                 Debug.WriteLine(ex.Message);
                 Debug.Unindent();
@@ -461,6 +461,50 @@ namespace onlineKredit.logic
             Debug.Unindent();
 
             return alleBranchenBL;
+        }
+
+        #endregion
+
+        #region KontaktDaten
+
+        /*
+            Für das Kontaktdaten Model wird 1 Lookuptabellen benötigt.
+
+            public List<OrtModel> AlleOrtsAngabenWeb { get; set; }  
+       */
+
+        /// <summary>
+        /// Nimmt alle Einträge aus der Datenbank/Tabelle: Ort und fügt sie in eine Liste ein. 
+        /// </summary>
+        /// <returns>Die Liste aller Orte</returns>
+        public static List<Ort> OrteLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - OrteLaden");
+            Debug.Indent();
+
+            List<Ort> alleOrteBL = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleOrteBL = context.AlleOrte.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in OrteLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            Debug.Unindent();
+
+            return alleOrteBL;
         }
 
         #endregion
@@ -549,7 +593,6 @@ namespace onlineKredit.logic
             Debug.Indent();
 
             bool erfolgreich = false;
-<<<<<<< HEAD
 
             try
             {
@@ -585,30 +628,27 @@ namespace onlineKredit.logic
 
             Debug.Unindent();
 
-=======
+            return erfolgreich;
+        }
+
+        public static bool KontaktDatenSpeichern()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - KontaktDatenLaden");
+            Debug.Indent();
+
+            bool erfolgreich = false;
 
             try
             {
                 using (var context = new dbOnlineKredit())
                 {
-                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
 
-                    if (aktKunde != null)
-                    {
-                        Arbeitgeber neuerArbeitgeber = new Arbeitgeber()
-                        {
-                            ID = kundenID,
-                            Firma = firma,
-                            FKBeschaeftigungsArt = idBeschaeftigungsArt,
-                            FKBranche = idBranche,
-                            BeschaeftigtSeit = beschaeftigtSeit
-                        };
-                    }
                 }
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Fehler in ArbeitgeberSpeichern");
+                Debug.WriteLine("Fehler in KontaktDatenLaden");
                 Debug.Indent();
                 Debug.WriteLine(ex.Message);
                 Debug.Unindent();
@@ -616,10 +656,9 @@ namespace onlineKredit.logic
             }
 
             Debug.Unindent();
+            Debug.Unindent();
 
->>>>>>> origin/master
             return erfolgreich;
         }
-
     }
 }
