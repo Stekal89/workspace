@@ -18,7 +18,10 @@ namespace onlineKredit.web.Models
         public int ID_BeschaeftigungsArt { get; set; }
 
         [Required(ErrorMessage = "Bitte Branche wählen.")]
+<<<<<<< HEAD
         [Display(Name = "Branche")]
+=======
+>>>>>>> origin/master
         public int ID_Branche { get; set; }
 
         [Required(ErrorMessage = "Bitte Datum wählen, seit dem sie in dieser Firma beschäftigt sind.")]
@@ -26,7 +29,11 @@ namespace onlineKredit.web.Models
         // [DisplayFormat(DataFormatString ="{0:MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BeschaeftigtSeit { get; set; }
 
+<<<<<<< HEAD
         [HiddenInput(DisplayValue = false)]
+=======
+        [HiddenInput]
+>>>>>>> origin/master
         [Required]
         public int KundenID { get; set; }
 

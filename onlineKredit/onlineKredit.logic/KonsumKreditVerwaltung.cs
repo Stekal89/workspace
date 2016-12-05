@@ -549,6 +549,7 @@ namespace onlineKredit.logic
             Debug.Indent();
 
             bool erfolgreich = false;
+<<<<<<< HEAD
 
             try
             {
@@ -584,6 +585,39 @@ namespace onlineKredit.logic
 
             Debug.Unindent();
 
+=======
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
+
+                    if (aktKunde != null)
+                    {
+                        Arbeitgeber neuerArbeitgeber = new Arbeitgeber()
+                        {
+                            ID = kundenID,
+                            Firma = firma,
+                            FKBeschaeftigungsArt = idBeschaeftigungsArt,
+                            FKBranche = idBranche,
+                            BeschaeftigtSeit = beschaeftigtSeit
+                        };
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in ArbeitgeberSpeichern");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+
+>>>>>>> origin/master
             return erfolgreich;
         }
 

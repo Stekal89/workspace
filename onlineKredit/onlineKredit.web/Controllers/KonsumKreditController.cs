@@ -314,7 +314,11 @@ namespace onlineKredit.web.Controllers
                 }
             }
 
+<<<<<<< HEAD
             return View(model);
+=======
+            return View();
+>>>>>>> origin/master
         }
 
         #endregion
