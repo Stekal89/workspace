@@ -14,6 +14,8 @@ namespace onlineKredit.web.Controllers
 
         #region Funktioniert
 
+        #region KreditRahmen
+        
         [HttpGet]
         public ActionResult KreditRahmen()
         {
@@ -53,11 +55,16 @@ namespace onlineKredit.web.Controllers
                 }
             }
 
+          
             /// falls der ModelState NICHT valid ist, bleibe hier und
             /// gib die Daten (falls vorhanden) wieder auf das UI
             return View(model);
         }
 
+        #endregion
+
+        #region FinanzielleSituation
+        
         [HttpGet]
         public ActionResult FinanzielleSituation()
         {
@@ -100,6 +107,11 @@ namespace onlineKredit.web.Controllers
             return View(model);
         }
 
+        #endregion
+
+        #region PersoenlicheDaten
+
+        
         [HttpGet]
         public ActionResult PersoenlicheDaten()
         {
@@ -166,7 +178,7 @@ namespace onlineKredit.web.Controllers
 
             List<WohnartModel> alleWohnartenAngabenWeb = new List<WohnartModel>();
 
-            foreach (var wohnartsAngabeWeb in KonsumKreditVerwaltung.WohnartenLadenr())
+            foreach (var wohnartsAngabeWeb in KonsumKreditVerwaltung.WohnartenLaden())
             {
                 alleWohnartenAngabenWeb.Add(new WohnartModel()
                 {
@@ -229,9 +241,11 @@ namespace onlineKredit.web.Controllers
 
         #endregion
 
+        #endregion
+        
+        #region Arbeitgeber
 
-
-
+       
         [HttpGet]
         public ActionResult Arbeitgeber()
         {
@@ -239,7 +253,43 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - Arbeitgeber");
             Debug.Unindent();
 
-            return View();
+            #region LookupTabellenLaden
+            
+            /// In der BL habe ich Methoden/Funktionen geschrieben, die es mir erlauben die Daten 
+            /// aus den Lookup-Tabellen in meiner Datenbank zu laden.
+            /// die Schnittstelle von Datenbank zu Projekt.
+            List<BeshaeftigungsArtModel> alleBeschaeftugungsArtenAngabenWeb = new List<BeshaeftigungsArtModel>();
+
+            foreach (var beschaeftigungsArtenAngabenWeb in KonsumKreditVerwaltung.BeschaeftigungsArtenLaden())
+            {
+                alleBeschaeftugungsArtenAngabenWeb.Add(new BeshaeftigungsArtModel()
+                {
+                    ID = beschaeftigungsArtenAngabenWeb.ID.ToString(),
+                    Bezeichnung = beschaeftigungsArtenAngabenWeb.Bezeichnung
+                });
+            }
+
+            List<BrancheModel> alleBranchenAngabenWeb = new List<BrancheModel>();
+
+            foreach (var branchnenAngabenWeb in KonsumKreditVerwaltung.BranchenLaden())
+            {
+                alleBranchenAngabenWeb.Add(new BrancheModel()
+                {
+                    ID = branchnenAngabenWeb.ID.ToString(),
+                    Bezeichnung = branchnenAngabenWeb.Bezeichnung
+                });
+            }
+
+            #endregion
+
+            ArbeitgeberModel model = new ArbeitgeberModel()
+            {
+                AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb,
+                AlleBranchenAngabenWeb = alleBranchenAngabenWeb,
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -250,9 +300,27 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - Arbeitgeber");
             Debug.Unindent();
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.ArbeitgeberSpeichern(
+                                                                model.Firma, 
+                                                                model.ID_BeschaeftigungsArt, 
+                                                                model.ID_Branche, 
+                                                                model.BeschaeftigtSeit, 
+                                                                model.KundenID
+                    ))
+                {
+                    return RedirectToAction("KontaktDaten");
+                }
+            }
+
+            return View(model);
         }
 
+        #endregion
+
+        #region KontaktDaten
+        
         [HttpGet]
         public ActionResult KontaktDaten()
         {
@@ -274,6 +342,10 @@ namespace onlineKredit.web.Controllers
             return View();
         }
 
+        #endregion
+
+        #region KontoIformation
+        
         [HttpGet]
         public ActionResult KontoInformation()
         {
@@ -295,6 +367,10 @@ namespace onlineKredit.web.Controllers
             return View();
         }
 
+        #endregion
+
+        #region ZusammenFassung
+        
         [HttpGet]
         public ActionResult ZusammenFassung()
         {
@@ -315,5 +391,7 @@ namespace onlineKredit.web.Controllers
 
             return View();
         }
+
+        #endregion
     }
 }
