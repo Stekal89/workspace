@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "KontoVerfuegbar";
+}
+
+<h2>KontoVerfuegbar</h2>
+
+<section class="bg-primary" id="credit">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+                <h2 class="section-heading">Online Konsum Kredit</h2>
+                <hr class="light">
+                <p class="text-faded">Welches Konto möchten sie für den Kredit verwenden?</p>
+                
+                @*@Html.RadioButton()*@
+
+                <a href="@Url.Action("KreditRahmen", "KonsumKredit")" class="page-scroll btn btn-default btn-xl sr-button">Kredit-Rechner</a>
+            </div>
+        </div>
+    </div>
+</section>

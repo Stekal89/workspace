@@ -631,10 +631,10 @@ namespace onlineKredit.logic
             return erfolgreich;
         }
 
-        public static bool KontaktDatenSpeichern()
+        public static bool KontaktDatenSpeichern(string strasse, string hausnummer, string stiege, string tuer, int fkOrt, string eMail, string telefonnummer, int kundenID)
         {
             Debug.Indent();
-            Debug.WriteLine("KonsumKreditVerwaltung - KontaktDatenLaden");
+            Debug.WriteLine("KonsumKreditVerwaltung - KontaktDatenSpeichern");
             Debug.Indent();
 
             bool erfolgreich = false;
@@ -643,12 +643,34 @@ namespace onlineKredit.logic
             {
                 using (var context = new dbOnlineKredit())
                 {
+                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
 
+                    if (aktKunde != null)
+                    {
+                        KontaktDaten neueKontaktDaten = new KontaktDaten()
+                        {
+                            ID = kundenID,
+                            Strasse = strasse,
+                            Hausnummer = hausnummer, 
+                            Stiege = stiege, 
+                            Tür = tuer, 
+                            FKOrt = fkOrt,
+                            EMail = eMail,
+                            Telefonnummer = telefonnummer
+                        };
+                        aktKunde.KontaktDaten = neueKontaktDaten;
+                    }
+
+                    int anzahlZeilenBetroffen = context.SaveChanges();
+                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    Debug.WriteLine($"{anzahlZeilenBetroffen} Kontakt Daten gespeichert!");
                 }
+
+                
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Fehler in KontaktDatenLaden");
+                Debug.WriteLine("Fehler in KontaktDatenSpeichern");
                 Debug.Indent();
                 Debug.WriteLine(ex.Message);
                 Debug.Unindent();
@@ -660,5 +682,7 @@ namespace onlineKredit.logic
 
             return erfolgreich;
         }
+
+
     }
 }

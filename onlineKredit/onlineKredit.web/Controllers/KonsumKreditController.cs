@@ -3,9 +3,12 @@ using onlineKredit.web.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using Kendo.Mvc;
 
 namespace onlineKredit.web.Controllers
 {
@@ -241,11 +244,9 @@ namespace onlineKredit.web.Controllers
 
         #endregion
 
-        #endregion
-        
         #region Arbeitgeber
 
-       
+
         [HttpGet]
         public ActionResult Arbeitgeber()
         {
@@ -254,7 +255,7 @@ namespace onlineKredit.web.Controllers
             Debug.Unindent();
 
             #region LookupTabellenLaden
-            
+
             /// In der BL habe ich Methoden/Funktionen geschrieben, die es mir erlauben die Daten 
             /// aus den Lookup-Tabellen in meiner Datenbank zu laden.
             /// die Schnittstelle von Datenbank zu Projekt.
@@ -303,28 +304,23 @@ namespace onlineKredit.web.Controllers
             if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.ArbeitgeberSpeichern(
-                                                                model.Firma, 
-                                                                model.ID_BeschaeftigungsArt, 
-                                                                model.ID_Branche, 
-                                                                model.BeschaeftigtSeit, 
+                                                                model.Firma,
+                                                                model.ID_BeschaeftigungsArt,
+                                                                model.ID_Branche,
+                                                                model.BeschaeftigtSeit,
                                                                 model.KundenID
                     ))
                 {
                     return RedirectToAction("KontaktDaten");
                 }
             }
-
-<<<<<<< HEAD
             return View(model);
-=======
-            return View();
->>>>>>> origin/master
         }
 
         #endregion
 
         #region KontaktDaten
-        
+
         [HttpGet]
         public ActionResult KontaktDaten()
         {
@@ -332,7 +328,32 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
             Debug.Unindent();
 
-            return View();
+            List<OrtModel> alleOrtsAngabenWeb = new List<OrtModel>();
+
+            foreach (var ortsAngabenWeb in KonsumKreditVerwaltung.OrteLaden())
+            {
+                alleOrtsAngabenWeb.Add(new OrtModel()
+                {
+                    ID = ortsAngabenWeb.ID.ToString(),
+                    Bezeichnung = ortsAngabenWeb.Bezeichnung,
+                    FK_Land = ortsAngabenWeb.FKLand,
+                    PostleitZahl = ortsAngabenWeb.PLZ,
+                    /// in diesem Feld werden alle Postleitzahlen und Orte verkettet in 
+                    /// einer Zeichenkette gespeichert, damit ich diese auf der 
+                    /// Oberfläche anzeigen lassen kann.
+                    PLZUndOrt = ortsAngabenWeb.PLZ + " " + ortsAngabenWeb.Bezeichnung
+                });
+            }
+
+
+
+            KontaktDatenModel model = new KontaktDatenModel()
+            {
+                AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            return View(model);
         }
 
         [HttpPost]
@@ -343,13 +364,51 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
             Debug.Unindent();
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
+                                                                    model.Hausnummer,
+                                                                    model.Stiege,
+                                                                    model.Tuer,
+                                                                    model.FK_Ort,
+                                                                    model.EMail,
+                                                                    model.TelefonNummer,
+                                                                    model.KundenID
+                    ))
+                {
+                    return RedirectToAction("KontoInformation");
+                }
+            }
+
+            return View(model);
         }
 
         #endregion
 
+        #endregion
+
+        [HttpGet]
+        public ActionResult KontoVerfuegbar()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult KontoVerfuegbar(KontoInformationenModel model)
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
+            return View();
+        }
+
         #region KontoIformation
-        
+
         [HttpGet]
         public ActionResult KontoInformation()
         {
