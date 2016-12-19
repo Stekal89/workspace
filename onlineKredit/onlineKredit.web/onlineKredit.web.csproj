@@ -395,6 +395,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ArbeitgeberModel.cs" />
+    <Compile Include="Models\DeutscheBankKontoInformationModel.cs" />
+    <Compile Include="Models\KontoAbfrageModel.cs" />
+    <Compile Include="Models\Lookup\KontoAbfrageMoeglichkeitenModel.cs" />
     <Compile Include="Models\Lookup\BeshaeftigungsArtModel.cs" />
     <Compile Include="Models\Lookup\BrancheModel.cs" />
     <Compile Include="Models\Lookup\FamilienStandsModel.cs" />
@@ -414,8 +417,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\creative.css" />
-    <Content Include="Content\css\creative.min.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\style.min.css" />
     <Content Include="Content\css\ion.rangeSlider.css" />
     <Content Include="Content\css\ion.rangeSlider.skinFlat.css" />
     <Content Include="Content\css\ion.rangeSlider.skinHTML5.css" />
@@ -444,8 +447,8 @@
     <Content Include="Content\img\sprite-skin-modern.png" />
     <Content Include="Content\img\sprite-skin-nice.png" />
     <Content Include="Content\img\sprite-skin-simple.png" />
-    <Content Include="Content\js\creative.js" />
-    <Content Include="Content\js\creative.min.js" />
+    <Content Include="Content\js\script.js" />
+    <Content Include="Content\js\script.min.js" />
     <Content Include="Content\js\ion.rangeSlider.js" />
     <Content Include="Content\js\ion.rangeSlider.min.js" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
@@ -534,7 +537,10 @@
     <Content Include="Views\KonsumKredit\PersoenlicheDaten.cshtml" />
     <Content Include="Views\KonsumKredit\Arbeitgeber.cshtml" />
     <Content Include="Views\KonsumKredit\KontaktDaten.cshtml" />
+    <Content Include="Views\KonsumKredit\AndereKontoInformation.cshtml" />
+    <Content Include="Views\KonsumKredit\NeuesDeutscheBankKontoInformation.cshtml" />
     <Content Include="Views\KonsumKredit\KontoVerfuegbar.cshtml" />
+    <Content Include="Views\KonsumKredit\HatDeutscheBankKontoInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

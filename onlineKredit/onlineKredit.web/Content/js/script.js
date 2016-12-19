@@ -62,3 +62,46 @@
     });
 
 })(jQuery); // End of use strict
+
+
+/* Validation for the IBAN (Input-Help) */
+function whiteSpaceValidation(iban) {
+
+    var betweenList = "";
+
+    for (var i = 0; i < iban.length; i++) {
+        if (iban[i] == ' ') {
+            betweenList += "";
+        }
+        else {
+            betweenList += iban[i];
+        }
+    }
+
+    iban = betweenList;
+
+    betweenList = "";
+
+    for (var i = 0; i < iban.length; i++) {
+
+        if ((i + 1) % 5 == 0) {
+
+            var whiteSpace = i;
+
+            for (var j = 0; j < iban.length; j++) {
+                if (j == whiteSpace) {
+                    betweenList += " ";
+                    betweenList += iban[j];
+                }
+                else {
+                    betweenList += iban[j];
+                }
+            }
+            iban = betweenList;
+            betweenList = "";
+        }
+    }
+
+
+    document.getElementById("validationIBAN").value = iban;
+}

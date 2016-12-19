@@ -1,0 +1,76 @@
+﻿@model onlineKredit.web.Models.DeutscheBankKontoInformationModel
+
+@{
+    ViewBag.Title = "NeuesDeutscheBankKontoInformation";
+}
+
+<h2>NeuesDeutscheBankKontoInformation</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.KundenID)
+    @Html.HiddenFor(model => model.BIC)
+    @Html.HiddenFor(model => model.IBAN)
+    @Html.HiddenFor(model => model.IstDeutscheBankKunde)
+    @Html.HiddenFor(model => model.BankInstitut)
+
+    <div class="form-horizontal">
+        <h4>DeutscheBankKontoInformationModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.BIC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               <label>@Model.BIC</label> 
+                @Html.EditorFor(model => model.BIC, new { htmlAttributes = new { @class = "form-control", @style="display: none" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control", @style="display: none" } })
+            <div class="col-md-10">
+                <label>@Model.IBAN</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankInstitut, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.BankInstitut, new { htmlAttributes = new { @class = "form-control", @style="display: none" } })
+            <div class="col-md-10">
+               <label>@Model.BankInstitut</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.IstDeutscheBankKunde, htmlAttributes: new { @class = "control-label col-md-2", @style="display: none" })*@
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IstDeutscheBankKunde, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.IstDeutscheBankKunde, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style="display: none" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+            </div>
+        </div>
+        
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -75,8 +75,8 @@
       <PropertyRef Name="IDKontoDaten" />
     </Key>
     <Property Name="IDKontoDaten" Type="int" Nullable="false" />
-    <Property Name="BIC" Type="varchar" MaxLength="25" Nullable="false" />
-    <Property Name="IBAN" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="BIC" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="IBAN" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="HatKonto" Type="bit" Nullable="false" />
     <Property Name="Bank" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>

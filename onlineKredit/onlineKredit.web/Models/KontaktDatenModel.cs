@@ -26,7 +26,8 @@ namespace onlineKredit.web.Models
         public string Tuer { get; set; }
 
         // Dropdownliste / Multi??
-        [Required(ErrorMessage = "Bitte Postleitzahl wählen")]
+        [Required(ErrorMessage = "Bitte Postleitzahl und Ort wählen.")]
+        [Display(Name = "PLZ & Ort")]
         public int FK_Ort { get; set; }
         
         [DataType(DataType.EmailAddress, ErrorMessage = "Keine gültige E-Mail Adresse!!")]

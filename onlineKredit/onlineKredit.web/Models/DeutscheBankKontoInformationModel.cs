@@ -7,29 +7,30 @@ using System.Web;
 
 namespace onlineKredit.web.Models
 {
-    public class KontoInformationenModel
+    public class DeutscheBankKontoInformationModel
     {
+        [HiddenInput(DisplayValue = false)]
         [Required(ErrorMessage = "Bitte Ihren IBAN angeben.")]
-        [StringLength(25, ErrorMessage = "Maximal 25 Zeichen")]
+        [StringLength(30, ErrorMessage = "Maximal 30 Zeichen")]
         public string BIC { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         [Required(ErrorMessage = "Bitte Ihre Bankleitzahl angeben.")]
-        [StringLength(25, ErrorMessage = "Maximal 25 Zeichen")]
+        [StringLength(30, ErrorMessage = "Maximal 30 Zeichen")]
         public string IBAN { get; set; }
 
-        [Required(ErrorMessage = "Bitte den Namen Ihres Bankinstituts angeben.")]
+        [HiddenInput(DisplayValue = false)]
         [StringLength(100, ErrorMessage = "Maximal 100 Zeichen.")]
         public string BankInstitut { get; set; }
 
+        [HiddenInput(DisplayValue = false)]
         /// <summary>
         /// Diese Information wird im Controller gesetzt!!!
         /// </summary>
-        //[Required]
         public bool IstDeutscheBankKunde { get; set; }
 
         [HiddenInput(DisplayValue = false)]
         [Required]
         public int KundenID { get; set; }
-
     }
 }

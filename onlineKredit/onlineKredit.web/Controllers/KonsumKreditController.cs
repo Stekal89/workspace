@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
 using Kendo.Mvc;
 
 namespace onlineKredit.web.Controllers
@@ -344,9 +343,7 @@ namespace onlineKredit.web.Controllers
                     PLZUndOrt = ortsAngabenWeb.PLZ + " " + ortsAngabenWeb.Bezeichnung
                 });
             }
-
-
-
+            
             KontaktDatenModel model = new KontaktDatenModel()
             {
                 AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
@@ -376,10 +373,10 @@ namespace onlineKredit.web.Controllers
                                                                     model.KundenID
                     ))
                 {
-                    return RedirectToAction("KontoInformation");
+                    return RedirectToAction("KontoVerfuegbar");
                 }
             }
-
+             
             return View(model);
         }
 
@@ -387,6 +384,16 @@ namespace onlineKredit.web.Controllers
 
         #endregion
 
+        #region KontoIformation
+        
+        /// <summary>
+        /// Hier wird mittels Dropdown abgefragt, ob der Kunde:
+        ///     - ein vorhandenes Deutsche Ban AG - Konto verwenden möchte
+        ///     - ein neues Konto bei der Deutschen Bank AG anlegen möchte
+        ///       und dieses dann für den Konsum-Kredit vewenden möchte
+        ///     - oder ein anderes Konto einer anderen Bank verwenden möchte
+        /// </summary>
+        /// <returns>Je nach Entscheidung zum richtigen Controller / anderfalls das "model" in der akt. View</returns>
         [HttpGet]
         public ActionResult KontoVerfuegbar()
         {
@@ -394,46 +401,243 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            return View();
+            List<KontoAbfrageMoeglichkeitModel> alleKontoAbfrageMoeglichkeitenWeb = new List<KontoAbfrageMoeglichkeitModel>();
+
+            /// Lade alle Kontoabfrage-Möglichkeiten aus der Businesslogic in 
+            /// die Liste "alleKontoAbfrageMoeglichkeitenWeb".
+            foreach (var kontoAbfrageMoeglichkeitWeb in KonsumKreditVerwaltung.KontoAbfrageMoeglichkeitenLaden())
+            {
+                alleKontoAbfrageMoeglichkeitenWeb.Add(new KontoAbfrageMoeglichkeitModel()
+                {
+                    ID = kontoAbfrageMoeglichkeitWeb.ID.ToString(),
+                    Bezeichnung = kontoAbfrageMoeglichkeitWeb.Bezeichnung
+                });
+            }
+
+            /// Erzeuge das Model und weise der Liste alle wichtigen Details zu (ID´s, Bezeichnungen)
+            KontoAbfrageModel model = new KontoAbfrageModel()
+            {
+                AlleKontoAbfrageMoeglichkeitenAngaben = alleKontoAbfrageMoeglichkeitenWeb,
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            Debug.Unindent();
+            
+            return View(model);
         }
 
-        [HttpGet]
-        public ActionResult KontoVerfuegbar(KontoInformationenModel model)
+        [HttpPost]
+        public ActionResult KontoVerfuegbar(KontoAbfrageModel model) 
         {
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.Indent();
+
+            int auswahl = model.ID_KontoAbfrage;
+
+            if (ModelState.IsValid)
+            {
+                if (auswahl == 1)
+                {
+                    Debug.WriteLine("Auswahl des Kontos:");
+                    Debug.Indent();
+                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                    Debug.WriteLine("Auswahl: \"Vorhandenes Konto der Deutschen Bank AG\"");
+                    Debug.Unindent();
+
+                    return RedirectToAction("HatDeutscheBankKontoInformation");
+                }
+                else if (auswahl == 2)
+                {
+                    Debug.WriteLine("Auswahl des Kontos:");
+                    Debug.Indent();
+                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                    Debug.WriteLine("Auswahl: \"Neues Konto bei Deutsche Bank AG anlegen.\"");
+                    Debug.Unindent();
+
+                    return RedirectToAction("NeuesDeutscheBankKontoInformation");
+                }
+                else if (auswahl == 3)
+                {
+                    Debug.WriteLine("Auswahl des Kontos:");
+                    Debug.Indent();
+                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                    Debug.WriteLine("Auswahl: \"Anderes Konto verwenden.\"");
+                    Debug.Unindent();
+
+                    return RedirectToAction("AndereKontoInformation");
+                }
+                else
+                {
+                    Debug.WriteLine("Irgendetwas ist Schief gegangen....");
+                    Debug.Indent();
+                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                    Debug.Unindent();
+                    Debugger.Break();
+                }
+            }
+           
+
             Debug.Unindent();
 
-            return View();
+            return View(model);
         }
-
-        #region KontoIformation
-
+        
+        /// <summary>
+        /// Hier darf der User die Daten seines Vorhandenen Deutsche Bank AG - Kontos
+        /// angeben, Das Eingabefeld Bank wird sichtbar für den User da gestellt, aber
+        /// nicht veränderbar sein (Label)
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public ActionResult KontoInformation()
+        public ActionResult HatDeutscheBankKontoInformation()
         {
             Debug.Indent();
-            Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.WriteLine("GET - KonsumKreditController - HatDeutscheBankKontoInformation");
             Debug.Unindent();
 
-            return View();
+            DeutscheBankKontoInformationModel model = new DeutscheBankKontoInformationModel()
+            {
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value),
+                BankInstitut = "Deutsche Bank AG",
+                IstDeutscheBankKunde = true
+            };
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult KontoInformation(KontoInformationenModel model)
+        public ActionResult HatDeutscheBankKontoInformation(DeutscheBankKontoInformationModel model)
+        {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - HatDeutscheBankKontoInformation");
+            Debug.Unindent();
+
+            model.IBAN = KonsumKreditVerwaltung.FilterAufVorhandeneLeerzeichen(model.IBAN);
+            model.IBAN = KonsumKreditVerwaltung.LeerzeichenEinfuegen(model.IBAN);
+
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern( model.BIC, 
+                                                                        model.IBAN, 
+                                                                        "Deutsche Bank AG", 
+                                                                        true, 
+                                                                        model.KundenID
+                                                                        ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
+            }
+
+            return View(model);
+        }
+
+        /// <summary>
+        /// Hier bekommt der User einen Vorschlag für sein neues 
+        /// Deutsche Bank AG - Kontos und kann dieses mit "erstellen" 
+        /// bestätigen.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult NeuesDeutscheBankKontoInformation()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
+
+
+            List<string> bicUndIban = new List<string>();
+
+            bicUndIban = KonsumKreditVerwaltung.BankKontoErzeugen();
+
+      
+            DeutscheBankKontoInformationModel model = new DeutscheBankKontoInformationModel()
+            {
+                BIC = bicUndIban[0],
+                IBAN = bicUndIban[1],
+                IstDeutscheBankKunde = true,
+                BankInstitut = "Deutsche Bank AG",
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+            
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NeuesDeutscheBankKontoInformation(DeutscheBankKontoInformationModel model)
         {
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            return View();
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
+                                                                        model.IBAN,
+                                                                        model.BankInstitut,
+                                                                        true,
+                                                                        model.KundenID
+                                                                        ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
+            }
+
+            return View(model);
         }
+
+        /// <summary>
+        /// Hier kann der User die ganzen benötigten Konto-Informationene selbst eingeben,
+        /// muss allerdings seine Bank angeben.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public ActionResult AndereKontoInformation()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
+            KontoInformationenModel model = new KontoInformationenModel()
+            {
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AndereKontoInformation(KontoInformationenModel model)
+        {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
+            Debug.Unindent();
+
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
+                                                                        model.IBAN,
+                                                                        model.BankInstitut,
+                                                                        false,
+                                                                        model.KundenID
+                                                                        ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
+            }
+
+            return View(model);
+        }
+
 
         #endregion
 
         #region ZusammenFassung
-        
+
         [HttpGet]
         public ActionResult ZusammenFassung()
         {
