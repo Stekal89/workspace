@@ -7,8 +7,10 @@
 <h2>ZusammenFassung</h2>
 
 <div>
-    <h4>ZusammenFassungModel</h4>
+    <h4>Zusammenfassung</h4>
     <hr />
+
+    @* Kunden ID *@
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.KundenID)
@@ -17,7 +19,12 @@
         <dd>
             @Html.DisplayFor(model => model.KundenID)
         </dd>
+    </dl>
 
+    <br />
+    <h3>Kreditrahmen:</h3>
+    @* Kreditrahmen *@
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.GewuenschterBetrag)
         </dt>
@@ -33,7 +40,12 @@
         <dd>
             @Html.DisplayFor(model => model.Laufzeit)
         </dd>
+    </dl>
 
+    <br />
+    <h3>Finanzielle Situation:</h3>
+    @* Finanzielle Situation *@
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.NettoEinkommen)
         </dt>
@@ -73,7 +85,12 @@
         <dd>
             @Html.DisplayFor(model => model.RatenVerpflichtungen)
         </dd>
+    </dl>
 
+    <br />
+    <h3>Persönliche Daten:</h3>
+    @* Persönliche Daten*@
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Geschlecht)
         </dt>
@@ -169,7 +186,12 @@
         <dd>
             @Html.DisplayFor(model => model.IdentifikationsNummer)
         </dd>
+     </dl>
 
+    <br />
+    <h3>Kontaktdaten:</h3>
+    @* Kontaktdaten *@
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Strasse)
         </dt>
@@ -225,7 +247,12 @@
         <dd>
             @Html.DisplayFor(model => model.TelefonNummer)
         </dd>
+        </dl>
 
+    <br />
+    <h3>Arbeitgeber:</h3>
+    @* Arbeitgeber *@
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Firma)
         </dt>
@@ -257,7 +284,12 @@
         <dd>
             @Html.DisplayFor(model => model.BeschaeftigtSeit)
         </dd>
+        </dl>
 
+    <br />
+    <h3>Kontoinformationen:</h3>
+    @* Kontoinformation *@
+    <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.BIC)
         </dt>
@@ -281,7 +313,6 @@
         <dd>
             @Html.DisplayFor(model => model.BankInstitut)
         </dd>
-
     </dl>
 </div>
 <p>
