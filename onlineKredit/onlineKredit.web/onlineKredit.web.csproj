@@ -541,6 +541,7 @@
     <Content Include="Views\KonsumKredit\NeuesDeutscheBankKontoInformation.cshtml" />
     <Content Include="Views\KonsumKredit\KontoVerfuegbar.cshtml" />
     <Content Include="Views\KonsumKredit\HatDeutscheBankKontoInformation.cshtml" />
+    <Content Include="Views\KonsumKredit\ZusammenFassung.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

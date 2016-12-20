@@ -1031,7 +1031,56 @@ namespace onlineKredit.logic
             return eingabeIBAN;
         }
 
-       
+
+
+        #endregion
+
+        #region Zusammenfassung
+
+        public static Kunde KundenDatenLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - KundenDatenLaden");
+            Debug.Indent();
+
+            Kunde aktKunde = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktKunde = context.AlleKunden
+                       .Include("IdentifikationsArt")
+                       .Include("Familienstand")
+                       .Include("Schulabschluss")
+                       .Include("Titel")
+                       .Include("Wohnart")
+                       .Include("Kredit")
+                       .Include("KontoDaten")
+                       .Include("KontaktDaten")
+                       .Include("KontaktDaten.Ort")
+                       .Include("Land")
+                       .Include("FinanzielleSituation")
+                       .Include("Arbeitgeber")
+                       .Include("Arbeitgeber.Branche")
+                       .Include("Arbeitgeber.Beschaeftigungsart")
+                       .Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KundenDatenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            Debug.Unindent();
+
+            return aktKunde;
+        }
 
         #endregion
     }

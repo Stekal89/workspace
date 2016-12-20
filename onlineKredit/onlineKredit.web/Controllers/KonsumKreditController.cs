@@ -234,6 +234,70 @@ namespace onlineKredit.web.Controllers
                     model.KundenID
                     ))
                 {
+                    return RedirectToAction("KontaktDaten");
+                }
+            }
+
+            return View(model);
+        }
+
+        #endregion
+
+        #region KontaktDaten
+
+        [HttpGet]
+        public ActionResult KontaktDaten()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
+            Debug.Unindent();
+
+            List<OrtModel> alleOrtsAngabenWeb = new List<OrtModel>();
+
+            foreach (var ortsAngabenWeb in KonsumKreditVerwaltung.OrteLaden())
+            {
+                alleOrtsAngabenWeb.Add(new OrtModel()
+                {
+                    ID = ortsAngabenWeb.ID.ToString(),
+                    Bezeichnung = ortsAngabenWeb.Bezeichnung,
+                    FK_Land = ortsAngabenWeb.FKLand,
+                    PostleitZahl = ortsAngabenWeb.PLZ,
+                    /// in diesem Feld werden alle Postleitzahlen und Orte verkettet in 
+                    /// einer Zeichenkette gespeichert, damit ich diese auf der 
+                    /// Oberfläche anzeigen lassen kann.
+                    PLZUndOrt = ortsAngabenWeb.PLZ + " " + ortsAngabenWeb.Bezeichnung
+                });
+            }
+
+            KontaktDatenModel model = new KontaktDatenModel()
+            {
+                AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult KontaktDaten(KontaktDatenModel model)
+        {
+            Debug.Indent();
+            Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
+            Debug.Unindent();
+
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
+                                                                    model.Hausnummer,
+                                                                    model.Stiege,
+                                                                    model.Tuer,
+                                                                    model.FK_Ort,
+                                                                    model.EMail,
+                                                                    model.TelefonNummer,
+                                                                    model.KundenID
+                    ))
+                {
                     return RedirectToAction("Arbeitgeber");
                 }
             }
@@ -310,80 +374,14 @@ namespace onlineKredit.web.Controllers
                                                                 model.KundenID
                     ))
                 {
-                    return RedirectToAction("KontaktDaten");
-                }
-            }
-            return View(model);
-        }
-
-        #endregion
-
-        #region KontaktDaten
-
-        [HttpGet]
-        public ActionResult KontaktDaten()
-        {
-            Debug.Indent();
-            Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
-            Debug.Unindent();
-
-            List<OrtModel> alleOrtsAngabenWeb = new List<OrtModel>();
-
-            foreach (var ortsAngabenWeb in KonsumKreditVerwaltung.OrteLaden())
-            {
-                alleOrtsAngabenWeb.Add(new OrtModel()
-                {
-                    ID = ortsAngabenWeb.ID.ToString(),
-                    Bezeichnung = ortsAngabenWeb.Bezeichnung,
-                    FK_Land = ortsAngabenWeb.FKLand,
-                    PostleitZahl = ortsAngabenWeb.PLZ,
-                    /// in diesem Feld werden alle Postleitzahlen und Orte verkettet in 
-                    /// einer Zeichenkette gespeichert, damit ich diese auf der 
-                    /// Oberfläche anzeigen lassen kann.
-                    PLZUndOrt = ortsAngabenWeb.PLZ + " " + ortsAngabenWeb.Bezeichnung
-                });
-            }
-            
-            KontaktDatenModel model = new KontaktDatenModel()
-            {
-                AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
-                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult KontaktDaten(KontaktDatenModel model)
-        {
-            Debug.Indent();
-            Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
-            Debug.Unindent();
-
-            if (ModelState.IsValid)
-            {
-                if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
-                                                                    model.Hausnummer,
-                                                                    model.Stiege,
-                                                                    model.Tuer,
-                                                                    model.FK_Ort,
-                                                                    model.EMail,
-                                                                    model.TelefonNummer,
-                                                                    model.KundenID
-                    ))
-                {
                     return RedirectToAction("KontoVerfuegbar");
                 }
             }
-             
             return View(model);
         }
 
         #endregion
-
-        #endregion
-
+        
         #region KontoIformation
         
         /// <summary>
@@ -636,6 +634,8 @@ namespace onlineKredit.web.Controllers
 
         #endregion
 
+        #endregion
+
         #region ZusammenFassung
 
         [HttpGet]
@@ -645,7 +645,56 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - ZusammenFassung");
             Debug.Unindent();
 
-            return View();
+            ZusammenFassungModel model = new ZusammenFassungModel();
+            model.KundenID = int.Parse(Request.Cookies["KundenID"].Value);
+
+            Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(model.KundenID);
+
+            /// KreditRahmen
+            model.GewuenschterBetrag = (int)aktKunde.Kredit.GewuenschterKredit;
+            model.Laufzeit = aktKunde.Kredit.GewuenschteLaufzeit;
+
+            /// FinanuielleSituation
+            model.NettoEinkommen = (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto;
+            model.Wohnkosten = (double)aktKunde.FinanzielleSituation.Wohnkosten;
+            model.EinkuenfteAlimenteUnterhalt = (double)aktKunde.FinanzielleSituation.Unterhalt;
+            model.RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.Raten;
+
+            /// PersoenlicheDaten
+            model.Geschlecht = aktKunde.Geschlecht == "m" ? "Herr" : "Frau";
+            model.Titel = aktKunde.Titel?.Bezeichnung;
+            model.Vorname = aktKunde.Vorname;
+            model.Nachname = aktKunde.Nachname;
+            model.GeburtsDatum = aktKunde.Geburtsdatum;
+            model.Staatsbuergerschaft = aktKunde.Land.Bezeichnung;
+            model.AnzahlKinder = (int)aktKunde.AnzahlKinder;
+            model.Familienstand = aktKunde.Familienstand.Bezeichnung;
+            model.Wohnart = aktKunde.Wohnart.Bezeichnung;
+            model.SchulAbschluss = aktKunde.Schulabschluss.Bezeichnung;
+            model.IdentifikationsArt = aktKunde.IdentifikationsArt.Bezeichnung;
+            model.IdentifikationsNummer = aktKunde.IdentifikationsNummer;
+
+            /// KontaktDaten
+            model.Strasse = aktKunde.KontaktDaten.Strasse;
+            model.Hausnummer = aktKunde.KontaktDaten.Hausnummer;
+            model.Stiege = aktKunde.KontaktDaten?.Stiege;
+            model.Tuer = aktKunde.KontaktDaten?.Tür;
+            model.Ort = aktKunde.KontaktDaten.Ort.PLZ + " " + aktKunde.KontaktDaten.Ort.Bezeichnung;
+            model.EMail = aktKunde.KontaktDaten?.EMail;
+            model.TelefonNummer = aktKunde.KontaktDaten?.Telefonnummer;
+
+            /// Arbeitgeber
+            model.Firma = aktKunde.Arbeitgeber.Firma;
+            model.BeschaeftigungsArt = aktKunde.Arbeitgeber.Beschaeftigungsart.Bezeichnung;
+            model.Branche = aktKunde.Arbeitgeber.Branche.Bezeichnung;
+            model.BeschaeftigtSeit = (DateTime)aktKunde.Arbeitgeber.BeschaeftigtSeit;
+
+            /// KontoInformation
+            model.BIC = aktKunde.KontoDaten.BIC;
+            model.IBAN = aktKunde.KontoDaten.IBAN;
+            model.BankInstitut = aktKunde.KontoDaten.Bank;
+
+            return View(model);
         }
 
         [HttpPost]
