@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,5 +18,11 @@ namespace onlineKredit.web.Models
         [Display(Name ="Laufzeit in Monaten")]
         [Range(1,120, ErrorMessage ="Laufzeit muss zwischen 1 und 120 Monaten liegen.")]
         public short Laufzeit { get; set; }
+
+        ///// <summary>
+        ///// Wird benötigt, wenn man von der Zusammenfassung die Daten, anzeigen bzw. speichern möchte!!!
+        ///// </summary>
+        //[HiddenInput(DisplayValue = false)]
+        //public int KundenID { get; set; }
     }
 }

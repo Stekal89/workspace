@@ -13,9 +13,6 @@ namespace onlineKredit.web.Controllers
 {
     public class KonsumKreditController : Controller
     {
-
-        #region Funktioniert
-
         #region KreditRahmen
         
         [HttpGet]
@@ -24,6 +21,28 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
+
+            if (HomeController.alleDatenAngegeben)
+            {
+                ZusammenFassungModel zusammenFassungsmodel = new ZusammenFassungModel();
+                zusammenFassungsmodel.KundenID = int.Parse(Request.Cookies["KundenID"].Value);
+
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(zusammenFassungsmodel.KundenID);
+
+                /// KreditRahmen
+                zusammenFassungsmodel.GewuenschterBetrag = (int)aktKunde.Kredit.GewuenschterKredit;
+                zusammenFassungsmodel.Laufzeit = aktKunde.Kredit.GewuenschteLaufzeit;
+
+                KreditRahmenModel model = new KreditRahmenModel()
+                {
+                    GewuenschterBetrag = (int)zusammenFassungsmodel.GewuenschterBetrag,
+                    Laufzeit = zusammenFassungsmodel.Laufzeit,
+                    //KundenID = zusammenFassungsmodel.KundenID
+                };
+
+                return View(model);
+            }
+
             return View();
         }
 
@@ -34,12 +53,12 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 /// speichere Daten über BusinessLogic
                 Kunde neuerKunde = KonsumKreditVerwaltung.ErzeugeKunde();
 
-                if (neuerKunde != null && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, neuerKunde.ID))
+                if (neuerKunde != null && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, neuerKunde.ID, false))
                 {
                     /// ich benötige für alle weiteren Schritte die ID
                     /// des angelegten Kunden. Damit ich diese bei der nächsten Action
@@ -54,6 +73,15 @@ namespace onlineKredit.web.Controllers
 
                     /// gehe zum nächsten Schritt
                     return RedirectToAction("FinanzielleSituation");
+                }
+            }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                int kundenID = int.Parse(Request.Cookies["kundenID"].Value);
+
+                if (ModelState.IsValid && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, kundenID, true))
+                {
+                    return RedirectToAction("ZusammenFassung");
                 }
             }
 
@@ -92,17 +120,31 @@ namespace onlineKredit.web.Controllers
             Debug.Unindent();
 
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.FinanzielleSituationSpeichern(model.NettoEinkommen,
                                                                         model.Wohnkosten,
                                                                         model.EinkuenfteAlimenteUnterhalt,
                                                                         model.UnterhaltsZahlungen,
                                                                         model.RatenVerpflichtungen,
-                                                                        model.KundenID))
+                                                                        model.KundenID,
+                                                                        false))
                 {
                     //TempData["idKunde"] = model.KundenID;
                     return RedirectToAction("PersoenlicheDaten");
+                }
+            }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.FinanzielleSituationSpeichern(model.NettoEinkommen,
+                                                                       model.Wohnkosten,
+                                                                       model.EinkuenfteAlimenteUnterhalt,
+                                                                       model.UnterhaltsZahlungen,
+                                                                       model.RatenVerpflichtungen,
+                                                                       model.KundenID,
+                                                                       true))
+                {
+                    return RedirectToAction("ZusammenFassung");
                 }
             }
 
@@ -216,7 +258,7 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - PersoenlicheDaten");
             Debug.Unindent();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.PersoenlicheDatenSpeichern(
                     model.Geschlecht == Geschlecht.Männlch ? "m" : "w",
@@ -237,6 +279,28 @@ namespace onlineKredit.web.Controllers
                     return RedirectToAction("KontaktDaten");
                 }
             }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.PersoenlicheDatenSpeichern(
+                model.Geschlecht == Geschlecht.Männlch ? "m" : "w",
+                model.ID_Titel,
+                model.Vorname,
+                model.Nachname,
+                model.GeburtsDatum,
+                model.ID_Staatsbuergerschaft,
+                model.AnzahlKinder,
+                model.ID_Familienstand,
+                model.ID_Wohnart,
+                model.ID_SchulAbschluss,
+                model.ID_IdentifikationsArt,
+                model.IdentifikationsNummer,
+                model.KundenID
+                ))
+                {
+                    return RedirectToAction("ZusammenFassung");
+                }
+            }
+            
 
             return View(model);
         }
@@ -286,7 +350,7 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
             Debug.Unindent();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
                                                                     model.Hausnummer,
@@ -295,10 +359,27 @@ namespace onlineKredit.web.Controllers
                                                                     model.FK_Ort,
                                                                     model.EMail,
                                                                     model.TelefonNummer,
-                                                                    model.KundenID
+                                                                    model.KundenID,
+                                                                    false
                     ))
                 {
                     return RedirectToAction("Arbeitgeber");
+                }
+            }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
+                                                                  model.Hausnummer,
+                                                                  model.Stiege,
+                                                                  model.Tuer,
+                                                                  model.FK_Ort,
+                                                                  model.EMail,
+                                                                  model.TelefonNummer,
+                                                                  model.KundenID,
+                                                                  true
+                  ))
+                {
+                    return RedirectToAction("ZusammenFassung");
                 }
             }
 
@@ -308,8 +389,7 @@ namespace onlineKredit.web.Controllers
         #endregion
 
         #region Arbeitgeber
-
-
+        
         [HttpGet]
         public ActionResult Arbeitgeber()
         {
@@ -364,19 +444,35 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - Arbeitgeber");
             Debug.Unindent();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.ArbeitgeberSpeichern(
                                                                 model.Firma,
                                                                 model.ID_BeschaeftigungsArt,
                                                                 model.ID_Branche,
                                                                 model.BeschaeftigtSeit,
-                                                                model.KundenID
+                                                                model.KundenID,
+                                                                false
                     ))
                 {
                     return RedirectToAction("KontoVerfuegbar");
                 }
             }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.ArbeitgeberSpeichern(
+                                                               model.Firma,
+                                                               model.ID_BeschaeftigungsArt,
+                                                               model.ID_Branche,
+                                                               model.BeschaeftigtSeit,
+                                                               model.KundenID,
+                                                               true
+                   ))
+                {
+                    return RedirectToAction("ZusammenFassung");
+                }
+            }
+
             return View(model);
         }
 
@@ -515,19 +611,33 @@ namespace onlineKredit.web.Controllers
             model.IBAN = KonsumKreditVerwaltung.FilterAufVorhandeneLeerzeichen(model.IBAN);
             model.IBAN = KonsumKreditVerwaltung.LeerzeichenEinfuegen(model.IBAN);
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.KontoInformationenSpeichern( model.BIC, 
                                                                         model.IBAN, 
                                                                         "Deutsche Bank AG", 
                                                                         true, 
-                                                                        model.KundenID
+                                                                        model.KundenID,
+                                                                        false
                                                                         ))
                 {
                     return RedirectToAction("Zusammenfassung");
                 }
             }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
+                                                                        model.IBAN,
+                                                                        "Deutsche Bank AG",
+                                                                        true,
+                                                                        model.KundenID,
+                                                                        true
+                                                                        ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
 
+            }
             return View(model);
         }
 
@@ -571,17 +681,32 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
                                                                         model.IBAN,
-                                                                        model.BankInstitut,
+                                                                        "Deutsche Bank AG",
                                                                         true,
-                                                                        model.KundenID
+                                                                        model.KundenID,
+                                                                        false
                                                                         ))
                 {
                     return RedirectToAction("Zusammenfassung");
                 }
+            }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
+                                                                        model.IBAN,
+                                                                        "Deutsche Bank AG",
+                                                                        true,
+                                                                        model.KundenID,
+                                                                        true
+                                                                        ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
+
             }
 
             return View(model);
@@ -615,17 +740,32 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
                 if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
                                                                         model.IBAN,
-                                                                        model.BankInstitut,
-                                                                        false,
-                                                                        model.KundenID
+                                                                        "Deutsche Bank AG",
+                                                                        true,
+                                                                        model.KundenID,
+                                                                        false
                                                                         ))
                 {
                     return RedirectToAction("Zusammenfassung");
                 }
+            }
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
+            {
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
+                                                                        model.IBAN,
+                                                                        "Deutsche Bank AG",
+                                                                        true,
+                                                                        model.KundenID,
+                                                                        true
+                                                                        ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
+
             }
 
             return View(model);
@@ -633,17 +773,17 @@ namespace onlineKredit.web.Controllers
 
 
         #endregion
-
-        #endregion
-
+        
         #region ZusammenFassung
-
+        
         [HttpGet]
         public ActionResult ZusammenFassung()
         {
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - ZusammenFassung");
             Debug.Unindent();
+
+            HomeController.alleDatenAngegeben = true;
 
             ZusammenFassungModel model = new ZusammenFassungModel();
             model.KundenID = int.Parse(Request.Cookies["KundenID"].Value);

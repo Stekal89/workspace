@@ -8,8 +8,12 @@ namespace onlineKredit.web.Controllers
 {
     public class HomeController : Controller
     {
+        public static bool alleDatenAngegeben = false;
+
         public ActionResult Index()
         {
+            alleDatenAngegeben = false;
+
             return View();
         }
     }
