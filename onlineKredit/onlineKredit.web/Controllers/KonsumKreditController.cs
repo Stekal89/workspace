@@ -24,20 +24,16 @@ namespace onlineKredit.web.Controllers
 
             if (HomeController.alleDatenAngegeben)
             {
-                ZusammenFassungModel zusammenFassungsmodel = new ZusammenFassungModel();
-                zusammenFassungsmodel.KundenID = int.Parse(Request.Cookies["KundenID"].Value);
-
-                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(zusammenFassungsmodel.KundenID);
-
-                /// KreditRahmen
-                zusammenFassungsmodel.GewuenschterBetrag = (int)aktKunde.Kredit.GewuenschterKredit;
-                zusammenFassungsmodel.Laufzeit = aktKunde.Kredit.GewuenschteLaufzeit;
+                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
+                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
 
                 KreditRahmenModel model = new KreditRahmenModel()
                 {
-                    GewuenschterBetrag = (int)zusammenFassungsmodel.GewuenschterBetrag,
-                    Laufzeit = zusammenFassungsmodel.Laufzeit,
-                    //KundenID = zusammenFassungsmodel.KundenID
+                    /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
+                    /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
+                    GewuenschterBetrag = (int)aktKunde.Kredit.GewuenschterKredit,
+                    Laufzeit = aktKunde.Kredit.GewuenschteLaufzeit
                 };
 
                 return View(model);
@@ -52,6 +48,14 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
+
+            Kunde aktKunde = null;
+
+            if (HomeController.alleDatenAngegeben)
+            {
+                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
+                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+            }
 
             if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
@@ -74,6 +78,14 @@ namespace onlineKredit.web.Controllers
                     /// gehe zum nächsten Schritt
                     return RedirectToAction("FinanzielleSituation");
                 }
+            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
+              aktKunde != null &&
+              model.GewuenschterBetrag == aktKunde.Kredit.GewuenschterKredit &&
+              model.Laufzeit == aktKunde.Kredit.GewuenschteLaufzeit
+              )
+            {
+                return RedirectToAction("ZusammenFassung");
             }
             else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
             {
@@ -102,13 +114,35 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - FinanzielleSituation");
             Debug.Unindent();
 
-            FinanzielleSituationModel model = new FinanzielleSituationModel()
+            if (!HomeController.alleDatenAngegeben)
             {
-                //KundenID = int.Parse(TempData["idKunde"].ToString())
-                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-            };
+                FinanzielleSituationModel model = new FinanzielleSituationModel()
+                {
+                    //KundenID = int.Parse(TempData["idKunde"].ToString())
+                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+                };
+                return View(model);
+            }
+            else if (HomeController.alleDatenAngegeben)
+            {
+                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
+                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
 
-            return View(model);
+                FinanzielleSituationModel model = new FinanzielleSituationModel()
+                {
+                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
+                    NettoEinkommen = (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto,
+                    Wohnkosten = (double)aktKunde.FinanzielleSituation.Wohnkosten,
+                    EinkuenfteAlimenteUnterhalt = (double)aktKunde.FinanzielleSituation.SonstigeEinkommen,
+                    UnterhaltsZahlungen = (double)aktKunde.FinanzielleSituation.Unterhalt,
+                    RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.Raten,
+                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+                };
+                return View(model);
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -119,6 +153,13 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - FinanzielleSituation");
             Debug.Unindent();
 
+            Kunde aktKunde = null;
+
+            if (HomeController.alleDatenAngegeben)
+            {
+                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
+                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+            }
 
             if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
@@ -133,6 +174,16 @@ namespace onlineKredit.web.Controllers
                     //TempData["idKunde"] = model.KundenID;
                     return RedirectToAction("PersoenlicheDaten");
                 }
+            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
+              aktKunde != null &&
+              model.NettoEinkommen == (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto &&
+              model.EinkuenfteAlimenteUnterhalt == (double)aktKunde.FinanzielleSituation.SonstigeEinkommen &&
+              model.UnterhaltsZahlungen == (double)aktKunde.FinanzielleSituation.Unterhalt &&
+              model.RatenVerpflichtungen == (double)aktKunde.FinanzielleSituation.Raten
+              )
+            {
+                return RedirectToAction("ZusammenFassung");
             }
             else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
             {
@@ -147,14 +198,13 @@ namespace onlineKredit.web.Controllers
                     return RedirectToAction("ZusammenFassung");
                 }
             }
-
+           
             return View(model);
         }
 
         #endregion
 
         #region PersoenlicheDaten
-
         
         [HttpGet]
         public ActionResult PersoenlicheDaten()
@@ -233,21 +283,63 @@ namespace onlineKredit.web.Controllers
 
             #endregion
 
-            /// erzeugt das Model für die persönlichen Daten und 
-            /// fügt dem die Daten für die Lookup-Tabellen hinzu.
-            /// Id des Kunden wird auch mit übergeben
-            PersoenlicheDatenModel model = new PersoenlicheDatenModel()
+            if (!HomeController.alleDatenAngegeben)
             {
-                AlleTitelAngabenWeb = alleTitelAngabenWeb,
-                AlleLaenderAngabenWeb = alleLaenderAngabenWeb,
-                AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb,
-                AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb,
-                AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb,
-                AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb,
-                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-            };
+                /// erzeugt das Model für die persönlichen Daten und 
+                /// fügt dem die Daten für die Lookup-Tabellen hinzu.
+                /// Id des Kunden wird auch mit übergeben
+                PersoenlicheDatenModel model = new PersoenlicheDatenModel()
+                {
+                    AlleTitelAngabenWeb = alleTitelAngabenWeb,
+                    AlleLaenderAngabenWeb = alleLaenderAngabenWeb,
+                    AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb,
+                    AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb,
+                    AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb,
+                    AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb,
+                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+                };
+                return View(model);
+            }
+            else if (HomeController.alleDatenAngegeben)
+            {
+                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
+                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+                
+                PersoenlicheDatenModel model = new PersoenlicheDatenModel()
+                {
+                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
+                    ID_Titel = aktKunde?.FKTitel,
+                    Vorname = aktKunde.Vorname,
+                    Nachname = aktKunde.Nachname,
+                    GeburtsDatum = aktKunde.Geburtsdatum,
+                    ID_Staatsbuergerschaft = aktKunde.FKStaatsangehoerigkeit,
+                    AnzahlKinder = (int)aktKunde.AnzahlKinder,
+                    ID_Familienstand = (int)aktKunde.FKFamilienstand,
+                    ID_Wohnart = (int)aktKunde.FKWohnart,
+                    ID_SchulAbschluss = (int)aktKunde.FKSchulabschluss,
+                    ID_IdentifikationsArt = (int)aktKunde.FKIdentifikationsArt,
+                    IdentifikationsNummer = aktKunde.IdentifikationsNummer,
+                    KundenID = aktKunde.ID,
 
-            return View(model);
+                    /// Daten für die Dropdownlisten
+                    AlleTitelAngabenWeb = alleTitelAngabenWeb,
+                    AlleLaenderAngabenWeb = alleLaenderAngabenWeb,
+                    AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb,
+                    AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb,
+                    AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb,
+                    AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb,
+                };
+                if (aktKunde.Geschlecht == "m")
+                    model.Geschlecht = Geschlecht.Männlch;
+                else if (aktKunde.Geschlecht == "w")
+                    model.Geschlecht = Geschlecht.Weiblich;
+                
+
+                return View(model);
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -257,6 +349,14 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - PersoenlicheDaten");
             Debug.Unindent();
+
+            Kunde aktKunde = null;
+
+            if (HomeController.alleDatenAngegeben)
+            {
+                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
+                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+            }
 
             if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
@@ -278,6 +378,24 @@ namespace onlineKredit.web.Controllers
                 {
                     return RedirectToAction("KontaktDaten");
                 }
+            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
+              aktKunde != null &&
+              model.Geschlecht.ToString() == aktKunde.Geschlecht &&
+              model.ID_Titel == aktKunde.FKTitel &&
+              model.Vorname == aktKunde.Vorname &&
+              model.Nachname == aktKunde.Nachname &&
+              model.GeburtsDatum == aktKunde.Geburtsdatum &&
+              model.ID_Staatsbuergerschaft == aktKunde.FKStaatsangehoerigkeit &&
+              model.AnzahlKinder == aktKunde.AnzahlKinder &&
+              model.ID_Familienstand == aktKunde.FKFamilienstand &&
+              model.ID_Wohnart == aktKunde.FKWohnart &&
+              model.ID_SchulAbschluss == aktKunde.FKSchulabschluss &&
+              model.ID_IdentifikationsArt == aktKunde.FKIdentifikationsArt &&
+              model.IdentifikationsNummer == aktKunde.IdentifikationsNummer
+              )
+            {
+                return RedirectToAction("ZusammenFassung");
             }
             else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
             {
@@ -333,13 +451,41 @@ namespace onlineKredit.web.Controllers
                 });
             }
 
-            KontaktDatenModel model = new KontaktDatenModel()
+            if (!HomeController.alleDatenAngegeben)
             {
-                AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
-                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-            };
+                KontaktDatenModel model = new KontaktDatenModel()
+                {
+                    AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
+                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+                };
 
-            return View(model);
+                return View(model);
+            }
+            else if (HomeController.alleDatenAngegeben)
+            {
+                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
+                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+
+                KontaktDatenModel model = new KontaktDatenModel()
+                {
+                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
+                    Strasse = aktKunde.KontaktDaten.Strasse,
+                    Hausnummer = aktKunde.KontaktDaten.Hausnummer,
+                    Stiege = aktKunde.KontaktDaten.Stiege,
+                    Tuer = aktKunde.KontaktDaten.Tür,
+                    FK_Ort = (int)aktKunde.KontaktDaten.FKOrt,
+                    EMail = aktKunde.KontaktDaten.EMail,
+                    TelefonNummer = aktKunde.KontaktDaten.Telefonnummer,
+                    KundenID = aktKunde.ID,
+
+                    /// Daten für die Dropdownliste
+                    AlleOrtsAngabenWeb = alleOrtsAngabenWeb
+                };
+                return View(model);
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -349,6 +495,14 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
             Debug.Unindent();
+
+            Kunde aktKunde = null;
+
+            if (HomeController.alleDatenAngegeben)
+            {
+                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
+                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+            }
 
             if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
@@ -365,6 +519,19 @@ namespace onlineKredit.web.Controllers
                 {
                     return RedirectToAction("Arbeitgeber");
                 }
+            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
+              aktKunde != null &&
+              model.Strasse == aktKunde.KontaktDaten.Strasse  &&
+              model.Hausnummer == aktKunde.KontaktDaten.Hausnummer &&
+              model.Stiege == aktKunde.KontaktDaten.Stiege &&
+              model.Tuer == aktKunde.KontaktDaten.Tür &&
+              model.FK_Ort == aktKunde.KontaktDaten.FKOrt &&
+              model.EMail == aktKunde.KontaktDaten.EMail &&
+              model.TelefonNummer == aktKunde.KontaktDaten.Telefonnummer
+              )
+            {
+                return RedirectToAction("ZusammenFassung");
             }
             else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
             {
@@ -426,14 +593,41 @@ namespace onlineKredit.web.Controllers
 
             #endregion
 
-            ArbeitgeberModel model = new ArbeitgeberModel()
+            if (!HomeController.alleDatenAngegeben)
             {
-                AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb,
-                AlleBranchenAngabenWeb = alleBranchenAngabenWeb,
-                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-            };
+                ArbeitgeberModel model = new ArbeitgeberModel()
+                {
+                    AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb,
+                    AlleBranchenAngabenWeb = alleBranchenAngabenWeb,
+                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+                };
 
-            return View(model);
+                return View(model);
+
+            }
+            else if (HomeController.alleDatenAngegeben)
+            {
+                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
+                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+
+                ArbeitgeberModel model = new ArbeitgeberModel()
+                {
+                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
+                    Firma = aktKunde.Arbeitgeber.Firma,
+                    ID_BeschaeftigungsArt = aktKunde.Arbeitgeber.FKBeschaeftigungsArt,
+                    ID_Branche = (int)aktKunde.Arbeitgeber.FKBranche,
+                    BeschaeftigtSeit = (DateTime)aktKunde.Arbeitgeber.BeschaeftigtSeit,
+                    KundenID = aktKunde.ID,
+
+                    /// Daten für die Dropdownlisten
+                    AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb,
+                    AlleBranchenAngabenWeb = alleBranchenAngabenWeb
+                };
+                return View(model);
+            }
+
+            return View();
         }
 
         [HttpPost]
@@ -443,6 +637,14 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - Arbeitgeber");
             Debug.Unindent();
+
+            Kunde aktKunde = null;
+
+            if (HomeController.alleDatenAngegeben)
+            {
+                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
+                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+            }
 
             if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
@@ -457,6 +659,15 @@ namespace onlineKredit.web.Controllers
                 {
                     return RedirectToAction("KontoVerfuegbar");
                 }
+            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
+            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
+              aktKunde != null &&
+              model.Firma == aktKunde.Arbeitgeber.Firma &&
+              model.ID_BeschaeftigungsArt == aktKunde.Arbeitgeber.FKBeschaeftigungsArt &&
+              model.ID_Branche == aktKunde.Arbeitgeber.FKBranche
+              )
+            {
+                return RedirectToAction("ZusammenFassung");
             }
             else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
             {
