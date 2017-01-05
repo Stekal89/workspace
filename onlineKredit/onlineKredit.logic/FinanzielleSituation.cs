@@ -26,9 +26,9 @@ public partial class FinanzielleSituation
 
     public Nullable<decimal> SonstigeEinkommen { get; set; }
 
-    public Nullable<decimal> Unterhalt { get; set; }
+    public Nullable<decimal> UnterhaltsZahlungen { get; set; }
 
-    public Nullable<decimal> Raten { get; set; }
+    public Nullable<decimal> RatenZahlungen { get; set; }
 
 
 

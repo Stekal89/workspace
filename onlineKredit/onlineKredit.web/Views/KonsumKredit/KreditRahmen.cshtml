@@ -61,17 +61,17 @@
         //http://ionden.com/a/plugins/ion.rangeSlider/en.html
         $(document).ready(function () {
             $("#gewuenschterBetrag").ionRangeSlider({
-                min: 500,
-                max: 10000,
-                from: 5000,
+                min: 1000,
+                max: 100000,
+                from: @Model.GewuenschterBetrag,
                 grid: true,
                 prefix: "€ ",
-                step: 100
+                step: 1000
             });
             $("#laufzeit").ionRangeSlider({
                 min: 1,
                 max: 120,
-                from: 60,
+                from: @Model.Laufzeit,
                 grid: true,
                 prefix: "Monate ",
                 step: 1

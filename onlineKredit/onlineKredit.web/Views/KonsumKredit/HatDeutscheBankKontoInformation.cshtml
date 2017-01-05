@@ -22,41 +22,41 @@
                 @Html.ValidationMessageFor(model => model.BIC, "", new { @class = "text-danger" })
             </div>
         </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @*<input onkeyup="whiteSpaceValidation(this.value)" id="validationIBAN" class="text-box single-line" data-val="true" data-val-length="Maximal 25 Zeichen" data-val-length-max="25" data-val-required="Bitte Ihre Bankleitzahl angeben." name="IBAN" type="text" value="" />
+        <div class="form-group">
+            @Html.LabelFor(model => model.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input onkeyup="whiteSpaceValidation(this.value)" id="validationIBAN" class="text-box single-line" data-val="true" data-val-length="Maximal 25 Zeichen" data-val-length-max="25" data-val-required="Bitte Ihre Bankleitzahl angeben." name="IBAN" type="text" value="" />
                     <span class="field-validation-valid text-danger" data-valmsg-for="IBAN" data-valmsg-replace="true"></span>*@
-                    @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control",  id = "validationIBAN", onkeyup = "whiteSpaceValidation(this.value)" }})
-                    @Html.ValidationMessageFor(model => model.IBAN, "", new { @class = "text-danger" })
-                   
-                </div>
-            </div>
+                @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control", id = "validationIBAN", onkeyup = "whiteSpaceValidation(this.value)" } })
+                @Html.ValidationMessageFor(model => model.IBAN, "", new { @class = "text-danger" })
 
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.BankInstitut, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <label>@Model.BankInstitut</label>
             </div>
         </div>
-
         <div class="form-group">
-        @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none"  })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none"  } })
-            @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none"  })
+            @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+            </div>
         </div>
-    </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <a href="@Url.Action("KreditRahmen", "KontoVerfuegbar")" class="btn btn-primary">Zurück</a>
-            </div>
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Weiter" class="btn btn-primary" />
+                <a type="button" href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Zurück</a>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Konto bestätigen" class="btn btn-primary" />
+            </div>
+        </div>
+       
     </div>
 }
 

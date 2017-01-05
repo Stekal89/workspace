@@ -11,7 +11,7 @@ namespace onlineKredit.web.Models
     {
         [Required(ErrorMessage = "Bitte wählen sie ihren gewünschten Betrag!")]
         [Display(Name ="Gewünschter Betrag")]
-        [Range(500,10000, ErrorMessage ="Betrag muss zwischen 500 € und 10000 € liegen.")]
+        [Range(1000,100000, ErrorMessage ="Betrag muss zwischen 500 € und 10000 € liegen.")]
         public int GewuenschterBetrag { get; set; }
 
         [Required(ErrorMessage ="Es muss eine gewünschte Laufzeit angegeben sein! (minimum 1 Monat)")]

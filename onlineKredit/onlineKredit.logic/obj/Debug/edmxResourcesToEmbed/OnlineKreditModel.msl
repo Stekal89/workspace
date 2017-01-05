@@ -52,8 +52,8 @@
           <ScalarProperty Name="MonatsEinkommenNetto" ColumnName="MonatsEinkommenNetto" />
           <ScalarProperty Name="Wohnkosten" ColumnName="Wohnkosten" />
           <ScalarProperty Name="SonstigeEinkommen" ColumnName="SonstigeEinkommen" />
-          <ScalarProperty Name="Unterhalt" ColumnName="Unterhalt" />
-          <ScalarProperty Name="Raten" ColumnName="Raten" />
+          <ScalarProperty Name="UnterhaltsZahlungen" ColumnName="Unterhalt" />
+          <ScalarProperty Name="RatenZahlungen" ColumnName="Raten" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

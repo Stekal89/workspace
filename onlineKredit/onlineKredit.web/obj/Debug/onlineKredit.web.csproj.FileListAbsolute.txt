@@ -382,6 +382,7 @@ D:\Workspace\onlineKredit\onlineKredit.web\bin\de\EntityFramework.resources.dll
 D:\Workspace\onlineKredit\onlineKredit.web\obj\Debug\onlineKredit.web.csprojResolveAssemblyReference.cache
 D:\Workspace\onlineKredit\onlineKredit.web\obj\Debug\ASP.NET MVC.dll
 D:\Workspace\onlineKredit\onlineKredit.web\obj\Debug\ASP.NET MVC.pdb
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\onlineKredit.web.csprojResolveAssemblyReference.cache
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\roslyn\csc.exe
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -459,6 +460,7 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\Microsoft.Net.Http.Headers.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\Newtonsoft.Json.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\onlineKredit.freigabe.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\onlineKredit.logic.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\System.Buffers.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\System.Collections.Immutable.dll
@@ -477,6 +479,7 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\System.Web.WebPages.Razor.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\WebGrease.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\EntityFramework.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\onlineKredit.freigabe.pdb
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\onlineKredit.logic.pdb
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\Microsoft.AspNetCore.Antiforgery.xml
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\Microsoft.AspNetCore.Authorization.xml
@@ -571,6 +574,5 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\de\System.Web.WebPages.Deployment.resources.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\de\System.Web.WebPages.Razor.resources.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\bin\de\EntityFramework.resources.dll
-C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\onlineKredit.web.csprojResolveAssemblyReference.cache
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\ASP.NET MVC.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.web\obj\Debug\ASP.NET MVC.pdb

@@ -8,13 +8,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Kendo.Mvc;
+using onlineKredit.freigabe;
 
 namespace onlineKredit.web.Controllers
 {
     public class KonsumKreditController : Controller
     {
         #region KreditRahmen
-        
+
         [HttpGet]
         public ActionResult KreditRahmen()
         {
@@ -22,7 +23,16 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
 
-            if (HomeController.alleDatenAngegeben)
+            if (!HomeController.alleDatenAngegeben)
+            {
+                KreditRahmenModel model = new KreditRahmenModel()
+                {
+                    GewuenschterBetrag = 5000,
+                    Laufzeit = 36
+                };
+                return View(model);
+            }
+            else if (HomeController.alleDatenAngegeben)
             {
                 /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
                 /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
@@ -97,7 +107,7 @@ namespace onlineKredit.web.Controllers
                 }
             }
 
-          
+
             /// falls der ModelState NICHT valid ist, bleibe hier und
             /// gib die Daten (falls vorhanden) wieder auf das UI
             return View(model);
@@ -106,7 +116,7 @@ namespace onlineKredit.web.Controllers
         #endregion
 
         #region FinanzielleSituation
-        
+
         [HttpGet]
         public ActionResult FinanzielleSituation()
         {
@@ -135,8 +145,8 @@ namespace onlineKredit.web.Controllers
                     NettoEinkommen = (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto,
                     Wohnkosten = (double)aktKunde.FinanzielleSituation.Wohnkosten,
                     EinkuenfteAlimenteUnterhalt = (double)aktKunde.FinanzielleSituation.SonstigeEinkommen,
-                    UnterhaltsZahlungen = (double)aktKunde.FinanzielleSituation.Unterhalt,
-                    RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.Raten,
+                    UnterhaltsZahlungen = (double)aktKunde.FinanzielleSituation.UnterhaltsZahlungen,
+                    RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.RatenZahlungen,
                     KundenID = int.Parse(Request.Cookies["kundenID"].Value)
                 };
                 return View(model);
@@ -179,8 +189,8 @@ namespace onlineKredit.web.Controllers
               aktKunde != null &&
               model.NettoEinkommen == (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto &&
               model.EinkuenfteAlimenteUnterhalt == (double)aktKunde.FinanzielleSituation.SonstigeEinkommen &&
-              model.UnterhaltsZahlungen == (double)aktKunde.FinanzielleSituation.Unterhalt &&
-              model.RatenVerpflichtungen == (double)aktKunde.FinanzielleSituation.Raten
+              model.UnterhaltsZahlungen == (double)aktKunde.FinanzielleSituation.UnterhaltsZahlungen &&
+              model.RatenVerpflichtungen == (double)aktKunde.FinanzielleSituation.RatenZahlungen
               )
             {
                 return RedirectToAction("ZusammenFassung");
@@ -198,14 +208,14 @@ namespace onlineKredit.web.Controllers
                     return RedirectToAction("ZusammenFassung");
                 }
             }
-           
+
             return View(model);
         }
 
         #endregion
 
         #region PersoenlicheDaten
-        
+
         [HttpGet]
         public ActionResult PersoenlicheDaten()
         {
@@ -305,7 +315,7 @@ namespace onlineKredit.web.Controllers
                 /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
                 /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
                 Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-                
+
                 PersoenlicheDatenModel model = new PersoenlicheDatenModel()
                 {
                     /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
@@ -334,7 +344,7 @@ namespace onlineKredit.web.Controllers
                     model.Geschlecht = Geschlecht.Männlch;
                 else if (aktKunde.Geschlecht == "w")
                     model.Geschlecht = Geschlecht.Weiblich;
-                
+
 
                 return View(model);
             }
@@ -418,7 +428,7 @@ namespace onlineKredit.web.Controllers
                     return RedirectToAction("ZusammenFassung");
                 }
             }
-            
+
 
             return View(model);
         }
@@ -522,7 +532,7 @@ namespace onlineKredit.web.Controllers
             }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
             else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
               aktKunde != null &&
-              model.Strasse == aktKunde.KontaktDaten.Strasse  &&
+              model.Strasse == aktKunde.KontaktDaten.Strasse &&
               model.Hausnummer == aktKunde.KontaktDaten.Hausnummer &&
               model.Stiege == aktKunde.KontaktDaten.Stiege &&
               model.Tuer == aktKunde.KontaktDaten.Tür &&
@@ -556,7 +566,7 @@ namespace onlineKredit.web.Controllers
         #endregion
 
         #region Arbeitgeber
-        
+
         [HttpGet]
         public ActionResult Arbeitgeber()
         {
@@ -688,9 +698,9 @@ namespace onlineKredit.web.Controllers
         }
 
         #endregion
-        
+
         #region KontoIformation
-        
+
         /// <summary>
         /// Hier wird mittels Dropdown abgefragt, ob der Kunde:
         ///     - ein vorhandenes Deutsche Ban AG - Konto verwenden möchte
@@ -727,12 +737,12 @@ namespace onlineKredit.web.Controllers
             };
 
             Debug.Unindent();
-            
+
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult KontoVerfuegbar(KontoAbfrageModel model) 
+        public ActionResult KontoVerfuegbar(KontoAbfrageModel model)
         {
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
@@ -781,13 +791,13 @@ namespace onlineKredit.web.Controllers
                     Debugger.Break();
                 }
             }
-           
+
 
             Debug.Unindent();
 
             return View(model);
         }
-        
+
         /// <summary>
         /// Hier darf der User die Daten seines Vorhandenen Deutsche Bank AG - Kontos
         /// angeben, Das Eingabefeld Bank wird sichtbar für den User da gestellt, aber
@@ -824,10 +834,10 @@ namespace onlineKredit.web.Controllers
 
             if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
             {
-                if (KonsumKreditVerwaltung.KontoInformationenSpeichern( model.BIC, 
-                                                                        model.IBAN, 
-                                                                        "Deutsche Bank AG", 
-                                                                        true, 
+                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
+                                                                        model.IBAN,
+                                                                        "Deutsche Bank AG",
+                                                                        true,
                                                                         model.KundenID,
                                                                         false
                                                                         ))
@@ -871,7 +881,7 @@ namespace onlineKredit.web.Controllers
 
             bicUndIban = KonsumKreditVerwaltung.BankKontoErzeugen();
 
-      
+
             DeutscheBankKontoInformationModel model = new DeutscheBankKontoInformationModel()
             {
                 BIC = bicUndIban[0],
@@ -880,7 +890,7 @@ namespace onlineKredit.web.Controllers
                 BankInstitut = "Deutsche Bank AG",
                 KundenID = int.Parse(Request.Cookies["kundenID"].Value)
             };
-            
+
             return View(model);
         }
 
@@ -984,9 +994,9 @@ namespace onlineKredit.web.Controllers
 
 
         #endregion
-        
+
         #region ZusammenFassung
-        
+
         [HttpGet]
         public ActionResult ZusammenFassung()
         {
@@ -1008,8 +1018,8 @@ namespace onlineKredit.web.Controllers
             /// FinanuielleSituation
             model.NettoEinkommen = (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto;
             model.Wohnkosten = (double)aktKunde.FinanzielleSituation.Wohnkosten;
-            model.EinkuenfteAlimenteUnterhalt = (double)aktKunde.FinanzielleSituation.Unterhalt;
-            model.RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.Raten;
+            model.EinkuenfteAlimenteUnterhalt = (double)aktKunde.FinanzielleSituation.UnterhaltsZahlungen;
+            model.RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.RatenZahlungen;
 
             /// PersoenlicheDaten
             model.Geschlecht = aktKunde.Geschlecht == "m" ? "Herr" : "Frau";
@@ -1050,13 +1060,46 @@ namespace onlineKredit.web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ZusammenFassung(ZusammenFassungModel  model)
+        public ActionResult AngabeBestaetigung(int id, bool? bestaetigt)
         {
-            Debug.Indent();
-            Debug.WriteLine("POST - KonsumKreditController - ZusammenFassung");
-            Debug.Unindent();
+            if (bestaetigt.HasValue && bestaetigt.Value)
+            {
+                Debug.Indent();
+                Debug.WriteLine("POST - KonsumKreditController - ZusammenFassung");
 
-            return View();
+
+                //int idKunde = int.Parse(Request.Cookies["KundenID"].Value);
+                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(id);
+                Response.Cookies.Remove("KundenID");
+
+                bool kreditBewilligt = KreditFreigabe.FreigabePruefen(
+                                                          aktKunde.Geschlecht,
+                                                            aktKunde.Vorname,
+                                                            aktKunde.Nachname,
+                                                            aktKunde.Familienstand.Bezeichnung,
+                                                            (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto,
+                                                            (double)aktKunde.FinanzielleSituation.Wohnkosten,
+                                                            (double)aktKunde.FinanzielleSituation.SonstigeEinkommen,
+                                                            (double)aktKunde.FinanzielleSituation.UnterhaltsZahlungen,
+                                                            (double)aktKunde.FinanzielleSituation.RatenZahlungen);
+
+                /// Rüfe Service/DLL auf und prüfe auf Kreditfreigabe
+                Debug.WriteLine($"Kreditfreigabe {(kreditBewilligt ? "" : "nicht")}erteilt!");
+
+                Debug.Unindent();
+                return RedirectToAction("BewilligungsAusgabe", "Freigabe", new { bewilligt = kreditBewilligt });
+
+            }
+            else
+            {
+                Debug.Indent();
+                Debug.WriteLine("POST - KonsumKreditController - ZusammenFassung");
+                Debug.Indent();
+                Debug.WriteLine("Der bool \"bestaetigt\" hat keinen gültigen Wert, oder ist auf \"FALSE\" gesetzt!!!");
+                Debug.Unindent();
+                Debug.Unindent();
+                return RedirectToAction("Zusammenfassung");
+            }
         }
 
         #endregion

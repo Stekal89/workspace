@@ -156,8 +156,8 @@ namespace onlineKredit.logic
                             MonatsEinkommenNetto = (decimal)nettoEinkommen,
                             Wohnkosten = (decimal)wohnkosten,
                             SonstigeEinkommen = (decimal)einkuenfteAusAlimenten,
-                            Unterhalt = (decimal)unterhaltsZahlungen,
-                            Raten = (decimal)ratenVerpflichtungen
+                            UnterhaltsZahlungen = (decimal)unterhaltsZahlungen,
+                            RatenZahlungen = (decimal)ratenVerpflichtungen
                         };
 
                         /// Füge neue Finanzielle Situation in die Datenbank
@@ -168,8 +168,8 @@ namespace onlineKredit.logic
                         aktKunde.FinanzielleSituation.MonatsEinkommenNetto = (decimal)nettoEinkommen;
                         aktKunde.FinanzielleSituation.Wohnkosten = (decimal)wohnkosten;
                         aktKunde.FinanzielleSituation.SonstigeEinkommen = (decimal)einkuenfteAusAlimenten;
-                        aktKunde.FinanzielleSituation.Unterhalt = (decimal)unterhaltsZahlungen;
-                        aktKunde.FinanzielleSituation.Raten = (decimal)ratenVerpflichtungen;
+                        aktKunde.FinanzielleSituation.UnterhaltsZahlungen = (decimal)unterhaltsZahlungen;
+                        aktKunde.FinanzielleSituation.RatenZahlungen = (decimal)ratenVerpflichtungen;
                     }
 
                     /// Speichere Finanzielle Situation (Änderungen) in die Datenbank

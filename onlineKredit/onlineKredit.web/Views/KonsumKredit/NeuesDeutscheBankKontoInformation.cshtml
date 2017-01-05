@@ -22,27 +22,24 @@
         <div class="form-group">
             @Html.LabelFor(model => model.BIC, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-               <label>@Model.BIC</label> 
-                @Html.EditorFor(model => model.BIC, new { htmlAttributes = new { @class = "form-control", @style="display: none" } })
+                <label>@Model.BIC</label>
+                @Html.EditorFor(model => model.BIC, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control", @style="display: none" } })
+            @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
             <div class="col-md-10">
                 <label>@Model.IBAN</label>
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.BankInstitut, htmlAttributes: new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.BankInstitut, new { htmlAttributes = new { @class = "form-control", @style="display: none" } })
+            @Html.EditorFor(model => model.BankInstitut, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
             <div class="col-md-10">
-               <label>@Model.BankInstitut</label>
+                <label>@Model.BankInstitut</label>
             </div>
         </div>
-
         <div class="form-group">
             @*@Html.LabelFor(model => model.IstDeutscheBankKunde, htmlAttributes: new { @class = "control-label col-md-2", @style="display: none" })*@
             <div class="col-md-10">
@@ -53,21 +50,25 @@
             </div>
         </div>
 
-        
         <div class="form-group">
-            @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style="display: none" })
+            @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
                 @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
             </div>
         </div>
-        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <a type="button" href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Zurück</a>
             </div>
         </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Konto bestätigen" class="btn btn-primary" />
+                </div>
+            </div>
+
     </div>
 }
 

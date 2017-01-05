@@ -464,8 +464,8 @@
           <Property Name="MonatsEinkommenNetto" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Wohnkosten" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="SonstigeEinkommen" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Unterhalt" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Raten" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UnterhaltsZahlungen" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="RatenZahlungen" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="Kunde" Relationship="Self.FK__tblFinanz__IDFin__4222D4EF" FromRole="tblFinanzielleSituation" ToRole="tblKunde" />
         </EntityType>
         <EntityType Name="IdentifikationsArt">
@@ -900,8 +900,8 @@
                 <ScalarProperty Name="MonatsEinkommenNetto" ColumnName="MonatsEinkommenNetto" />
                 <ScalarProperty Name="Wohnkosten" ColumnName="Wohnkosten" />
                 <ScalarProperty Name="SonstigeEinkommen" ColumnName="SonstigeEinkommen" />
-                <ScalarProperty Name="Unterhalt" ColumnName="Unterhalt" />
-                <ScalarProperty Name="Raten" ColumnName="Raten" />
+                <ScalarProperty Name="UnterhaltsZahlungen" ColumnName="Unterhalt" />
+                <ScalarProperty Name="RatenZahlungen" ColumnName="Raten" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
