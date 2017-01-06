@@ -19,10 +19,5 @@ namespace onlineKredit.web.Models
         [Range(1,120, ErrorMessage ="Laufzeit muss zwischen 1 und 120 Monaten liegen.")]
         public short Laufzeit { get; set; }
 
-        ///// <summary>
-        ///// Wird benötigt, wenn man von der Zusammenfassung die Daten, anzeigen bzw. speichern möchte!!!
-        ///// </summary>
-        //[HiddenInput(DisplayValue = false)]
-        //public int KundenID { get; set; }
     }
 }

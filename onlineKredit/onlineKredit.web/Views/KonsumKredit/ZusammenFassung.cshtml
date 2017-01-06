@@ -2,257 +2,257 @@
 @{
     ViewBag.Title = "ZusammenFassung";
 }
-<h2>ZusammenFassung</h2>
+
+<h2 class="form-heading">Zusammenfassung Ihrer Daten</h2>
 <div>
-    <h4>Zusammenfassung</h4>
-    <hr />
-    @* Kunden ID *@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.KundenID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KundenID)
-        </dd>
-    </dl>
-    <br />
-    <h3>Kreditrahmen:</h3>
+
     @* Kreditrahmen *@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.GewuenschterBetrag)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GewuenschterBetrag)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Laufzeit)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Laufzeit)
-        </dd>
-    </dl>
-    <a href="@Url.Action("KreditRahmen", "KonsumKredit")" class="btn btn-primary">Kreditrahmen bearbeiten</a>
-    
-    <br />
-    <h3>Finanzielle Situation:</h3>
+    <section class="input-fromular">
+        <h3>Kreditrahmen:</h3>    
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.GewuenschterBetrag)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GewuenschterBetrag)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Laufzeit)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Laufzeit)
+            </dd>
+        </dl>
+        <a href="@Url.Action("KreditRahmen", "KonsumKredit")" class="btn btn-primary">Kreditrahmen bearbeiten</a>
+    </section>
+
     @* Finanzielle Situation *@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NettoEinkommen)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.NettoEinkommen)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Wohnkosten)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Wohnkosten)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EinkuenfteAlimenteUnterhalt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EinkuenfteAlimenteUnterhalt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UnterhaltsZahlungen)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UnterhaltsZahlungen)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.RatenVerpflichtungen)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.RatenVerpflichtungen)
-        </dd>
-    </dl>
-    <a href="@Url.Action("FinanzielleSituation", "KonsumKredit")" class="btn btn-primary">Finanzielle Situation bearben</a>
-    <br />
-    <h3>Persönliche Daten:</h3>
+    <section class="input-fromular">
+        <h3>Finanzielle Situation:</h3>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.NettoEinkommen)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NettoEinkommen)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wohnkosten)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wohnkosten)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EinkuenfteAlimenteUnterhalt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EinkuenfteAlimenteUnterhalt)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.UnterhaltsZahlungen)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.UnterhaltsZahlungen)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.RatenVerpflichtungen)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RatenVerpflichtungen)
+            </dd>
+        </dl>
+        <a href="@Url.Action("FinanzielleSituation", "KonsumKredit")" class="btn btn-primary">Finanzielle Situation bearben</a>
+    </section>
+
     @* Persönliche Daten*@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Geschlecht)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Geschlecht)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Titel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Titel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Vorname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Vorname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Nachname)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Nachname)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.GeburtsDatum)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.GeburtsDatum)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Staatsbuergerschaft)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Staatsbuergerschaft)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AnzahlKinder)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AnzahlKinder)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Familienstand)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Familienstand)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Wohnart)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Wohnart)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SchulAbschluss)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SchulAbschluss)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IdentifikationsArt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IdentifikationsArt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IdentifikationsNummer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IdentifikationsNummer)
-        </dd>
-    </dl>
-    <a href="@Url.Action("PersoenlicheDaten", "KonsumKredit")" class="btn btn-primary">Persönliche Daten bearbeiten</a>
-    <br />
-    <h3>Kontaktdaten:</h3>
+    <section class="input-fromular">
+        <h3>Persönliche Daten:</h3>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Geschlecht)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Geschlecht)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Titel)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Titel)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Vorname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Vorname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Nachname)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Nachname)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.GeburtsDatum)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.GeburtsDatum)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Staatsbuergerschaft)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Staatsbuergerschaft)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.AnzahlKinder)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AnzahlKinder)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Familienstand)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Familienstand)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Wohnart)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Wohnart)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.SchulAbschluss)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.SchulAbschluss)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IdentifikationsArt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IdentifikationsArt)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IdentifikationsNummer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IdentifikationsNummer)
+            </dd>
+        </dl>
+        <a href="@Url.Action("PersoenlicheDaten", "KonsumKredit")" class="btn btn-primary">Persönliche Daten bearbeiten</a>
+    </section>
+
     @* Kontaktdaten *@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Strasse)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Strasse)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Hausnummer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Hausnummer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Stiege)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Stiege)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Tuer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Tuer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Ort)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Ort)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.EMail)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.EMail)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TelefonNummer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TelefonNummer)
-        </dd>
-    </dl>
-    <a href="@Url.Action("KontaktDaten", "KonsumKredit")" class="btn btn-primary">Kontaktdaten bearbeiten</a>
-    <br />
-    <h3>Arbeitgeber:</h3>
+    <section class="input-fromular">
+        <h3>Kontaktdaten:</h3>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Strasse)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Strasse)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Hausnummer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Hausnummer)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Stiege)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Stiege)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tuer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tuer)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ort)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ort)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.EMail)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.EMail)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TelefonNummer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TelefonNummer)
+            </dd>
+        </dl>
+        <a href="@Url.Action("KontaktDaten", "KonsumKredit")" class="btn btn-primary">Kontaktdaten bearbeiten</a>
+    </section>
+
     @* Arbeitgeber *@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Firma)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Firma)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BeschaeftigungsArt)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BeschaeftigungsArt)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Branche)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Branche)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BeschaeftigtSeit)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BeschaeftigtSeit)
-        </dd>
-    </dl>
-    <a href="@Url.Action("Arbeitgeber", "KonsumKredit")" class="btn btn-primary">Arbeitgeber bearbeiten</a>
-    <br />
-    <h3>Kontoinformationen:</h3>
+    <section class="input-fromular">
+        <h3>Arbeitgeber:</h3>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Firma)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Firma)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BeschaeftigungsArt)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BeschaeftigungsArt)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Branche)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Branche)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BeschaeftigtSeit)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BeschaeftigtSeit)
+            </dd>
+        </dl>
+        <a href="@Url.Action("Arbeitgeber", "KonsumKredit")" class="btn btn-primary">Arbeitgeber bearbeiten</a>
+    </section>
+
     @* Kontoinformation *@
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.BIC)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BIC)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.IBAN)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.IBAN)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BankInstitut)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BankInstitut)
-        </dd>
-    </dl>
-    <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Kontoinformationen bearbeiten</a>
+    <section class="input-fromular">
+        <h3>Kontoinformationen:</h3>
+        <dl class="dl-horizontal detail-alignment">
+            <dt>
+                @Html.DisplayNameFor(model => model.BIC)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BIC)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.IBAN)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.IBAN)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BankInstitut)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BankInstitut)
+            </dd>
+        </dl>
+        <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Kontoinformationen bearbeiten</a>
+    </section>
 
-
-    <h3>Einverständnis-Erklärung</h3>
+    <h2 class="form-heading">Einverständnis-Erklärung</h2>
     @using (Html.BeginForm("AngabeBestaetigung", "KonsumKredit", FormMethod.Post))
             {
         <div class="row">
@@ -269,9 +269,10 @@
 
                 @Html.AntiForgeryToken()
                 @Html.Hidden("id", Model.KundenID)
-                <input class="btn btn-primary" type="submit" value="Angaben bestätigen">
+                <input class="btn btn-primary" type="submit" value="Angaben bestätigen" onClick="javascript:window.print()">
             </div>
         </div>
+        <input type="button" value=" drucken " class="btn-primary" onClick="javascript:window.print()">
     }
 </div>
 

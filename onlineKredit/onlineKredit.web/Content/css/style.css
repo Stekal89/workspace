@@ -469,7 +469,24 @@ body {
     padding-left: 40px;
 }
 
+.input-fromular{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #D4D4D5;
+}
 
+.form-heading{
+    text-align: center;
+    font-weight: bolder;
+}
 
-
+.detail-alignment{
+    float: none;
+}
 

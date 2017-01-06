@@ -4,40 +4,40 @@
     ViewBag.Title = "KontoVerfuegbar";
 }
 
-<h2>KontoVerfuegbar</h2>
+<h2 class="form-heading">Konto-Abfrage</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.KundenID)
 
-    <div class="form-horizontal">
-        <h4>KontoAbfrageModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.ID_KontoAbfrage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ID_KontoAbfrage, new SelectList(Model.AlleKontoAbfrageMoeglichkeitenAngaben, "ID", "Bezeichnung"), "bitte wählen...")
-                @Html.ValidationMessageFor(model => model.ID_KontoAbfrage, "", new { @class = "text-danger" })
+    <section class="input-fromular">
+        <div class="form-horizontal">
+            <h4>KontoAbfrageModel</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_KontoAbfrage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ID_KontoAbfrage, new SelectList(Model.AlleKontoAbfrageMoeglichkeitenAngaben, "ID", "Bezeichnung"), "bitte wählen...")
+                    @Html.ValidationMessageFor(model => model.ID_KontoAbfrage, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
             </div>
         </div>
-
-        
-    <div class="form-group">
-        @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none"  })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
-            @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none"  })
-        </div>
-    </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
+    </section>
 }
 
 @section Scripts {

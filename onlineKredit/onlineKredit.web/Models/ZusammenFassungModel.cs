@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +11,8 @@ namespace onlineKredit.web.Models
     {
         #region Allgemein
 
+        [Required]
+        [HiddenInput(DisplayValue = false)]
         public int KundenID { get; set; }
 
         #endregion
