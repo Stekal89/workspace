@@ -2,4 +2,3 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.fre
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.pdb
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.pdb
-C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.csprojResolveAssemblyReference.cache

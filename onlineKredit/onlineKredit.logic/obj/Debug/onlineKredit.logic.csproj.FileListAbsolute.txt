@@ -419,6 +419,6 @@ C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.log
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\bin\Debug\System.Reflection.Metadata.xml
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\bin\Debug\System.Text.Encodings.Web.xml
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\bin\Debug\de\EntityFramework.resources.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.csprojResolveAssemblyReference.cache
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.pdb
-C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.logic\obj\Debug\onlineKredit.logic.csprojResolveAssemblyReference.cache

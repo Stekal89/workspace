@@ -4,7 +4,10 @@
     ViewBag.Title = "KontaktDaten";
 }
 
+
+
 <h2 class="form-heading">Kontakt Daten</h2>
+
 
 @using (Html.BeginForm()) 
 {
@@ -45,13 +48,36 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.FK_Ort, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
+    @Html.LabelFor(model => model.FK_Ort, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+
+
+    <input value="@Model.PLZUndOrtInText" id="PLZUndOrtInText" name="PLZUndOrtInText" type="text" list="orte" placeholder="bitte Ort eingeben..." data-val-required="Bitte Postleitzahl und Ort angeben." class="input-validation-error">
+    <datalist id="orte">
+        @foreach (var item in Model.AlleOrtsAngabenWeb)
+        {
+            <option value="@item.PLZUndOrt"></option>
+        }
+    </datalist>
+    @Html.ValidationMessageFor(model => model.PLZUndOrtInText, "", new { @class = "text-danger" })
+
+@*
+         <input type="hidden" value="FK_Ort"/>
+    <input value="@Model.FK_Ort" id="FK_Ort" name="FK_Ort" type="text" list="orte" placeholder="bitte Ort eingeben..." data-val-required="Bitte Postleitzahl und Ort angeben." class="input-validation-error">
+     <datalist id="orte">
+         @foreach (var item in Model.AlleOrtsAngabenWeb)
+         {
+             <option value="@item.ID">@item.PLZUndOrt"</option>
+         }
+     </datalist>*@
+ 
+
 
                     @* Dropdown für Ort*@
-                    @Html.DropDownListFor(model => model.FK_Ort, new SelectList(Model.AlleOrtsAngabenWeb, "ID", "PLZUndOrt"), "bitte wählen...")
-                    @Html.ValidationMessageFor(model => model.FK_Ort, "", new { @class = "text-danger" })
-                </div>
+    @*@Html.DropDownListFor(model => model.FK_Ort, new SelectList(Model.AlleOrtsAngabenWeb, "ID", "PLZUndOrt"), "bitte wählen...")
+    @Html.ValidationMessageFor(model => model.FK_Ort, "", new { @class = "text-danger" })*@
+          
+                        </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.EMail, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -76,7 +102,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Weiter" class="btn btn-primary" />
+                    <input type="submit" value="Weiter" class="btn btn-primary"/>
                 </div>
             </div>
         </div>
@@ -89,31 +115,4 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-     @*@(Html.Kendo().ComboBox()
-          .Name("productComboBox") //The name of the ComboBox is mandatory. It specifies the "id" attribute of the widget.
-          .DataTextField("ProductName") //Specify which property of the Product to be used by the ComboBox as a text.
-          .DataValueField("ProductID") //Specify which property of the Product to be used by the ComboBox as a value.
-          .BindTo(Model)   //Pass the list of Products to the ComboBox.
-          .SelectedIndex(10) //Select an item with index 10. Note that the indexes are zero-based.
-        )*@
-
-@*<script>
-    $(document).ready(function() {
-        var fabric = $("#fabric").data("kendoComboBox");
-        var size = $("#size").data("kendoComboBox");
-
-		$("#get").click(function() {
-		    alert('Thank you! Your Choice is:\n\nFabric ID: ' + fabric.value() + ' and Size: ' + size.value());
-        });
-    });
-</script>*@
 

@@ -216,12 +216,17 @@ namespace onlineKredit.web.Controllers
 
         #region PersoenlicheDaten
 
-        [HttpGet]
-        public ActionResult PersoenlicheDaten()
+        /// <summary>
+        /// Fügt dem mitgegebenen PersoenlicheDaten Model die Daten von den Lookup-Tabellen
+        /// hinzu.
+        /// Seit dem ich im "PersoenlichenDatenModel" die eigene Validierung für das Datum geschrieben habe,
+        /// werden die Lookup-Daten vom "model" auf "NULL" gesetzt, somit muss ich im [HttpPOST], noch mal 
+        /// die Lookup-Daten für die Dropdownlisten neu zuweisen.
+        /// </summary>
+        /// <param name="model">Ein Modell für die persönlichen Daten eines Users</param>
+        /// <returns>Lookuptabellendaten</returns>
+        private PersoenlicheDatenModel PersoenlicheDatenLookup(PersoenlicheDatenModel model)
         {
-            #region LookupTabellenLaden
-
-
             List<TitelModel> alleTitelAngabenWeb = new List<TitelModel>();
 
             /// In der BL habe ich Methoden/Funktionen geschrieben, die es mir erlauben die Daten 
@@ -291,23 +296,28 @@ namespace onlineKredit.web.Controllers
                 });
             }
 
-            #endregion
+            model.AlleTitelAngabenWeb = alleTitelAngabenWeb;
+            model.AlleLaenderAngabenWeb = alleLaenderAngabenWeb;
+            model.AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb;
+            model.AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb;
+            model.AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb;
+            model.AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb;
+            model.KundenID = int.Parse(Request.Cookies["kundenID"].Value);
 
+            return model;
+        }
+
+        [HttpGet]
+        public ActionResult PersoenlicheDaten()
+        {
             if (!HomeController.alleDatenAngegeben)
             {
                 /// erzeugt das Model für die persönlichen Daten und 
                 /// fügt dem die Daten für die Lookup-Tabellen hinzu.
                 /// Id des Kunden wird auch mit übergeben
-                PersoenlicheDatenModel model = new PersoenlicheDatenModel()
-                {
-                    AlleTitelAngabenWeb = alleTitelAngabenWeb,
-                    AlleLaenderAngabenWeb = alleLaenderAngabenWeb,
-                    AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb,
-                    AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb,
-                    AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb,
-                    AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb,
-                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-                };
+                PersoenlicheDatenModel model = new PersoenlicheDatenModel();
+                model = PersoenlicheDatenLookup(model);
+                
                 return View(model);
             }
             else if (HomeController.alleDatenAngegeben)
@@ -331,20 +341,15 @@ namespace onlineKredit.web.Controllers
                     ID_IdentifikationsArt = (int)aktKunde.FKIdentifikationsArt,
                     IdentifikationsNummer = aktKunde.IdentifikationsNummer,
                     KundenID = aktKunde.ID,
-
-                    /// Daten für die Dropdownlisten
-                    AlleTitelAngabenWeb = alleTitelAngabenWeb,
-                    AlleLaenderAngabenWeb = alleLaenderAngabenWeb,
-                    AlleFamilienstandsAngabenWeb = alleFamilienStaendeAngabenWeb,
-                    AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb,
-                    AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb,
-                    AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb,
                 };
+
+                /// Daten für die Dropdownlisten
+                model = PersoenlicheDatenLookup(model);
+
                 if (aktKunde.Geschlecht == "m")
                     model.Geschlecht = Geschlecht.Männlch;
                 else if (aktKunde.Geschlecht == "w")
                     model.Geschlecht = Geschlecht.Weiblich;
-
 
                 return View(model);
             }
@@ -429,6 +434,18 @@ namespace onlineKredit.web.Controllers
                 }
             }
 
+            List<TitelModel> alleTitelAngabenWeb = new List<TitelModel>();
+
+            foreach (var titelAngabeWeb in KonsumKreditVerwaltung.TitelLaden())
+            {
+                alleTitelAngabenWeb.Add(new TitelModel()
+                {
+                    ID = titelAngabeWeb.ID.ToString(),
+                    Bezeichnung = titelAngabeWeb.Bezeichnung
+                });
+            }
+
+            model = PersoenlicheDatenLookup(model);/// Daten für die Dropdownlisten
 
             return View(model);
         }
@@ -437,13 +454,8 @@ namespace onlineKredit.web.Controllers
 
         #region KontaktDaten
 
-        [HttpGet]
-        public ActionResult KontaktDaten()
+        private KontaktDatenModel KontaktDatenLookup(KontaktDatenModel model)
         {
-            Debug.Indent();
-            Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
-            Debug.Unindent();
-
             List<OrtModel> alleOrtsAngabenWeb = new List<OrtModel>();
 
             foreach (var ortsAngabenWeb in KonsumKreditVerwaltung.OrteLaden())
@@ -460,14 +472,24 @@ namespace onlineKredit.web.Controllers
                     PLZUndOrt = ortsAngabenWeb.PLZ + " " + ortsAngabenWeb.Bezeichnung
                 });
             }
+            model.AlleOrtsAngabenWeb = alleOrtsAngabenWeb;
+            model.KundenID = int.Parse(Request.Cookies["kundenID"].Value);
+
+            return model;
+        }
+
+        [HttpGet]
+        public ActionResult KontaktDaten()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
+            Debug.Unindent();
 
             if (!HomeController.alleDatenAngegeben)
             {
-                KontaktDatenModel model = new KontaktDatenModel()
-                {
-                    AlleOrtsAngabenWeb = alleOrtsAngabenWeb,
-                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-                };
+                KontaktDatenModel model = new KontaktDatenModel();
+                /// Daten für die Dropdownliste
+                model = KontaktDatenLookup(model);
 
                 return View(model);
             }
@@ -488,10 +510,11 @@ namespace onlineKredit.web.Controllers
                     EMail = aktKunde.KontaktDaten.EMail,
                     TelefonNummer = aktKunde.KontaktDaten.Telefonnummer,
                     KundenID = aktKunde.ID,
-
-                    /// Daten für die Dropdownliste
-                    AlleOrtsAngabenWeb = alleOrtsAngabenWeb
                 };
+
+                /// Daten für die Dropdownliste
+                model = KontaktDatenLookup(model);
+
                 return View(model);
             }
 
@@ -505,6 +528,21 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - KontaktDaten");
             Debug.Unindent();
+
+            /// Daten für die Dropdownliste
+            model = KontaktDatenLookup(model);
+
+            /// Weist dem Model den Fremdschlüssel für die Eigenschaft FK_Ort zu
+            foreach (var item in model.AlleOrtsAngabenWeb)
+            {
+                if (item.PLZUndOrt == model.PLZUndOrtInText)
+                {
+                    int fk;
+                    int.TryParse(item.ID, out fk);
+                    model.FK_Ort = fk;
+                    break;
+                }
+            }
 
             Kunde aktKunde = null;
 
@@ -559,6 +597,8 @@ namespace onlineKredit.web.Controllers
                     return RedirectToAction("ZusammenFassung");
                 }
             }
+
+         
 
             return View(model);
         }

@@ -36,8 +36,31 @@ namespace onlineKredit.web.Models
         public string Nachname { get; set; }
 
         [Required(ErrorMessage = "Bitte Geburtsdatum wählen.")]
+        [ValidBirthDate]
         [DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime GeburtsDatum { get; set; }
+
+        [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+        public sealed class ValidBirthDate : ValidationAttribute
+        {
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                DateTime gebDat = Convert.ToDateTime(value);
+                DateTime aktDatum = DateTime.Now;
+                int alter = 0;
+
+                if (aktDatum.Month <= gebDat.Month && aktDatum.Day < gebDat.Day)
+                    alter = aktDatum.Year - gebDat.Year - 1;
+                else
+                    alter = aktDatum.Year - gebDat.Year;
+
+                if (alter >= 18)
+                    return ValidationResult.Success;
+                else
+                    return new ValidationResult("Mindestalter 18 Jahre");
+            }
+        }
 
         [Required(ErrorMessage = "Bitte Staatsbürgerschaft auswählen.")]
         [StringLength(3, ErrorMessage = "Maximal 3 Zeichen!")]
@@ -78,5 +101,7 @@ namespace onlineKredit.web.Models
         public List<SchulabschlussModel> AlleSchulabschlussAngabenWeb { get; set; }
         public List<IdentifikationsArtModel> AlleIdentifikationsArtAngabenWeb { get; set; }
         public List<WohnartModel> AlleWohnartsAngabenWeb { get; set; }
+
+    
     }
 }

@@ -42,6 +42,14 @@ namespace onlineKredit.web.Models
         [Required]
         public int KundenID { get; set; }
 
+        /// <summary>
+        ///  diese Eigenschaft wird benötigt, damit ich die ausgewählte Textkette (von der ComboBox)
+        ///  im Controller ansprechen kann und mittels dieser, zu filtern welcher Ort ausgewählt wurde (FK_Ort)
+        /// </summary>
+        [Required(ErrorMessage = "Bitte Postleitzahl und Ort wählen.")]
+        [Display(Name = "PLZ & Ort")]
+        public string PLZUndOrtInText { get; set; }
+
         public List<OrtModel> AlleOrtsAngabenWeb { get; set; }
     }
 }
