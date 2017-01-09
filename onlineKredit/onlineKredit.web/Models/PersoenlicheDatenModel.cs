@@ -20,25 +20,28 @@ namespace onlineKredit.web.Models
     {
         [Required]
         [EnumDataType(typeof(Geschlecht))]
+        [Display(Name = "Geschlecht")]
         public Geschlecht Geschlecht { get; set; }
-        
+
         [Display(Name = "Titel")]
         public int? ID_Titel { get; set; }  // weil nicht jede Person einen Titel hat, kann sie 
                                             // in der Tabelle auch NULL sein, deswegen verwenden
                                             // wir hier einen NULLABLE INTEGER "int?"
-        
+
         [Required(ErrorMessage = "Bitte den Vornamen eingeben.")]
         [StringLength(50, ErrorMessage = "Maximal 50 Zeichen!")]
+        [Display(Name = "Vorname")]
         public string Vorname { get; set; }
 
         [Required(ErrorMessage = "Bitte Nachnamen eingeben.")]
         [StringLength(50, ErrorMessage = "Maximal 50 Zeichen!")]
+        [Display(Name = "Nachname")]
         public string Nachname { get; set; }
 
         [Required(ErrorMessage = "Bitte Geburtsdatum wählen.")]
         [ValidBirthDate]
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Geburtsdatum")]
         public DateTime GeburtsDatum { get; set; }
 
         [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
@@ -101,7 +104,5 @@ namespace onlineKredit.web.Models
         public List<SchulabschlussModel> AlleSchulabschlussAngabenWeb { get; set; }
         public List<IdentifikationsArtModel> AlleIdentifikationsArtAngabenWeb { get; set; }
         public List<WohnartModel> AlleWohnartsAngabenWeb { get; set; }
-
-    
     }
 }

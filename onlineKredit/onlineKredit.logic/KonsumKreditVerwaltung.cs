@@ -64,7 +64,7 @@ namespace onlineKredit.logic
         /// <param name="idKunde">die ID des Kunden zu dem die Angaben gespeichert werden sollen</param>
         /// <param name="datenSatzVorhanden">bei TRUE wird ein vorhandener Datensatz bearbeitet/ bei FALSE ein neuer generiert</param>
         /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
-        public static bool KreditRahmenSpeichern(double kreditBetrag, short laufzeit, int idKunde, bool datenSatzVorhanden)
+        public static bool KreditRahmenSpeichern(double kreditBetrag, short laufzeit, int idKunde)
         {
             Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - KreditRahmenSpeichern");
@@ -79,29 +79,20 @@ namespace onlineKredit.logic
                     /// speichere zum Kunden die Angaben
                     Kunde aktKunde = context.AlleKunden.Where(x => x.ID == idKunde).FirstOrDefault();
 
-                    if (aktKunde != null && !datenSatzVorhanden)
+                    if (aktKunde != null)
                     {
-                        /// Leg neuen Kreditwunsch an
-                        Kredit neuerKreditWunsch = new Kredit()
-                        {
-                            GewuenschterKredit = (decimal)kreditBetrag,
-                            GewuenschteLaufzeit = laufzeit,
-                            ID = idKunde
-                        };
-
-                        /// Füge neuen Kreditwunsch in die Datenbank
-                        context.AlleKredite.Add(neuerKreditWunsch);
-                    }
-                    else if (aktKunde != null && datenSatzVorhanden)
-                    {
-                        /// Bearbeite vorhandenen Kreditwunsch
+                        if (aktKunde.Kredit == null)
+                            aktKunde.Kredit = new Kredit();
+                        
+                        /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
                         aktKunde.Kredit.GewuenschterKredit = (decimal)kreditBetrag;
                         aktKunde.Kredit.GewuenschteLaufzeit = laufzeit;
+                        aktKunde.Kredit.ID = idKunde;
                     }
 
                     /// Speichere Kreditwunsch in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
-                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
                     Debug.WriteLine($"{anzahlZeilenBetroffen} KreditRahmen gespeichert!");
                 }
             }
@@ -116,6 +107,38 @@ namespace onlineKredit.logic
 
             Debug.Unindent();
             return erfolgreich;
+        }
+
+        /// <summary>
+        /// Liefert den aktuellen, KreditRahmen des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>Kredit bei Fehler NULL</returns>
+        public static Kredit KreditRahmenLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - KreditRahmenLaden");
+            Debug.Indent();
+
+            Kredit aktKreditRahmen = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktKreditRahmen = context.AlleKredite.Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung KreditRahmenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+                Debug.Unindent();
+            }
+            return aktKreditRahmen;
         }
 
         #endregion
@@ -133,7 +156,7 @@ namespace onlineKredit.logic
         /// <param name="idKunde"></param>
         /// <param name="datenSatzVorhanden">bei TRUE wird ein vorhandener Datensatz bearbeitet/ bei FALSE ein neuer generiert</param>
         /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
-        public static bool FinanzielleSituationSpeichern(double nettoEinkommen, double wohnkosten, double einkuenfteAusAlimenten, double unterhaltsZahlungen, double ratenVerpflichtungen, int idKunde, bool datenSatzVorhanden)
+        public static bool FinanzielleSituationSpeichern(double nettoEinkommen, double wohnkosten, double einkuenfteAusAlimenten, double unterhaltsZahlungen, double ratenVerpflichtungen, int idKunde)
         {
             Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - FinanzielleSituationSpeichern");
@@ -147,34 +170,23 @@ namespace onlineKredit.logic
                 {
                     Kunde aktKunde = context.AlleKunden.Where(x => x.ID == idKunde).FirstOrDefault();
 
-                    if (aktKunde != null && !datenSatzVorhanden)
+                    if (aktKunde != null)
                     {
-                        /// Leg neue Finanzielle Situation an
-                        FinanzielleSituation neueFinanzSituation = new FinanzielleSituation()
-                        {
-                            ID = idKunde,
-                            MonatsEinkommenNetto = (decimal)nettoEinkommen,
-                            Wohnkosten = (decimal)wohnkosten,
-                            SonstigeEinkommen = (decimal)einkuenfteAusAlimenten,
-                            UnterhaltsZahlungen = (decimal)unterhaltsZahlungen,
-                            RatenZahlungen = (decimal)ratenVerpflichtungen
-                        };
+                        if (aktKunde.FinanzielleSituation == null)
+                            aktKunde.FinanzielleSituation = new FinanzielleSituation();
 
-                        /// Füge neue Finanzielle Situation in die Datenbank
-                        context.AlleFinanzielleSituationen.Add(neueFinanzSituation);
-                    }
-                    else if (aktKunde != null && datenSatzVorhanden)
-                    {
+                        /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
+                        aktKunde.FinanzielleSituation.ID = idKunde;
                         aktKunde.FinanzielleSituation.MonatsEinkommenNetto = (decimal)nettoEinkommen;
                         aktKunde.FinanzielleSituation.Wohnkosten = (decimal)wohnkosten;
                         aktKunde.FinanzielleSituation.SonstigeEinkommen = (decimal)einkuenfteAusAlimenten;
                         aktKunde.FinanzielleSituation.UnterhaltsZahlungen = (decimal)unterhaltsZahlungen;
                         aktKunde.FinanzielleSituation.RatenZahlungen = (decimal)ratenVerpflichtungen;
                     }
-
+               
                     /// Speichere Finanzielle Situation (Änderungen) in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
-                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
                     Debug.WriteLine($"{anzahlZeilenBetroffen} FinanzielleSituation gespeichert!");
                 }
             }
@@ -191,9 +203,43 @@ namespace onlineKredit.logic
             Debug.Unindent();
             return erfolgreich;
         }
-        
+
+        /// <summary>
+        /// Liefert die aktuelle, Finanzielle Situation des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>FinanzielleSituation bei Fehler NULL</returns>
+        public static FinanzielleSituation FinanzielleSituationLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - FinanzielleSituationLaden");
+            Debug.Indent();
+
+            FinanzielleSituation aktFinanzielleSituation = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktFinanzielleSituation = context.AlleFinanzielleSituationen.Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung FinanzielleSituationLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+                Debug.Unindent();
+                return aktFinanzielleSituation;
+            }
+
+            return aktFinanzielleSituation;
+        }
+
         #endregion
-        
+
         #region PersoenlicheDaten
 
         /// Hier werden die Daten für die Lookup-Tabellen aus der Datenbank gelesen
@@ -464,7 +510,7 @@ namespace onlineKredit.logic
 
                     /// Speichere Änderungen des Kunden in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
-                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
                     Debug.WriteLine($"{anzahlZeilenBetroffen} persönliche Daten gespeichert!");
                 }
             }
@@ -481,7 +527,39 @@ namespace onlineKredit.logic
 
             return erfolgreich;
         }
-        
+
+        /// <summary>
+        /// Liefert die aktuellen persönlichen Daten des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>Kundendaten bei Fehler NULL</returns>
+        public static Kunde PersoenlicheDatenLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - PersoenlicheDatenLaden");
+            Debug.Indent();
+
+            Kunde aktKunde = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung PersoenlicheDatenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+                Debug.Unindent();
+            }
+            return aktKunde;
+        }
+
         #endregion
 
         #region Arbeitgeber
@@ -576,7 +654,7 @@ namespace onlineKredit.logic
         /// <param name="kundenID"></param>
         /// <param name="datenSatzVorhanden">bei TRUE wird ein vorhandener Datensatz bearbeitet/ bei FALSE ein neuer generiert</param>
         /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
-        public static bool ArbeitgeberSpeichern(string firma, int idBeschaeftigungsArt, int idBranche, DateTime beschaeftigtSeit, int kundenID,bool datenSatzVorhanden)
+        public static bool ArbeitgeberSpeichern(string firma, int idBeschaeftigungsArt, int idBranche, DateTime beschaeftigtSeit, int kundenID)
         {
             Debug.Indent();
             Debug.WriteLine("KonusmKreditVerwaltung - ArbeitgeberSpeichern");
@@ -590,23 +668,13 @@ namespace onlineKredit.logic
                 {
                     Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
 
-                    if (aktKunde != null && !datenSatzVorhanden)
+                    if (aktKunde != null)
                     {
-                        /// Lege neuen Arbeitgeber passend zum Kunden an
-                        Arbeitgeber neuerArbeitgeber = new Arbeitgeber()
-                        {
-                            ID = kundenID,
-                            Firma = firma,
-                            FKBeschaeftigungsArt = idBeschaeftigungsArt,
-                            FKBranche = idBranche,
-                            BeschaeftigtSeit = beschaeftigtSeit
-                        };
-                        /// füg neuen Arbeitgeber in die Datenbank
-                        aktKunde.Arbeitgeber = neuerArbeitgeber;
-                    }
-                    else if (aktKunde != null && datenSatzVorhanden)
-                    {
-                        /// Ändere Daten des Arbeitgeber in der Datenbank
+                        if (aktKunde.Arbeitgeber == null)
+                            aktKunde.Arbeitgeber = new Arbeitgeber();
+
+                        /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
+                        aktKunde.Arbeitgeber.ID = kundenID;
                         aktKunde.Arbeitgeber.Firma = firma;
                         aktKunde.Arbeitgeber.FKBeschaeftigungsArt = idBeschaeftigungsArt;
                         aktKunde.Arbeitgeber.FKBranche = idBranche;
@@ -615,7 +683,7 @@ namespace onlineKredit.logic
 
                     /// Speichere den Arbeitgeber in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
-                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
                     Debug.WriteLine($"{anzahlZeilenBetroffen} Arbeitgeber gespeichert!");
                 }
             }
@@ -633,13 +701,46 @@ namespace onlineKredit.logic
             return erfolgreich;
         }
 
+        /// <summary>
+        /// Liefert den aktuellen, Arbeitgeber des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>Arbeitgeber bei Fehler NULL</returns>
+        public static Arbeitgeber ArbeitgeberLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - ArbeitgeberLaden");
+            Debug.Indent();
+
+            Arbeitgeber aktArbeitgeber = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktArbeitgeber = context.AlleArbeitgeber.Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung ArbeitgeberLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+                Debug.Unindent();
+            }
+
+            return aktArbeitgeber;
+        }
+
         #endregion
 
         #region KontaktDaten
 
         /// Hier werden die Daten für die Lookup-Tabellen aus der Datenbank gelesen
         /// und anschliessend in jeder Funktion zuruckgegeben.
-        #region KontaktDaten
+        #region KontaktDatenLookup
 
         /*
             Für das Kontaktdaten Model wird 1 Lookuptabellen benötigt.
@@ -697,7 +798,7 @@ namespace onlineKredit.logic
         /// <param name="kundenID"></param>
         /// <param name="datenSatzVorhanden">bei TRUE wird ein vorhandener Datensatz bearbeitet/ bei FALSE ein neuer generiert</param>
         /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
-        public static bool KontaktDatenSpeichern(string strasse, string hausnummer, string stiege, string tuer, int fkOrt, string eMail, string telefonnummer, int kundenID, bool datenSatzVorhanden)
+        public static bool KontaktDatenSpeichern(string strasse, string hausnummer, string stiege, string tuer, int fkOrt, string eMail, string telefonnummer, int kundenID)
         {
             Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - KontaktDatenSpeichern");
@@ -711,26 +812,13 @@ namespace onlineKredit.logic
                 {
                     Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
 
-                    if (aktKunde != null && !datenSatzVorhanden)
+                    if (aktKunde != null)
                     {
-                        /// Erzeuge neue Kontaktdaten
-                        KontaktDaten neueKontaktDaten = new KontaktDaten()
-                        {
-                            ID = kundenID,
-                            Strasse = strasse,
-                            Hausnummer = hausnummer,
-                            Stiege = stiege,
-                            Tür = tuer,
-                            FKOrt = fkOrt,
-                            EMail = eMail,
-                            Telefonnummer = telefonnummer
-                        };
-                        /// Füge neue Kontaktdaten in die Datenbank
-                        aktKunde.KontaktDaten = neueKontaktDaten;
-                    }
-                    else if (aktKunde != null && datenSatzVorhanden)
-                    {
-                        /// Kontaktdaten in der Datenbank ändern
+                        if (aktKunde.KontaktDaten == null)
+                            aktKunde.KontaktDaten = new KontaktDaten();
+
+                        /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
+                        aktKunde.KontaktDaten.ID = kundenID;
                         aktKunde.KontaktDaten.Strasse = strasse;
                         aktKunde.KontaktDaten.Hausnummer = hausnummer;
                         aktKunde.KontaktDaten.Stiege = stiege;
@@ -742,7 +830,7 @@ namespace onlineKredit.logic
 
                     /// Speichere Kontaktdaten(Änderungen) in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
-                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
                     Debug.WriteLine($"{anzahlZeilenBetroffen} Kontakt Daten gespeichert!");
                 }
 
@@ -763,8 +851,41 @@ namespace onlineKredit.logic
             return erfolgreich;
         }
 
+        /// <summary>
+        /// Liefert die aktuellen, Kontaktdaten des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>Kontaktdaten bei Fehler NULL</returns>
+        public static KontaktDaten KontaktDatenLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - KontaktDatenLaden");
+            Debug.Indent();
+
+            KontaktDaten aktKontaktDaten = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktKontaktDaten = context.AlleKontaktDaten.Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung KontaktDatenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+                Debug.Unindent();
+            }
+
+            return aktKontaktDaten;
+        }
+
         #endregion
-        
+
         #region KontoInformation
 
         /// <summary>
@@ -813,7 +934,7 @@ namespace onlineKredit.logic
         /// <param name="kundenID"></param>
         /// <param name="datenSatzVorhanden">bei TRUE wird ein vorhandener Datensatz bearbeitet/ bei FALSE ein neuer generiert</param>
         /// <returns></returns>
-        public static bool KontoInformationenSpeichern(string bic, string iban, string bankInstitut, bool istDeutscheBankKunde, int kundenID, bool datenSatzVorhanden)
+        public static bool KontoInformationenSpeichern(string bic, string iban, string bankInstitut, bool istDeutscheBankKunde, int kundenID)
         {
             Debug.Indent();
             Debug.WriteLine("KonsumKreditVerwaltung - KontoInformationenSpeichern");
@@ -827,23 +948,13 @@ namespace onlineKredit.logic
                 {
                     Kunde aktKunde = context.AlleKunden.Where(x => x.ID == kundenID).FirstOrDefault();
 
-                    if (aktKunde != null && !datenSatzVorhanden)
+                    if (aktKunde != null)
                     {
-                        /// Lege neuesKonto für den Kunden an
-                        KontoDaten neuesKonto = new KontoDaten()
-                        {
-                            ID = kundenID,
-                            BIC = bic,
-                            IBAN = iban,
-                            Bank = bankInstitut,
-                            HatKonto = istDeutscheBankKunde
-                        };
-                        /// Füge neues Konto für den Kunden in die Datenbank ein
-                        aktKunde.KontoDaten = neuesKonto;
-                    }
-                    else if (aktKunde != null && datenSatzVorhanden)
-                    {
-                        /// Ändere vorhandene Kontodaten
+                        if (aktKunde.KontoDaten == null)
+                            aktKunde.KontoDaten = new KontoDaten();
+
+                        /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
+                        aktKunde.KontoDaten.ID = kundenID;
                         aktKunde.KontoDaten.BIC = bic;
                         aktKunde.KontoDaten.IBAN = iban;
                         aktKunde.KontoDaten.Bank = bankInstitut;
@@ -852,7 +963,7 @@ namespace onlineKredit.logic
 
                     /// Speichere KontoDaten (Änderungen) in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
-                    erfolgreich = anzahlZeilenBetroffen >= 1;
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
                     Debug.WriteLine($"{anzahlZeilenBetroffen} Kontoinformationen gespeichert!");
                 }
             }
@@ -869,11 +980,12 @@ namespace onlineKredit.logic
 
             return erfolgreich;
         }
-
+        
         /// <summary>
-        /// Ladet
+        /// Liefert ALLE Kontodaten aus der Datenbank
         /// </summary>
-        /// <returns></returns>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>Kontodaten bei Fehler NULL</returns>
         public static List<KontoDaten> KontoDatenLaden()
         {
             Debug.Indent();
@@ -1113,7 +1225,38 @@ namespace onlineKredit.logic
             return eingabeIBAN;
         }
 
+        /// <summary>
+        /// Liefert die aktuellen, KontoDaten des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>Kontodaten bei Fehler NULL</returns>
+        public static KontoDaten KontoDatenLaden(int kundenID)
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - KontaktDatenLaden");
+            Debug.Indent();
 
+            KontoDaten aktKontoDaten = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    aktKontoDaten = context.AlleKontoDaten.Where(x => x.ID == kundenID).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KonsumKreditVerwaltung KontaktDatenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+                Debug.Unindent();
+            }
+
+            return aktKontoDaten;
+        }
 
         #endregion
 
@@ -1165,8 +1308,6 @@ namespace onlineKredit.logic
         }
 
         #endregion
-
-       
     }
 
     /// <summary>

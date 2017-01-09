@@ -11,6 +11,7 @@ namespace onlineKredit.web.Models
     {
         [Required(ErrorMessage = "Bitte Firmennamen eingeben.")]
         [StringLength(100, ErrorMessage = "Maximal 100 Zeichen!")]
+        [Display(Name = "Firma")]
         public string Firma { get; set; }
 
         [Required(ErrorMessage = "Bitte Beschäftigungsart wählen.")]
@@ -24,6 +25,7 @@ namespace onlineKredit.web.Models
 
         [Required(ErrorMessage = "Bitte Datum wählen, seit dem sie in dieser Firma beschäftigt sind.")]
         [DataType(DataType.Date)]
+        [Display(Name = "Beschäftigt seit")]
         // [DisplayFormat(DataFormatString ="{0:MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BeschaeftigtSeit { get; set; }
 

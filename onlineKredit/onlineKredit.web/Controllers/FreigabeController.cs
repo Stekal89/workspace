@@ -11,6 +11,8 @@ namespace onlineKredit.web.Controllers
         [HttpGet]
         public ActionResult BewilligungsAusgabe(bool bewilligt)
         {
+            HomeController.alleDatenAngegeben = false;
+
             return View(bewilligt);
         }
     }

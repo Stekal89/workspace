@@ -22,34 +22,24 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
-
-            if (!HomeController.alleDatenAngegeben)
+            
+            KreditRahmenModel model = new KreditRahmenModel()
             {
-                KreditRahmenModel model = new KreditRahmenModel()
-                {
-                    GewuenschterBetrag = 5000,
-                    Laufzeit = 36
-                };
-                return View(model);
-            }
-            else if (HomeController.alleDatenAngegeben)
+                GewuenschterBetrag = 5000,  // default Werte
+                Laufzeit = 36   // default Werte
+            };
+
+            int id = -1;
+
+            if (Request.Cookies["KundenID"] != null && int.TryParse(Request.Cookies["KundenID"].Value, out id))
             {
-                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
-                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
-                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-
-                KreditRahmenModel model = new KreditRahmenModel()
-                {
-                    /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
-                    /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
-                    GewuenschterBetrag = (int)aktKunde.Kredit.GewuenschterKredit,
-                    Laufzeit = aktKunde.Kredit.GewuenschteLaufzeit
-                };
-
-                return View(model);
+                // Lade Daten aus der Datenbank
+                Kredit wunsch = KonsumKreditVerwaltung.KreditRahmenLaden(id);
+                model.GewuenschterBetrag = (int)wunsch.GewuenschterKredit;
+                model.Laufzeit = wunsch.GewuenschteLaufzeit;
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -58,21 +48,13 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - KreditRahmen");
             Debug.Unindent();
-
-            Kunde aktKunde = null;
-
-            if (HomeController.alleDatenAngegeben)
-            {
-                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
-                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-            }
-
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            
+            if (ModelState.IsValid)
             {
                 /// speichere Daten über BusinessLogic
                 Kunde neuerKunde = KonsumKreditVerwaltung.ErzeugeKunde();
 
-                if (neuerKunde != null && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, neuerKunde.ID, false))
+                if (neuerKunde != null && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, neuerKunde.ID))
                 {
                     /// ich benötige für alle weiteren Schritte die ID
                     /// des angelegten Kunden. Damit ich diese bei der nächsten Action
@@ -86,28 +68,13 @@ namespace onlineKredit.web.Controllers
                     Response.Cookies.Add(new HttpCookie("kundenID", neuerKunde.ID.ToString()));
 
                     /// gehe zum nächsten Schritt
-                    return RedirectToAction("FinanzielleSituation");
-                }
-            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
-              aktKunde != null &&
-              model.GewuenschterBetrag == aktKunde.Kredit.GewuenschterKredit &&
-              model.Laufzeit == aktKunde.Kredit.GewuenschteLaufzeit
-              )
-            {
-                return RedirectToAction("ZusammenFassung");
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                int kundenID = int.Parse(Request.Cookies["kundenID"].Value);
-
-                if (ModelState.IsValid && KonsumKreditVerwaltung.KreditRahmenSpeichern(model.GewuenschterBetrag, model.Laufzeit, kundenID, true))
-                {
-                    return RedirectToAction("ZusammenFassung");
+                    if (!HomeController.alleDatenAngegeben)
+                        return RedirectToAction("FinanzielleSituation");
+                    else
+                        return RedirectToAction("ZusammenFassung");
                 }
             }
-
-
+            
             /// falls der ModelState NICHT valid ist, bleibe hier und
             /// gib die Daten (falls vorhanden) wieder auf das UI
             return View(model);
@@ -123,36 +90,28 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - FinanzielleSituation");
             Debug.Unindent();
-
-            if (!HomeController.alleDatenAngegeben)
+            
+            FinanzielleSituationModel model = new FinanzielleSituationModel()
             {
-                FinanzielleSituationModel model = new FinanzielleSituationModel()
-                {
-                    //KundenID = int.Parse(TempData["idKunde"].ToString())
-                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-                };
-                return View(model);
-            }
-            else if (HomeController.alleDatenAngegeben)
-            {
-                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
-                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
-                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+                //KundenID = int.Parse(TempData["idKunde"].ToString())
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
 
-                FinanzielleSituationModel model = new FinanzielleSituationModel()
-                {
-                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
-                    NettoEinkommen = (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto,
-                    Wohnkosten = (double)aktKunde.FinanzielleSituation.Wohnkosten,
-                    EinkuenfteAlimenteUnterhalt = (double)aktKunde.FinanzielleSituation.SonstigeEinkommen,
-                    UnterhaltsZahlungen = (double)aktKunde.FinanzielleSituation.UnterhaltsZahlungen,
-                    RatenVerpflichtungen = (double)aktKunde.FinanzielleSituation.RatenZahlungen,
-                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-                };
-                return View(model);
+            /// Rufe Verwaltung mit Kunden ID auf
+            /// Wenn es zu dieser KundenID Persönlichen Daten gibt
+            /// gib diese zurück
+            FinanzielleSituation finanzielleSituation = KonsumKreditVerwaltung.FinanzielleSituationLaden(model.KundenID);
+            
+            if (finanzielleSituation != null)
+            {
+                model.NettoEinkommen = (double)finanzielleSituation.MonatsEinkommenNetto;
+                model.Wohnkosten = (double)finanzielleSituation.Wohnkosten.Value;
+                model.EinkuenfteAlimenteUnterhalt = (double)finanzielleSituation.SonstigeEinkommen;
+                model.UnterhaltsZahlungen = (double)finanzielleSituation.UnterhaltsZahlungen;
+                model.RatenVerpflichtungen = (double)finanzielleSituation.RatenZahlungen;
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -162,53 +121,24 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - FinanzielleSituation");
             Debug.Unindent();
-
-            Kunde aktKunde = null;
-
-            if (HomeController.alleDatenAngegeben)
-            {
-                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
-                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-            }
-
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.FinanzielleSituationSpeichern(model.NettoEinkommen,
                                                                         model.Wohnkosten,
                                                                         model.EinkuenfteAlimenteUnterhalt,
                                                                         model.UnterhaltsZahlungen,
                                                                         model.RatenVerpflichtungen,
-                                                                        model.KundenID,
-                                                                        false))
+                                                                        model.KundenID))
                 {
                     //TempData["idKunde"] = model.KundenID;
-                    return RedirectToAction("PersoenlicheDaten");
-                }
-            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
-              aktKunde != null &&
-              model.NettoEinkommen == (double)aktKunde.FinanzielleSituation.MonatsEinkommenNetto &&
-              model.EinkuenfteAlimenteUnterhalt == (double)aktKunde.FinanzielleSituation.SonstigeEinkommen &&
-              model.UnterhaltsZahlungen == (double)aktKunde.FinanzielleSituation.UnterhaltsZahlungen &&
-              model.RatenVerpflichtungen == (double)aktKunde.FinanzielleSituation.RatenZahlungen
-              )
-            {
-                return RedirectToAction("ZusammenFassung");
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.FinanzielleSituationSpeichern(model.NettoEinkommen,
-                                                                       model.Wohnkosten,
-                                                                       model.EinkuenfteAlimenteUnterhalt,
-                                                                       model.UnterhaltsZahlungen,
-                                                                       model.RatenVerpflichtungen,
-                                                                       model.KundenID,
-                                                                       true))
-                {
-                    return RedirectToAction("ZusammenFassung");
-                }
-            }
 
+                    if (!HomeController.alleDatenAngegeben)
+                        return RedirectToAction("PersoenlicheDaten");
+                    else
+                        return RedirectToAction("ZusammenFassung");
+                }
+            }   
             return View(model);
         }
 
@@ -310,51 +240,38 @@ namespace onlineKredit.web.Controllers
         [HttpGet]
         public ActionResult PersoenlicheDaten()
         {
-            if (!HomeController.alleDatenAngegeben)
+            /// erzeugt das Model für die persönlichen Daten und 
+            /// fügt dem die Daten für die Lookup-Tabellen hinzu.
+            /// Id des Kunden wird auch mit übergeben
+            PersoenlicheDatenModel model = new PersoenlicheDatenModel();
+            model = PersoenlicheDatenLookup(model); /// Lade LookupDaten für die Dropdownlist-Elemente
+
+            /// Rufe Verwaltung mit Kunden ID auf
+            /// Wenn es zu dieser KundenID Persönlichen Daten gibt
+            /// gib diese zurück
+            Kunde persoenlicheDaten = KonsumKreditVerwaltung.PersoenlicheDatenLaden(model.KundenID);
+
+            if (persoenlicheDaten != null)
             {
-                /// erzeugt das Model für die persönlichen Daten und 
-                /// fügt dem die Daten für die Lookup-Tabellen hinzu.
-                /// Id des Kunden wird auch mit übergeben
-                PersoenlicheDatenModel model = new PersoenlicheDatenModel();
-                model = PersoenlicheDatenLookup(model);
-                
-                return View(model);
-            }
-            else if (HomeController.alleDatenAngegeben)
-            {
-                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
-                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
-                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-
-                PersoenlicheDatenModel model = new PersoenlicheDatenModel()
-                {
-                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
-                    ID_Titel = aktKunde?.FKTitel,
-                    Vorname = aktKunde.Vorname,
-                    Nachname = aktKunde.Nachname,
-                    GeburtsDatum = aktKunde.Geburtsdatum,
-                    ID_Staatsbuergerschaft = aktKunde.FKStaatsangehoerigkeit,
-                    AnzahlKinder = (int)aktKunde.AnzahlKinder,
-                    ID_Familienstand = (int)aktKunde.FKFamilienstand,
-                    ID_Wohnart = (int)aktKunde.FKWohnart,
-                    ID_SchulAbschluss = (int)aktKunde.FKSchulabschluss,
-                    ID_IdentifikationsArt = (int)aktKunde.FKIdentifikationsArt,
-                    IdentifikationsNummer = aktKunde.IdentifikationsNummer,
-                    KundenID = aktKunde.ID,
-                };
-
-                /// Daten für die Dropdownlisten
-                model = PersoenlicheDatenLookup(model);
-
-                if (aktKunde.Geschlecht == "m")
-                    model.Geschlecht = Geschlecht.Männlch;
-                else if (aktKunde.Geschlecht == "w")
+                /// Überprüfe welches Geschlecht gespeichert ist
+                if (persoenlicheDaten.Geschlecht == "w")
                     model.Geschlecht = Geschlecht.Weiblich;
+                else
+                    model.Geschlecht = Geschlecht.Männlch;
 
-                return View(model);
+                model.ID_Titel = persoenlicheDaten.FKTitel.HasValue ? persoenlicheDaten.FKTitel.Value : 0;
+                model.Vorname = persoenlicheDaten.Vorname;
+                model.Nachname = persoenlicheDaten.Nachname;
+                model.GeburtsDatum = persoenlicheDaten.Geburtsdatum;
+                model.ID_Staatsbuergerschaft = persoenlicheDaten.FKStaatsangehoerigkeit;
+                model.AnzahlKinder = persoenlicheDaten.AnzahlKinder.HasValue ? (int)persoenlicheDaten.AnzahlKinder : 0;
+                model.ID_Familienstand = persoenlicheDaten.FKFamilienstand.HasValue ? (int)persoenlicheDaten.FKFamilienstand : 0;
+                model.ID_Wohnart = persoenlicheDaten.FKWohnart.HasValue ? (int)persoenlicheDaten.FKWohnart : 0;
+                model.ID_SchulAbschluss = persoenlicheDaten.FKSchulabschluss.HasValue ? (int)persoenlicheDaten.FKSchulabschluss : 0;
+                model.ID_IdentifikationsArt = persoenlicheDaten.FKIdentifikationsArt.HasValue ? (int)persoenlicheDaten.FKIdentifikationsArt : 0;
+                model.IdentifikationsNummer = persoenlicheDaten.IdentifikationsNummer;
             }
-
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -364,16 +281,8 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("POST - KonsumKreditController - PersoenlicheDaten");
             Debug.Unindent();
-
-            Kunde aktKunde = null;
-
-            if (HomeController.alleDatenAngegeben)
-            {
-                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
-                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-            }
-
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.PersoenlicheDatenSpeichern(
                     model.Geschlecht == Geschlecht.Männlch ? "m" : "w",
@@ -391,46 +300,10 @@ namespace onlineKredit.web.Controllers
                     model.KundenID
                     ))
                 {
-                    return RedirectToAction("KontaktDaten");
-                }
-            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
-              aktKunde != null &&
-              model.Geschlecht.ToString() == aktKunde.Geschlecht &&
-              model.ID_Titel == aktKunde.FKTitel &&
-              model.Vorname == aktKunde.Vorname &&
-              model.Nachname == aktKunde.Nachname &&
-              model.GeburtsDatum == aktKunde.Geburtsdatum &&
-              model.ID_Staatsbuergerschaft == aktKunde.FKStaatsangehoerigkeit &&
-              model.AnzahlKinder == aktKunde.AnzahlKinder &&
-              model.ID_Familienstand == aktKunde.FKFamilienstand &&
-              model.ID_Wohnart == aktKunde.FKWohnart &&
-              model.ID_SchulAbschluss == aktKunde.FKSchulabschluss &&
-              model.ID_IdentifikationsArt == aktKunde.FKIdentifikationsArt &&
-              model.IdentifikationsNummer == aktKunde.IdentifikationsNummer
-              )
-            {
-                return RedirectToAction("ZusammenFassung");
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.PersoenlicheDatenSpeichern(
-                model.Geschlecht == Geschlecht.Männlch ? "m" : "w",
-                model.ID_Titel,
-                model.Vorname,
-                model.Nachname,
-                model.GeburtsDatum,
-                model.ID_Staatsbuergerschaft,
-                model.AnzahlKinder,
-                model.ID_Familienstand,
-                model.ID_Wohnart,
-                model.ID_SchulAbschluss,
-                model.ID_IdentifikationsArt,
-                model.IdentifikationsNummer,
-                model.KundenID
-                ))
-                {
-                    return RedirectToAction("ZusammenFassung");
+                    if (!HomeController.alleDatenAngegeben)
+                        return RedirectToAction("KontaktDaten");
+                    else
+                        return RedirectToAction("ZusammenFassung");
                 }
             }
 
@@ -454,6 +327,11 @@ namespace onlineKredit.web.Controllers
 
         #region KontaktDaten
 
+        /// <summary>
+        /// Ladet Alle Lookuptabellendaten von der BusinessLogic und gibt diese zurück
+        /// </summary>
+        /// <param name="model">KontaktDatenModel</param>
+        /// <returns>LookupTabellenDaten</returns>
         private KontaktDatenModel KontaktDatenLookup(KontaktDatenModel model)
         {
             List<OrtModel> alleOrtsAngabenWeb = new List<OrtModel>();
@@ -484,41 +362,27 @@ namespace onlineKredit.web.Controllers
             Debug.Indent();
             Debug.WriteLine("GET - KonsumKreditController - KontaktDaten");
             Debug.Unindent();
+            
+            KontaktDatenModel model = new KontaktDatenModel();
 
-            if (!HomeController.alleDatenAngegeben)
+            /// Daten für die Dropdownliste
+            model = KontaktDatenLookup(model);
+
+            KontaktDaten kontaktDaten = KonsumKreditVerwaltung.KontaktDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
+
+            if (kontaktDaten != null)
             {
-                KontaktDatenModel model = new KontaktDatenModel();
-                /// Daten für die Dropdownliste
-                model = KontaktDatenLookup(model);
-
-                return View(model);
+                /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
+                model.Strasse = kontaktDaten.Strasse;
+                model.Hausnummer = kontaktDaten.Hausnummer;
+                model.Stiege = kontaktDaten.Stiege;
+                model.Tuer = kontaktDaten.Tür;
+                model.FK_Ort = (int)kontaktDaten.FKOrt;
+                model.EMail = kontaktDaten.EMail;
+                model.TelefonNummer = kontaktDaten.Telefonnummer;
+                model.KundenID = kontaktDaten.ID;
             }
-            else if (HomeController.alleDatenAngegeben)
-            {
-                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
-                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
-                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-
-                KontaktDatenModel model = new KontaktDatenModel()
-                {
-                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
-                    Strasse = aktKunde.KontaktDaten.Strasse,
-                    Hausnummer = aktKunde.KontaktDaten.Hausnummer,
-                    Stiege = aktKunde.KontaktDaten.Stiege,
-                    Tuer = aktKunde.KontaktDaten.Tür,
-                    FK_Ort = (int)aktKunde.KontaktDaten.FKOrt,
-                    EMail = aktKunde.KontaktDaten.EMail,
-                    TelefonNummer = aktKunde.KontaktDaten.Telefonnummer,
-                    KundenID = aktKunde.ID,
-                };
-
-                /// Daten für die Dropdownliste
-                model = KontaktDatenLookup(model);
-
-                return View(model);
-            }
-
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -533,6 +397,7 @@ namespace onlineKredit.web.Controllers
             model = KontaktDatenLookup(model);
 
             /// Weist dem Model den Fremdschlüssel für die Eigenschaft FK_Ort zu
+            /// "ComboBox"
             foreach (var item in model.AlleOrtsAngabenWeb)
             {
                 if (item.PLZUndOrt == model.PLZUndOrtInText)
@@ -546,13 +411,11 @@ namespace onlineKredit.web.Controllers
 
             Kunde aktKunde = null;
 
-            if (HomeController.alleDatenAngegeben)
-            {
                 /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
                 aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-            }
 
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
                                                                     model.Hausnummer,
@@ -561,45 +424,16 @@ namespace onlineKredit.web.Controllers
                                                                     model.FK_Ort,
                                                                     model.EMail,
                                                                     model.TelefonNummer,
-                                                                    model.KundenID,
-                                                                    false
+                                                                    model.KundenID
                     ))
                 {
-                    return RedirectToAction("Arbeitgeber");
-                }
-            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
-              aktKunde != null &&
-              model.Strasse == aktKunde.KontaktDaten.Strasse &&
-              model.Hausnummer == aktKunde.KontaktDaten.Hausnummer &&
-              model.Stiege == aktKunde.KontaktDaten.Stiege &&
-              model.Tuer == aktKunde.KontaktDaten.Tür &&
-              model.FK_Ort == aktKunde.KontaktDaten.FKOrt &&
-              model.EMail == aktKunde.KontaktDaten.EMail &&
-              model.TelefonNummer == aktKunde.KontaktDaten.Telefonnummer
-              )
-            {
-                return RedirectToAction("ZusammenFassung");
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.KontaktDatenSpeichern(model.Strasse,
-                                                                  model.Hausnummer,
-                                                                  model.Stiege,
-                                                                  model.Tuer,
-                                                                  model.FK_Ort,
-                                                                  model.EMail,
-                                                                  model.TelefonNummer,
-                                                                  model.KundenID,
-                                                                  true
-                  ))
-                {
-                    return RedirectToAction("ZusammenFassung");
+                    if (!HomeController.alleDatenAngegeben)
+                        return RedirectToAction("Arbeitgeber");
+                    else
+                        return RedirectToAction("ZusammenFassung");
                 }
             }
-
-         
-
+                
             return View(model);
         }
 
@@ -607,15 +441,14 @@ namespace onlineKredit.web.Controllers
 
         #region Arbeitgeber
 
-        [HttpGet]
-        public ActionResult Arbeitgeber()
+        /// <summary>
+        /// Fügt dem mitgegebenen Arbeitgeber-Model die Daten von den Lookup-Tabellen
+        /// hinzu. Ladet die Daten aus der Datenbank
+        /// </summary>
+        /// <param name="model">Ein Modell für die Arbeitgeberdaten eines Users</param>
+        /// <returns>Lookuptabellendaten</returns>
+        private ArbeitgeberModel ArbeitgeberLookup(ArbeitgeberModel model)
         {
-            Debug.Indent();
-            Debug.WriteLine("GET - KonsumKreditController - Arbeitgeber");
-            Debug.Unindent();
-
-            #region LookupTabellenLaden
-
             /// In der BL habe ich Methoden/Funktionen geschrieben, die es mir erlauben die Daten 
             /// aus den Lookup-Tabellen in meiner Datenbank zu laden.
             /// die Schnittstelle von Datenbank zu Projekt.
@@ -641,43 +474,38 @@ namespace onlineKredit.web.Controllers
                 });
             }
 
-            #endregion
+            model.AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb;
+            model.AlleBranchenAngabenWeb = alleBranchenAngabenWeb;
+            model.KundenID = int.Parse(Request.Cookies["kundenID"].Value);
 
-            if (!HomeController.alleDatenAngegeben)
+            return model;
+        }
+
+        [HttpGet]
+        public ActionResult Arbeitgeber()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - Arbeitgeber");
+            Debug.Unindent();
+
+            ArbeitgeberModel model = new ArbeitgeberModel();
+                
+            /// Daten für die DropdownListen/Lookuptabellen
+            model = ArbeitgeberLookup(model);
+
+            Arbeitgeber arbeitgeber = KonsumKreditVerwaltung.ArbeitgeberLaden(int.Parse(Request.Cookies["KundenID"].Value));
+                
+            if (arbeitgeber != null)
             {
-                ArbeitgeberModel model = new ArbeitgeberModel()
-                {
-                    AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb,
-                    AlleBranchenAngabenWeb = alleBranchenAngabenWeb,
-                    KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-                };
-
-                return View(model);
-
-            }
-            else if (HomeController.alleDatenAngegeben)
-            {
-                /// Erzeuge Kunden und weise ihm die Daten des Kunden zu mit der aktuellen ID, damit man die 
-                /// vorhandenen Kundendaten laden kann und diese dem "aktKunde" zuweisen kann
-                Kunde aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-
-                ArbeitgeberModel model = new ArbeitgeberModel()
-                {
-                    /// Weise dem Model die aktuellen Kundendaten zu, die der User beliebig ändern kann
-                    Firma = aktKunde.Arbeitgeber.Firma,
-                    ID_BeschaeftigungsArt = aktKunde.Arbeitgeber.FKBeschaeftigungsArt,
-                    ID_Branche = (int)aktKunde.Arbeitgeber.FKBranche,
-                    BeschaeftigtSeit = (DateTime)aktKunde.Arbeitgeber.BeschaeftigtSeit,
-                    KundenID = aktKunde.ID,
-
-                    /// Daten für die Dropdownlisten
-                    AlleBeschaeftigungsArtAngabenWeb = alleBeschaeftugungsArtenAngabenWeb,
-                    AlleBranchenAngabenWeb = alleBranchenAngabenWeb
-                };
+                model.Firma = arbeitgeber.Firma;
+                model.ID_BeschaeftigungsArt = arbeitgeber.FKBeschaeftigungsArt;
+                model.ID_Branche = (int)arbeitgeber.FKBranche;
+                model.BeschaeftigtSeit = (DateTime)arbeitgeber.BeschaeftigtSeit;
+                model.KundenID = int.Parse(Request.Cookies["KundenID"].Value);
                 return View(model);
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -688,49 +516,20 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - Arbeitgeber");
             Debug.Unindent();
 
-            Kunde aktKunde = null;
-
-            if (HomeController.alleDatenAngegeben)
-            {
-                /// Dient zur überprüfung ob eine Änderung vorgenommen wurde
-                aktKunde = KonsumKreditVerwaltung.KundenDatenLaden(int.Parse(Request.Cookies["KundenID"].Value));
-            }
-
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.ArbeitgeberSpeichern(
                                                                 model.Firma,
                                                                 model.ID_BeschaeftigungsArt,
                                                                 model.ID_Branche,
                                                                 model.BeschaeftigtSeit,
-                                                                model.KundenID,
-                                                                false
+                                                                model.KundenID
                     ))
                 {
-                    return RedirectToAction("KontoVerfuegbar");
-                }
-            }   /// Wenn man von der Zusammenfassung aus "doch keine Änderungen" macht benötige ich diese Abfrage, damit ich nicht immer auf die View zurück geleitet werde
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben &&
-              aktKunde != null &&
-              model.Firma == aktKunde.Arbeitgeber.Firma &&
-              model.ID_BeschaeftigungsArt == aktKunde.Arbeitgeber.FKBeschaeftigungsArt &&
-              model.ID_Branche == aktKunde.Arbeitgeber.FKBranche
-              )
-            {
-                return RedirectToAction("ZusammenFassung");
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.ArbeitgeberSpeichern(
-                                                               model.Firma,
-                                                               model.ID_BeschaeftigungsArt,
-                                                               model.ID_Branche,
-                                                               model.BeschaeftigtSeit,
-                                                               model.KundenID,
-                                                               true
-                   ))
-                {
-                    return RedirectToAction("ZusammenFassung");
+                    if (!HomeController.alleDatenAngegeben)
+                        return RedirectToAction("KontoVerfuegbar");
+                    else
+                        return RedirectToAction("ZusammenFassung");
                 }
             }
 
@@ -872,33 +671,19 @@ namespace onlineKredit.web.Controllers
             model.IBAN = KonsumKreditVerwaltung.FilterAufVorhandeneLeerzeichen(model.IBAN);
             model.IBAN = KonsumKreditVerwaltung.LeerzeichenEinfuegen(model.IBAN);
 
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
                                                                         model.IBAN,
                                                                         "Deutsche Bank AG",
                                                                         true,
-                                                                        model.KundenID,
-                                                                        false
+                                                                        model.KundenID
                                                                         ))
                 {
                     return RedirectToAction("Zusammenfassung");
                 }
             }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
-                                                                        model.IBAN,
-                                                                        "Deutsche Bank AG",
-                                                                        true,
-                                                                        model.KundenID,
-                                                                        true
-                                                                        ))
-                {
-                    return RedirectToAction("Zusammenfassung");
-                }
 
-            }
             return View(model);
         }
 
@@ -915,13 +700,10 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-
-
             List<string> bicUndIban = new List<string>();
 
             bicUndIban = KonsumKreditVerwaltung.BankKontoErzeugen();
-
-
+            
             DeutscheBankKontoInformationModel model = new DeutscheBankKontoInformationModel()
             {
                 BIC = bicUndIban[0],
@@ -933,7 +715,7 @@ namespace onlineKredit.web.Controllers
 
             return View(model);
         }
-
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult NeuesDeutscheBankKontoInformation(DeutscheBankKontoInformationModel model)
@@ -948,26 +730,11 @@ namespace onlineKredit.web.Controllers
                                                                         model.IBAN,
                                                                         "Deutsche Bank AG",
                                                                         true,
-                                                                        model.KundenID,
-                                                                        false
+                                                                        model.KundenID
                                                                         ))
                 {
                     return RedirectToAction("Zusammenfassung");
                 }
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
-                                                                        model.IBAN,
-                                                                        "Deutsche Bank AG",
-                                                                        true,
-                                                                        model.KundenID,
-                                                                        true
-                                                                        ))
-                {
-                    return RedirectToAction("Zusammenfassung");
-                }
-
             }
 
             return View(model);
@@ -1007,32 +774,16 @@ namespace onlineKredit.web.Controllers
                                                                         model.IBAN,
                                                                         "Deutsche Bank AG",
                                                                         true,
-                                                                        model.KundenID,
-                                                                        false
+                                                                        model.KundenID
                                                                         ))
                 {
                     return RedirectToAction("Zusammenfassung");
                 }
-            }
-            else if (ModelState.IsValid && HomeController.alleDatenAngegeben)
-            {
-                if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
-                                                                        model.IBAN,
-                                                                        "Deutsche Bank AG",
-                                                                        true,
-                                                                        model.KundenID,
-                                                                        true
-                                                                        ))
-                {
-                    return RedirectToAction("Zusammenfassung");
-                }
-
             }
 
             return View(model);
         }
-
-
+        
         #endregion
 
         #region ZusammenFassung

@@ -11,20 +11,23 @@ namespace onlineKredit.web.Models
     {
         [Required(ErrorMessage = "Bitte Ihren IBAN angeben.")]
         [StringLength(25, ErrorMessage = "Maximal 25 Zeichen")]
+        [Display(Name = "BIC")]
         public string BIC { get; set; }
 
         [Required(ErrorMessage = "Bitte Ihre Bankleitzahl angeben.")]
         [StringLength(25, ErrorMessage = "Maximal 25 Zeichen")]
+        [Display(Name = "IBAN")]
         public string IBAN { get; set; }
 
         [Required(ErrorMessage = "Bitte den Namen Ihres Bankinstituts angeben.")]
         [StringLength(100, ErrorMessage = "Maximal 100 Zeichen.")]
+        [Display(Name = "Bankinstitut")]
         public string BankInstitut { get; set; }
 
         /// <summary>
         /// Diese Information wird im Controller gesetzt!!!
         /// </summary>
-        //[Required]
+        ///    [HiddenInput(DisplayValue = false)]
         public bool IstDeutscheBankKunde { get; set; }
 
         [HiddenInput(DisplayValue = false)]

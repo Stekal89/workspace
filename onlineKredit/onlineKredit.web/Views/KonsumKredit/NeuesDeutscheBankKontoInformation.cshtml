@@ -1,12 +1,20 @@
 ﻿@model onlineKredit.web.Models.DeutscheBankKontoInformationModel
-
 @{
     ViewBag.Title = "NeuesDeutscheBankKontoInformation";
 }
+<h2 class="form-heading">Ihr neues Deutsche Bank Konto</h2>
 
-<h2 class="form-heading">Neues Deutsche Bank Konto</h2>
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-offset-4 col-md-offset-4 col-lg-6 col-md-6">
+        Ihr neues Bankkonto:
+        Bitte lesen Sie sich die algemeinen Geschäftsbedinungen durch. Mit anklicken des Kontrollkästchen, nehmen Sie diese zur Kenntnis. Sie bekommen Ihre Kontodaten auch per Post zugeschickt.
+        Auf Wunsch können Sie die Kontodaten auch nach telefonischer Vereinbarung mit unserer Service-Line persönlich in der nächsten Deutsche Bank AG Filiale abholen.
+        Bestätigen Sie im Anschluss ihre Auswahl durch die Schaltfläche &quot;Bestätigen&quot;.
+    </div>
+</div>
+<br />
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.KundenID)
@@ -17,8 +25,7 @@
 
     <section class="input-fromular">
         <div class="form-horizontal">
-            <h4>DeutscheBankKontoInformationModel</h4>
-            <hr />
+
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.BIC, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -50,7 +57,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="form-group">
                 @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
                 <div class="col-md-10">
@@ -59,21 +65,1136 @@
                 </div>
             </div>
 
+            @* Hier kommen die AGB`s hinein, damit man die Kontoerstellung auch richtig ernst nehmen kann *@
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <a type="button" href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Zurück</a>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Konto bestätigen" class="btn btn-primary" />
-                </div>
-            </div>
+                <div class="col-md-12" style="width:500px;height:150px;line-height:3em;overflow:scroll;padding:1px;background-color:#FCFADD;color:#714D03;scrollbar-base-color:#DEBB07;">
+                    <h4>
+                        Grundregeln für die Beziehung zwischen Kunde und Bank
+                    </h4>
+                    <br />
+                    <h4>1. Geltungsbereich und Änderungen dieser Geschäftsbedingungen und der Sonderbedingungen für einzelne Geschäftsbeziehungen</h4>
+                    <br />
+                    (1) Geltungsbereich
+                    <br />
+                    Die Allgemeinen Geschäftsbedingungen gelten für die gesamte Geschäftsverbindung zwischen dem Kunden und den inländischen
+                    Geschäftsstellen der Bank (im folgenden Bank genannt). Daneben gelten für einzelne Geschäftsbeziehungen (zum Beispiel
+                    für das Wertpapiergeschäft, den Zahlungsverkehr und für den Sparverkehr) Sonderbedingungen, die Abweichungen oder
+                    Ergänzungen zu diesen Allgemeinen Geschäftsbedingungen enthalten; sie werden bei der Kontoeröffnung oder bei Erteilung
+                    eines Auftrages mit dem Kunden vereinbart. Unterhält der Kunde auch Geschäftsverbindungen zu ausländischen Geschäftsstellen,
+                    sichert das Pfandrecht der Bank (Nummer 14 dieser Geschäftsbedingungen) auch die Ansprüche dieser ausländischen Geschäftsstellen.
+                    <br />
+                    <h4>(2) Änderungen</h4>
+                    <br />
+                    Änderungen dieser Geschäftsbedingungen und der Sonderbedingungen werden dem Kunden spätestens zwei Monate vor
+                    dem vorgeschlagenen Zeitpunkt ihres Wirksamwerdens in Textform angeboten. Hat der Kunde mit der Bank im Rahmen der
+                    Geschäftsbeziehung einen elektronischen Kommunikationsweg vereinbart (z. B. das Online Banking), können die Änderungen
+                    auch auf diesem Wege angeboten werden. Die Zustimmung des Kunden gilt als erteilt, wenn er seine Ablehnung nicht vor
+                    dem vorgeschlagenen Zeitpunkt des Wirksamwerdens der Änderungen angezeigt hat. Auf diese Genehmigungswirkung
+                    wird ihn die Bank in ihrem Angebot besonders hinweisen. Werden dem Kunden Änderungen von Bedingungen zu Zahlungsdiensten
+                    (z. B. Überweisungsbedingungen) angeboten, kann er den von der Änderung betroffenen Zahlungsdiensterahmenvertrag
+                    vor dem vorgeschlagenen Zeitpunkt des Wirksamwerdens
+                    der Änderungen auch fristlos und kostenfrei kündigen. Auf
+                    dieses Kündigungsrecht wird ihn die Bank in ihrem Angebot
+                    besonders hinweisen.
+                    2. Bankgeheimnis und Bankauskunft
+                    <br />
+                    <h4>
+                        (1) Bankgeheimnis
+                    </h4>
+                    <br />
+                    Die Bank ist zur Verschwiegenheit über alle kundenbezogenen
+                    Tatsachen und Wertungen verpflichtet, von denen sie Kenntnis
+                    erlangt (Bankgeheimnis). Informationen über den Kunden darf
+                    die Bank nur weitergeben, wenn gesetzliche Bestimmungen
+                    dies gebieten oder der Kunde eingewilligt hat oder die Bank zur
+                    Erteilung einer Bankauskunft befugt ist.
+                    <br />
+                    <h4>
+                        (2) Bankauskunft
+                    </h4>
+                    <br />
 
-        </div>
+                    Eine Bankauskunft enthält allgemein gehaltene Feststellungen
+                    und Bemerkungen über die wirtschaftlichen Verhältnisse des
+                    Kunden, seine Kreditwürdigkeit und Zahlungsfähigkeit; betragsmäßige
+                    Angaben über Kontostände, Sparguthaben, Depotoder
+                    sonstige der Bank anvertraute Vermögenswerte sowie
+                    Angaben über die Höhe von Kreditinanspruchnahmen werden
+                    nicht gemacht.
+                    <br />
+                    <h4>
+                        (3) Voraussetzungen für die Erteilung einer Bankauskunft
+                    </h4>
+                    <br />
+
+                    Die Bank ist befugt, über juristische Personen und im Handelsregister
+                    eingetragene Kaufleute Bankauskünfte zu erteilen,
+                    sofern sich die Anfrage auf ihre geschäftliche Tätigkeit bezieht.
+                    Die Bank erteilt jedoch keine Auskünfte, wenn ihr eine anders
+                    lautende Weisung des Kunden vorliegt. Bankauskünfte über
+                    andere Personen, insbesondere über Privatkunden und Vereinigungen,
+                    erteilt die Bank nur dann, wenn diese generell oder im
+                    Einzelfall ausdrücklich zugestimmt haben. Eine Bankauskunft
+                    wird nur erteilt, wenn der Anfragende ein berechtigtes Interesse
+                    an der gewünschten Auskunft glaubhaft dargelegt hat und kein
+                    Grund zu der Annahme besteht, dass schutzwürdige Belange
+                    des Kunden der Auskunftserteilung entgegenstehen.
+                    <br />
+                    <h4>
+                        (4) Empfänger von Bankauskünften
+                    </h4>
+                    <br />
+
+                    Bankauskünfte erteilt die Bank nur eigenen Kunden sowie
+                    anderen Kreditinstituten für deren Zwecke oder die ihrer Kunden.
+                    3. Haftung der Bank; Mitverschulden des
+                    Kunden
+                    <br />
+                    <h4>
+                        (1) Haftungsgrundsätze
+                    </h4>
+                    <br />
+
+                    Die Bank haftet bei der Erfüllung ihrer Verpflichtungen für
+                    jedes Verschulden ihrer Mitarbeiter und der Personen, die sie
+                    zur Erfüllung ihrer Verpflichtungen hinzuzieht. Soweit die Sonderbedingungen
+                    für einzelne Geschäftsbeziehungen oder sonstige
+                    Vereinbarungen etwas Abweichendes regeln, gehen diese
+                    Regelungen vor. Hat der Kunde durch ein schuldhaftes Verhalten
+                    (zum Beispiel durch Verletzung der in Nr. 11 dieser Geschäftsbedingungen
+                    aufgeführten Mitwirkungspflichten) zu der Entstehung
+                    eines Schadens beigetragen, bestimmt sich nach den
+                    Grundsätzen des Mitverschuldens, in welchem Umfang Bank
+                    und Kunde den Schaden zu tragen haben.
+                    <br />
+                    <h4>
+                        (2) Weitergeleitete Aufträge
+                    </h4>
+                    <br />
+
+                    Wenn ein Auftrag seinem Inhalt nach typischerweise in der Form
+                    ausgeführt wird, dass die Bank einen Dritten mit der weiteren
+                    Erledigung betraut, erfüllt die Bank den Auftrag dadurch, dass
+                    sie ihn im eigenen Namen an den Dritten weiterleitet (weitergeleiteter
+                    Auftrag). Dies betrifft zum Beispiel die Einholung von
+                    Bankauskünften bei anderen Kreditinstituten oder die Verwahrung
+                    und Verwaltung von Wertpapieren im Ausland. In diesen Fällen
+                    beschränkt sich die Haftung der Bank auf die sorgfältige Auswahl
+                    und Unterweisung des Dritten.
+                    <br />
+                    <h4>
+                        (3) Störung des Betriebs
+                    </h4>
+                    <br />
+
+                    Die Bank haftet nicht für Schäden, die durch höhere Gewalt,
+                    Aufruhr, Kriegs- und Naturereignisse oder durch sonstige von
+                    ihr nicht zu vertretende Vorkommnisse (zum Beispiel Streik,
+                    Aussperrung, Verkehrsstörung, Verfügungen von hoher Hand
+                    im In- oder Ausland) eintreten.
+                    002 22222 00 160126
+                    Allgemeine Geschäftsbedingungen
+                    Neufassung zum 1. Februar 2016
+                    4. Grenzen der Aufrechnungsbefugnis des
+                    Kunden
+                    Der Kunde kann gegen Forderungen der Bank nur aufrechnen,
+                    wenn seine Forderungen unbestritten oder rechtskräftig festgestellt
+                    sind.
+                    5. Verfügungsberechtigung nach dem Tod des
+                    Kunden
+                    Nach dem Tod des Kunden hat derjenige, der sich gegenüber
+                    der Bank auf die Rechtsnachfolge des Kunden beruft, der Bank
+                    seine erbrechtliche Berechtigung in geeigneter Weise nachzuweisen.
+                    Wird der Bank eine Ausfertigung oder eine beglaubigte
+                    Abschrift der letztwilligen Verfügung (Testament, Erbvertrag)
+                    nebst zugehöriger Eröffnungsniederschrift vorgelegt, darf die
+                    Bank denjenigen, der darin als Erbe oder Testamentsvollstrecker
+                    bezeichnet ist, als Berechtigten ansehen, ihn verfügen lassen
+                    und insbesondere mit befreiender Wirkung an ihn leisten. Dies
+                    gilt nicht, wenn der Bank bekannt ist, dass der dort Genannte
+                    (zum Beispiel nach Anfechtung oder wegen Nichtigkeit des
+                    Testaments) nicht verfügungsberechtigt ist oder wenn ihr dies
+                    infolge Fahrlässigkeit nicht bekannt geworden ist.
+                    6. Maßgebliches Recht und Gerichtsstand bei
+                    kaufmännischen und öffentlich-rechtlichen
+                    Kunden
+                    <br />
+                    <h4>
+                        (1) Geltung deutschen und österreichischen Rechts
+                    </h4>
+                    <br />
+
+                    Für die Geschäftsverbindung zwischen dem Kunden und der
+                    Bank gilt deutsches Recht.
+                    <br />
+                    <h4>
+                        (2) Gerichtsstand für Inlandskunden
+                    </h4>
+                    <br />
+
+                    Ist der Kunde ein Kaufmann und ist die streitige Geschäftsbeziehung
+                    dem Betriebe seines Handelsgewerbes zuzurechnen,
+                    so kann die Bank diesen Kunden an dem für die kontoführende
+                    Stelle zuständigen Gericht oder bei einem anderen zuständigen
+                    Gericht verklagen; dasselbe gilt für eine juristische Person des
+                    öffentlichen Rechts und für öffentlich-rechtliche Sondervermö-
+                    gen. Die Bank selbst kann von diesen Kunden nur an dem für
+                    die kontoführende Stelle zuständigen Gericht verklagt werden.
+                    <br />
+                    <h4>
+                        (3) Gerichtsstand für Auslandskunden
+                    </h4>
+                    <br />
+
+                    Die Gerichtsstandsvereinbarung gilt auch für Kunden, die im Ausland
+                    eine vergleichbare gewerbliche Tätigkeit ausüben, sowie für
+                    ausländische Institutionen, die mit inländischen juristischen
+                    Personen des öffentlichen Rechts oder mit einem inländischen
+                    öffentlich-rechtlichen Sondervermögen vergleichbar sind.
+                    Kontoführung
+                    7. Rechnungsabschlüsse bei Kontokorrentkonten
+                    (Konten in laufender Rechnung)
+
+                    <br />
+                    <h4>
+                        (1) Erteilung der Rechnungsabschlüsse
+                    </h4>
+                    <br />
+
+                    Die Bank erteilt bei einem Kontokorrentkonto, sofern nicht
+                    etwas anderes vereinbart ist, jeweils zum Ende eines Kalenderquartals
+                    einen Rechnungsabschluss; dabei werden die in
+                    diesem Zeitraum entstandenen beiderseitigen Ansprüche (einschließlich
+                    der Zinsen und Entgelte der Bank) verrechnet. Die
+                    Bank kann auf den Saldo, der sich aus der Verrechnung ergibt,
+                    nach Nummer 12 dieser Geschäftsbedingungen oder nach der
+                    mit dem Kunden anderweitig getroffenen Vereinbarung Zinsen
+                    berechnen.
+
+                    <br />
+                    <h4>
+                        (2) Frist für Einwendungen; Genehmigung durch
+                        Schweigen
+                    </h4>
+                    <br />
+
+                    Einwendungen wegen Unrichtigkeit oder Unvollständigkeit
+                    eines Rechnungsabschlusses hat der Kunde spätestens vor
+                    Ablauf von sechs Wochen nach dessen Zugang zu erheben;
+                    macht er seine Einwendungen in Textform geltend, genügt die
+                    Absendung innerhalb der Sechs-Wochen-Frist. Das Unterlassen
+                    rechtzeitiger Einwendungen gilt als Genehmigung. Auf diese
+                    Folge wird die Bank bei Erteilung des Rechnungsabschlusses
+                    besonders hinweisen. Der Kunde kann auch nach Fristablauf
+                    eine Berichtigung des Rechnungsabschlusses verlangen, muss
+                    dann aber beweisen, dass zu Unrecht sein Konto belastet oder
+                    eine ihm zustehende Gutschrift nicht erteilt wurde.
+                    8. Storno- und Berichtigungsbuchungen der
+                    Bank
+
+                    <br />
+                    <h4>
+                        (1) Vor Rechnungsabschluss
+                    </h4>
+                    <br />
+
+                    Fehlerhafte Gutschriften auf Kontokorrentkonten (zum Beispiel
+                    wegen einer falschen Kontonummer) darf die Bank bis zum
+                    nächsten Rechnungsabschluss durch eine Belastungsbuchung
+                    rückgängig machen, soweit ihr ein Rückzahlungsanspruch
+                    gegen den Kunden zusteht (Stornobuchung); der Kunde kann
+                    in diesem Fall gegen die Belastungsbuchung nicht einwenden,
+                    dass er in Höhe der Gutschrift bereits verfügt hat.
+
+                    <br />
+                    <h4>
+                        (2) Nach Rechnungsabschluss
+                    </h4>
+                    <br />
+
+                    Stellt die Bank eine fehlerhafte Gutschrift erst nach einem Rechnungsabschluss
+                    fest und steht ihr ein Rückzahlungsanspruch
+                    gegen den Kunden zu, so wird sie in Höhe ihres Anspruchs sein
+                    Konto belasten (Berichtigungsbuchung). Erhebt der Kunde
+                    gegen die Berichtigungsbuchung Einwendungen, so wird die
+                    Bank den Betrag dem Konto wieder gutschreiben und ihren
+                    Rückzahlungsanspruch gesondert geltend machen.
+
+                    <br />
+                    <h4>
+                        (3) Information des Kunden; Zinsberechnung
+                    </h4>
+                    <br />
+
+                    Über Storno- und Berichtigungsbuchungen wird die Bank den
+                    Kunden unverzüglich unterrichten. Die Buchungen nimmt die
+                    Bank hinsichtlich der Zinsberechnung rückwirkend zu dem Tag
+                    vor, an dem die fehlerhafte Buchung durchgeführt wurde.
+                    9. Einzugsaufträge
+
+                    <br />
+                    <h4>
+                        (1) Erteilung von Vorbehaltsgutschriften bei der
+                        Einreichung
+                    </h4>
+                    <br />
+
+                    Schreibt die Bank den Gegenwert von Schecks und Lastschriften
+                    schon vor ihrer Einlösung gut, geschieht dies unter dem Vorbehalt
+                    ihrer Einlösung, und zwar auch dann, wenn diese bei der Bank
+                    selbst zahlbar sind. Reicht der Kunde andere Papiere mit dem
+                    Auftrag ein, von einem Zahlungspflichtigen einen Forderungsbetrag
+                    zu beschaffen (zum Beispiel Zinsscheine), und erteilt die
+                    Bank über den Betrag eine Gutschrift, so steht diese unter dem
+                    Vorbehalt, dass die Bank den Betrag erhält. Der Vorbehalt gilt
+                    auch dann, wenn die Schecks, Lastschriften und anderen Papiere
+                    bei der Bank selbst zahlbar sind. Werden Schecks oder
+                    Lastschriften nicht eingelöst oder erhält die Bank den Betrag
+                    aus dem Einzugsauftrag nicht, macht die Bank die Vorbehaltsgutschrift
+                    rückgängig. Dies geschieht unabhängig davon, ob in
+                    der Zwischenzeit ein Rechnungsabschluss erteilt wurde.
+
+                    <br />
+                    <h4>
+                        (2) Einlösung von Lastschriften und vom Kunden ausgestellter
+                        Schecks
+                    </h4>
+                    <br />
+
+                    Lastschriften sowie Schecks sind eingelöst, wenn die Belastungsbuchung
+                    nicht spätestens am zweiten Bankarbeitstag1)
+                    nach ihrer Vornahme rückgängig gemacht wird. Barschecks
+                    sind bereits mit Zahlung an den Scheckvorleger eingelöst.
+                    Schecks sind auch schon dann eingelöst, wenn die Bank im Einzelfall
+                    eine Bezahltmeldung absendet. Schecks, die über die Abrechnungsstelle
+                    der Bundesbank vorgelegt werden, sind
+                    eingelöst, wenn sie nicht bis zu dem von der Bundesbank festgesetzten
+                    Zeitpunkt zurückgegeben werden.
+                    10.Fremdwährungsgeschäfte und Risiken bei
+                    Fremdwährungskonten
+
+                    <br />
+                    <h4>
+                        (1) Auftragsausführung bei Fremdwährungskonten
+                    </h4>
+                    <br />
+
+                    Fremdwährungskonten des Kunden dienen dazu, Zahlungen an
+                    den Kunden und Verfügungen des Kunden in fremder Währung
+                    bargeldlos abzuwickeln. Verfügungen über Guthaben auf Fremdwährungskonten
+                    (zum Beispiel durch Überweisungen zu Lasten
+                    des Fremdwährungsguthabens) werden unter Einschaltung von
+                    Banken im Heimatland der Währung abgewickelt, wenn sie die
+                    Bank nicht vollständig innerhalb des eigenen Hauses ausführt.
+
+                    <br />
+                    <h4>
+                        (2) Gutschriften bei Fremdwährungsgeschäften mit dem Kunden
+                    </h4>
+                    <br />
+
+                    Schließt die Bank mit dem Kunden ein Geschäft (zum Beispiel
+                    ein Devisentermingeschäft) ab, aus dem sie die Verschaffung
+                    eines Betrages in fremder Währung schuldet, wird sie ihre
+                    Fremdwährungsverbindlichkeit durch Gutschrift auf dem Konto
+                    des Kunden in dieser Währung erfüllen, sofern nicht etwas
+                    anderes vereinbart ist.
+
+                    <br />
+                    <h4>
+                        (3) Vorübergehende Beschränkung der Leistung durch
+                        die Bank
+                    </h4>
+                    <br />
+
+                    Die Verpflichtung der Bank zur Ausführung einer Verfügung zu
+                    Lasten eines Fremdwährungsguthabens (Absatz 1) oder zur
+                    Erfüllung einer Fremdwährungsverbindlichkeit (Absatz 2) ist in
+                    dem Umfang und solange ausgesetzt, wie die Bank in der Währung,
+                    auf die das Fremdwährungsguthaben oder die Verbindlichkeit
+                    lautet, wegen politisch bedingter Maßnahmen oder
+                    Ereignisse im Lande dieser Währung nicht oder nur eingeschränkt
+                    verfügen kann. In dem Umfang und solange diese
+                    Maßnahmen oder Ereignisse andauern, ist die Bank auch nicht
+                    zu einer Erfüllung an einem anderen Ort außerhalb des Landes
+                    der Währung, in einer anderen Währung (auch nicht in Euro)
+                    oder durch Anschaffung von Bargeld verpflichtet. Die Verpflichtung
+                    der Bank zur Ausführung einer Verfügung zu Lasten
+                    eines Fremdwährungsguthabens ist dagegen nicht ausgesetzt,
+                    wenn sie die Bank vollständig im eigenen Haus ausführen kann.
+                    Das Recht des Kunden und der Bank, fällige gegenseitige
+                    Forderungen in derselben Währung miteinander zu verrechnen,
+                    bleibt von den vorstehenden Regelungen unberührt.
+
+                    <br />
+                    <h4>
+                        (4) Wechselkurs
+                    </h4>
+                    <br />
+
+                    Die Bestimmung des Wechselkurses bei Fremdwährungsgeschäften
+                    ergibt sich aus dem „Preis- und Leistungsverzeichnis“.
+                    Bei Zahlungsdiensten gilt ergänzend der Zahlungsdiensterahmenvertrag.
+                    Mitwirkungspflichten des Kunden
+                    11.Mitwirkungspflichten des Kunden
+
+                    <br />
+                    <h4>
+                        (1) Mitteilung von Änderungen
+                    </h4>
+                    <br />
+
+                    Zur ordnungsgemäßen Abwicklung des Geschäftsverkehrs ist
+                    es erforderlich, dass der Kunde der Bank Änderungen seines
+                    Namens und seiner Anschrift sowie das Erlöschen oder die
+                    Änderung einer gegenüber der Bank erteilten Vertretungsmacht
+                    (insbesondere einer Vollmacht) unverzüglich mitteilt. Diese Mitteilungspflicht
+                    besteht auch dann, wenn die Vertretungsmacht
+                    in ein öffentliches Register (zum Beispiel in das Handelsregister)
+                    eingetragen ist und ihr Erlöschen oder ihre Änderung in dieses
+                    Register eingetragen wird. Darüber hinaus können sich weitergehende
+                    gesetzliche Mitteilungspflichten, insbesondere aus
+                    dem Geldwäschegesetz, ergeben.
+
+                    <br />
+                    <h4>
+                        (2) Klarheit von Aufträgen
+                    </h4>
+                    <br />
+
+                    Aufträge müssen ihren Inhalt zweifelsfrei erkennen lassen. Nicht
+                    eindeutig formulierte Aufträge können Rückfragen zur Folge
+                    haben, die zu Verzögerungen führen können. Vor allem hat der
+                    Kunde bei Aufträgen auf die Richtigkeit und Vollständigkeit seiner
+                    Angaben, insbesondere der Kontonummer und Bankleitzahl
+                    oder IBAN2) und BIC3) sowie der Währung zu achten. Änderungen,
+                    Bestätigungen oder Wiederholungen von Aufträgen müssen als
+                    solche gekennzeichnet sein.
+
+                    <br />
+                    <h4>
+                        (3) Besonderer Hinweis bei Eilbedürftigkeit der Ausführung
+                        eines Auftrags
+                    </h4>
+                    <br />
+
+                    Hält der Kunde bei der Ausführung eines Auftrags besondere
+                    Eile für nötig, hat er dies der Bank gesondert mitzuteilen. Bei
+                    formularmäßig erteilten Aufträgen muss dies außerhalb des
+                    Formulars erfolgen.
+
+                    <br />
+                    <h4>
+                        (4) Prüfung und Einwendungen bei Mitteilungen der
+                        Bank
+                    </h4>
+                    <br />
+
+                    Der Kunde hat Kontoauszüge, Wertpapierabrechnungen, Depotund
+                    Erträgnisaufstellungen, sonstige Abrechnungen, Anzeigen
+                    über die Ausführung von Aufträgen sowie Informationen über
+                    erwartete Zahlungen und Sendungen (Avise) auf ihre Richtigkeit
+                    und Vollständigkeit unverzüglich zu überprüfen und etwaige
+                    Einwendungen unverzüglich zu erheben.
+
+                    <br />
+                    <h4>
+                        (5) Benachrichtigung der Bank bei Ausbleiben von Mitteilungen
+                    </h4>
+                    <br />
+
+                    Falls Rechnungsabschlüsse und Depotaufstellungen dem Kunden
+                    nicht zugehen, muss er die Bank unverzüglich benachrichtigen.
+                    Die Benachrichtigungspflicht besteht auch beim Ausbleiben
+                    anderer Mitteilungen, deren Eingang der Kunde erwartet
+                    (Wertpapierabrechnungen, Kontoauszüge nach der Ausführung
+                    von Aufträgen des Kunden oder über Zahlungen, die der
+                    Kunde erwartet).
+                    Kosten der Bankdienstleistungen
+                    12.Zinsen, Entgelte und Aufwendungen
+
+                    <br />
+                    <h4>
+                        (1) Zinsen und Entgelte im Geschäft mit Verbrauchern
+                    </h4>
+                    <br />
+
+                    Die Höhe der Zinsen und Entgelte für die üblichen Bankleistungen,
+                    die die Bank gegenüber Verbrauchern erbringt, einschließlich
+                    der Höhe von Zahlungen, die über die für die Hauptleistung vereinbarten
+                    Entgelte hinausgehen, ergeben sich aus dem „Preisaushang
+                    – Regelsätze im standardisierten Privatkundengeschäft“
+                    und aus dem „Preis- und Leistungsverzeichnis“. Wenn ein Verbraucher
+                    eine dort aufgeführte Hauptleistung in Anspruch nimmt
+                    und dabei keine abweichende Vereinbarung getroffen wurde,
+                    gelten die zu diesem Zeitpunkt im Preisaushang oder Preis- und
+                    Leistungsverzeichnis angegebenen Zinsen und Entgelte. Eine
+                    Vereinbarung, die auf eine über das vereinbarte Entgelt für die
+                    Hauptleistung hinausgehende Zahlung des Verbrauchers gerichtet
+                    ist, kann die Bank mit dem Verbraucher nur ausdrücklich
+                    treffen, auch wenn sie im Preisaushang oder im Preis- und Leistungsverzeichnis
+                    ausgewiesen ist. Für die Vergütung der nicht
+                    im Preisaushang oder im Preis- und Leistungsverzeichnis aufgeführten
+                    Leistungen, die im Auftrag des Verbrauchers erbracht
+                    werden und die, nach den Umständen zu urteilen, nur gegen
+                    eine Vergütung zu erwarten sind, gelten, soweit keine andere
+                    Vereinbarung getroffen wurde, die gesetzlichen Vorschriften.
+
+                    <br />
+                    <h4>
+                        (2) Zinsen und Entgelte im Geschäft mit Kunden,
+                        die keine Verbraucher sind
+                    </h4>
+                    <br />
+
+                    Die Höhe der Zinsen und Entgelte für die üblichen Bankleistungen,
+                    die die Bank gegenüber Kunden, die keine Verbraucher sind,
+                    erbringt, ergeben sich aus dem „Preisaushang – Regelsätze im
+                    standardisierten Privatkundengeschäft“ und aus dem „Preisund
+                    Leistungsverzeichnis“, soweit der Preisaushang und das
+                    Preis- und Leistungsverzeichnis übliche Bankleistungen gegen-
+                    über Kunden, die keine Verbraucher sind (zum Beispiel Geschäftskunden),
+                    ausweisen. Wenn ein Kunde, der kein Verbraucher
+                    ist, eine dort aufgeführte Bankleistung in Anspruch nimmt und
+                    dabei keine abweichende Vereinbarung getroffen wurde, gelten
+                    die zu diesem Zeitpunkt im Preisaushang oder Preis- und Leistungsverzeichnis
+                    angegebenen Zinsen und Entgelte. Im Übrigen
+                    bestimmt die Bank, sofern keine andere Vereinbarung
+                    getroffen wurde und gesetzliche Bestimmungen dem nicht
+                    entgegenstehen, die Höhe von Zinsen und Entgelten nach
+                    billigem Ermessen (§ 315 des Bürgerlichen Gesetzbuchs).
+
+                    <br />
+                    <h4>
+                        (3) Nicht entgeltfähige Leistung
+                    </h4>
+                    <br />
+
+                    Für eine Leistung, zu deren Erbringung die Bank kraft Gesetzes
+                    oder aufgrund einer vertraglichen Nebenpflicht verpflichtet ist
+                    oder die sie im eigenen Interesse wahrnimmt, wird die Bank
+                    kein Entgelt berechnen, es sei denn, es ist gesetzlich zulässig
+                    und wird nach Maßgabe der gesetzlichen Regelung erhoben.
+
+                    <br />
+                    <h4>
+                        (4) Änderung von Zinsen; Kündigungsrecht des Kunden
+                        bei Erhöhung
+                    </h4>
+                    <br />
+
+                    Die Änderung der Zinsen bei Krediten mit einem veränderlichen
+                    Zinssatz erfolgt aufgrund der jeweiligen Kreditvereinbarungen
+                    mit dem Kunden. Die Bank wird dem Kunden Änderungen von
+                    Zinsen mitteilen. Bei einer Erhöhung kann der Kunde, sofern
+                    nichts anderes vereinbart ist, die davon betroffene Kreditvereinbarung
+                    innerhalb von sechs Wochen nach der Bekanntgabe
+                    der Änderung mit sofortiger Wirkung kündigen. Kündigt der
+                    Kunde, so werden die erhöhten Zinsen für die gekündigte
+                    Kreditvereinbarung nicht zugrunde gelegt. Die Bank wird zur
+                    Abwicklung eine angemessene Frist einräumen.
+
+                    <br />
+                    <h4>
+                        (5) Änderung von Entgelten bei typischerweise dauerhaft
+                        in Anspruch genommenen Leistungen
+                    </h4>
+                    <br />
+
+                    Änderungen von Entgelten für Bankdienstleistungen, die vom
+                    Kunden im Rahmen der Geschäftsverbindung typischerweise
+                    dauerhaft in Anspruch genommen werden (zum Beispiel
+                    Konto- und Depotführung) werden dem Kunden spätestens
+                    zwei Monate vor dem vorgeschlagenen Zeitpunkt ihres Wirksamwerdens
+                    in Textform angeboten. Hat der Kunde mit der Bank
+                    im Rahmen der Geschäftsbeziehung einen elektronischen
+                    Kommunikationsweg vereinbart (z. B. das Online Banking),
+                    können die Änderungen auch auf diesem Wege angeboten
+                    werden. Die Zustimmung des Kunden gilt als erteilt, wenn er
+                    seine Ablehnung nicht vor dem vorgeschlagenen Zeitpunkt des
+                    Wirksamwerdens der Änderung angezeigt hat. Auf diese Genehmigungswirkung
+                    wird ihn die Bank in ihrem Angebot besonders
+                    hinweisen. Werden dem Kunden die Änderungen angeboten,
+                    kann er den von der Änderung betroffenen Vertrag vor dem vorgeschlagenen
+                    Zeitpunkt des Wirksamwerdens der Änderungen
+                    auch fristlos und kostenfrei kündigen. Auf dieses Kündigungsrecht
+                    wird ihn die Bank in ihrem Angebot besonders hinweisen.
+                    Kündigt der Kunde, wird das geänderte Entgelt für die gekündigte
+                    Geschäftsbeziehung nicht zugrunde gelegt.
+                    Die vorstehende Vereinbarung gilt gegenüber Verbrauchern
+                    nur dann, wenn die Bank Entgelte für Hauptleistungen ändern
+                    will, die vom Verbraucher im Rahmen der Geschäftsverbindung
+                    typischerweise dauerhaft in Anspruch genommen werden.
+                    Eine Vereinbarung über die Änderung eines Entgelts, das auf
+                    eine über die Hauptleistung hinausgehende Zahlung des Verbrauchers
+                    gerichtet ist, kann die Bank mit dem Verbraucher nur
+                    ausdrücklich vereinbaren.
+
+                    <br />
+                    <h4>
+                        (6) Ersatz von Aufwendungen
+                    </h4>
+                    <br />
+
+                    Ein möglicher Anspruch der Bank auf Ersatz von Aufwendungen
+                    richtet sich nach den gesetzlichen Vorschriften.
+
+                    <br />
+                    <h4>
+                        (7) Besonderheiten bei Verbraucherdarlehensverträgen
+                        und Zahlungsdiensteverträgen mit Verbrauchern für
+                        Zahlungen innerhalb des Europäischen Wirtschaftsraums
+                        (EWR) in einer EWR-Währung
+                    </h4>
+                    <br />
+
+                    Bei Verbraucherdarlehensverträgen und Zahlungsdiensteverträgen
+                    mit Verbrauchern für Zahlungen innerhalb des Europäischen
+                    Wirtschaftsraums4) (EWR) in einer EWR-Währung5)
+                    richten sich die Zinsen und die Kosten (Entgelte und Auslagen)
+                    nach den jeweiligen vertraglichen Vereinbarungen und Sonderbedingungen
+                    sowie ergänzend nach den gesetzlichen Vorschriften.
+                    Sicherheiten für die Ansprüche der Bank
+                    gegen den Kunden
+                    13. Bestellung oder Verstärkung von Sicherheiten
+
+                    <br />
+                    <h4>
+                        (1) Anspruch der Bank auf Bestellung von Sicherheiten
+                    </h4>
+                    <br />
+
+                    Die Bank kann für alle Ansprüche aus der bankmäßigen
+                    Geschäftsverbindung die Bestellung bankmäßiger Sicherheiten
+                    verlangen, und zwar auch dann, wenn die Ansprüche bedingt
+                    sind (zum Beispiel Aufwendungsersatzanspruch wegen der
+                    Inanspruchnahme aus einer für den Kunden übernommenen
+                    Bürgschaft). Hat der Kunde gegenüber der Bank eine Haftung
+                    für Verbindlichkeiten eines anderen Kunden der Bank übernommen
+                    (zum Beispiel als Bürge), so besteht für die Bank ein
+                    Anspruch auf Bestellung oder Verstärkung von Sicherheiten im
+                    Hinblick auf die aus der Haftungsübernahme folgende Schuld
+                    jedoch erst ab ihrer Fälligkeit.
+
+                    <br />
+                    <h4>
+                        (2) Veränderungen des Risikos
+                    </h4>
+                    <br />
+
+                    Hat die Bank bei der Entstehung von Ansprüchen gegen den
+                    Kunden zunächst ganz oder teilweise davon abgesehen, die
+                    Bestellung oder Verstärkung von Sicherheiten zu verlangen,
+                    kann sie auch später noch eine Besicherung fordern. Voraussetzung
+                    hierfür ist jedoch, dass Umstände eintreten oder
+                    bekannt werden, die eine erhöhte Risikobewertung der Ansprüche
+                    gegen den Kunden rechtfertigen. Dies kann insbesondere der
+                    Fall sein, wenn
+                    – sich die wirtschaftlichen Verhältnisse des Kunden nachteilig
+                    verändert haben oder sich zu verändern drohen, oder
+                    – sich die vorhandenen Sicherheiten wertmäßig verschlechtert
+                    haben oder zu verschlechtern drohen.
+                    Der Besicherungsanspruch der Bank besteht nicht, wenn ausdrücklich
+                    vereinbart ist, dass der Kunde keine oder ausschließ-
+                    lich im Einzelnen benannte Sicherheiten zu bestellen hat. Bei
+                    Verbraucherdarlehensverträgen besteht ein Anspruch auf die
+                    Bestellung oder Verstärkung von Sicherheiten nur, soweit die
+                    Sicherheiten im Kreditvertrag angegeben sind. Übersteigt der
+                    Nettodarlehensbetrag 75.000 Euro, besteht der Anspruch auf
+                    Bestellung oder Verstärkung auch dann, wenn in einem vor dem
+                    21. März 2016 abgeschlossenen Verbraucherdarlehensvertrag
+                    oder in einem ab dem 21. März 2016 abgeschlossenen AllgemeinVerbraucherdarlehensvertrag
+                    im Sinne von § 491 Abs. 2 BGB
+                    keine oder keine abschließenden Angaben über Sicherheiten
+                    enthalten sind.
+
+                    <br />
+                    <h4>
+                        (3) Fristsetzung für die Bestellung oder Verstärkung von
+                        Sicherheiten
+                    </h4>
+                    <br />
+
+                    Für die Bestellung oder Verstärkung von Sicherheiten wird die
+                    Bank eine angemessene Frist einräumen. Beabsichtigt die Bank,
+                    von ihrem Recht zur fristlosen Kündigung nach Nr. 19 Absatz 3
+                    dieser Geschäftsbedingungen Gebrauch zu machen, falls der
+                    Kunde seiner Verpflichtung zur Bestellung oder Verstärkung von
+                    Sicherheiten nicht fristgerecht nachkommt, wird sie ihn zuvor
+                    hierauf hinweisen.
+                    14. Vereinbarung eines Pfandrechts zu
+                    Gunsten der Bank
+
+                    <br />
+                    <h4>
+                        (1) Einigung über das Pfandrecht
+                    </h4>
+                    <br />
+
+                    Der Kunde und die Bank sind sich darüber einig, dass die Bank
+                    ein Pfandrecht an den Wertpapieren und Sachen erwirbt, an
+                    denen eine inländische Geschäftsstelle im bankmäßigen
+                    Geschäftsverkehr Besitz erlangt hat oder noch erlangen wird.
+                    Die Bank erwirbt ein Pfandrecht auch an den Ansprüchen, die
+                    dem Kunden gegen die Bank aus der bankmäßigen Geschäftsverbindung
+                    zustehen oder künftig zustehen werden (zum Beispiel
+                    Kontoguthaben).
+
+                    <br />
+                    <h4>
+                        (2) Gesicherte Ansprüche
+                    </h4>
+                    <br />
+
+                    Das Pfandrecht dient der Sicherung aller bestehenden, künftigen
+                    und bedingten Ansprüche, die der Bank mit ihren sämtlichen inund
+                    ausländischen Geschäftsstellen aus der bankmäßigen
+                    Geschäftsverbindung gegen den Kunden zustehen. Hat der
+                    Kunde gegenüber der Bank eine Haftung für Verbindlichkeiten
+                    eines anderen Kunden der Bank übernommen (zum Beispiel als
+                    Bürge), so sichert das Pfandrecht die aus der Haftungsübernahme
+                    folgende Schuld jedoch erst ab ihrer Fälligkeit.
+
+                    <br />
+                    <h4>
+                        (3) Ausnahmen vom Pfandrecht
+                    </h4>
+                    <br />
+
+                    Gelangen Gelder oder andere Werte mit der Maßgabe in die
+                    Verfügungsgewalt der Bank, dass sie nur für einen bestimmten
+                    Zweck verwendet werden dürfen (zum Beispiel Bareinzahlung
+                    zur Einlösung eines Wechsels), erstreckt sich das Pfandrecht
+                    der Bank nicht auf diese Werte. Dasselbe gilt für die von der
+                    Bank oder der Deutsche Bank AG selbst ausgegebenen Aktien
+                    (eigene Aktien) und für die Wertpapiere, die die Bank im Ausland
+                    für den Kunden verwahrt. Außerdem erstreckt sich das
+                    Pfandrecht nicht auf die von einer zum Deutsche Bank Konzern
+                    gehörenden Gesellschaft selbst ausgegebenen eigenen Genussrechte/Genussscheine
+                    und nicht auf die verbrieften und
+                    nicht verbrieften nachrangigen Verbindlichkeiten einer zum
+                    Deutsche Bank Konzern gehörenden Gesellschaft.
+
+                    <br />
+                    <h4>
+                        (4) Zins- und Gewinnanteilscheine
+
+                    </h4>
+                    <br />
+
+                    Unterliegen dem Pfandrecht der Bank Wertpapiere, ist der
+                    Kunde nicht berechtigt, die Herausgabe der zu diesen Papieren
+                    gehörenden Zins- und Gewinnanteilscheine zu verlangen.
+                    15.Sicherungsrechte bei Einzugspapieren und
+                    diskontierten Wechseln
+
+                    <br />
+                    <h4>
+                        (1) Sicherungsübereignung
+                    </h4>
+                    <br />
+
+                    Die Bank erwirbt an den ihr zum Einzug eingereichten Schecks
+                    und Wechseln im Zeitpunkt der Einreichung Sicherungseigentum.
+                    An diskontierten Wechseln erwirbt die Bank im Zeitpunkt
+                    des Wechselankaufs uneingeschränktes Eigentum; belastet sie
+                    diskontierte Wechsel dem Konto zurück, so verbleibt ihr das
+                    Sicherungseigentum an diesen Wechseln.
+
+                    <br />
+                    <h4>
+                        (2) Sicherungsabtretung
+                    </h4>
+                    <br />
+
+                    Mit dem Erwerb des Eigentums an Schecks und Wechseln
+                    gehen auch die zu Grunde liegenden Forderungen auf die Bank
+                    über; ein Forderungsübergang findet ferner statt, wenn andere
+                    Papiere zum Einzug eingereicht werden (zum Beispiel Lastschriften,
+                    kaufmännische Handelspapiere).
+
+                    <br />
+                    <h4>
+                        (3) Zweckgebundene Einzugspapiere
+                    </h4>
+                    <br />
+
+                    Werden der Bank Einzugspapiere mit der Maßgabe eingereicht,
+                    dass ihr Gegenwert nur für einen bestimmten Zweck verwendet
+                    werden darf, erstrecken sich die Sicherungsübereignung und
+                    die Sicherungsabtretung nicht auf diese Papiere.
+
+                    <br />
+                    <h4>
+                        (4) Gesicherte Ansprüche der Bank
+                    </h4>
+                    <br />
+
+                    Das Sicherungseigentum und die Sicherungsabtretung dienen
+                    der Sicherung aller Ansprüche, die der Bank gegen den Kunden
+                    bei Einreichung von Einzugspapieren aus seinen Kontokorrentkonten
+                    zustehen oder die infolge der Rückbelastung nicht eingelöster
+                    Einzugspapiere oder diskontierter Wechsel entstehen. Auf
+                    Anforderung des Kunden nimmt die Bank eine Rückübertragung
+                    des Sicherungseigentums an den Papieren und der auf sie übergegangenen
+                    Forderungen an den Kunden vor, falls ihr im Zeitpunkt
+                    der Anforderung keine zu sichernden Ansprüche gegen
+                    den Kunden zustehen oder sie ihn über den Gegenwert der
+                    Papiere vor deren endgültiger Bezahlung nicht verfügen lässt.
+                    16.Begrenzung des Besicherungsanspruchs
+                    und Freigabeverpflichtung
+
+                    <br />
+                    <h4>
+                        (1) Deckungsgrenze
+                    </h4>
+                    <br />
+
+                    Die Bank kann ihren Anspruch auf Bestellung oder Verstärkung
+                    von Sicherheiten so lange geltend machen, bis der realisierbare
+                    Wert aller Sicherheiten dem Gesamtbetrag aller Ansprüche aus der
+                    bankmäßigen Geschäftsverbindung (Deckungsgrenze) entspricht.
+
+                    <br />
+                    <h4>
+                        (2) Freigabe
+                    </h4>
+                    <br />
+
+                    Falls der realisierbare Wert aller Sicherheiten die Deckungsgrenze
+                    nicht nur vorübergehend übersteigt, hat die Bank auf Verlangen
+                    des Kunden Sicherheiten nach ihrer Wahl freizugeben, und zwar
+                    in Höhe des die Deckungsgrenze übersteigenden Betrages; sie
+                    wird bei der Auswahl der freizugebenden Sicherheiten auf die
+                    berechtigten Belange des Kunden und eines dritten Sicherungsgebers,
+                    der für die Verbindlichkeiten des Kunden Sicherheiten
+                    bestellt hat, Rücksicht nehmen. In diesem Rahmen ist die Bank
+                    auch verpflichtet, Aufträge des Kunden über die dem Pfandrecht
+                    unterliegenden Werte auszuführen (zum Beispiel Verkauf von
+                    Wertpapieren, Auszahlung von Sparguthaben).
+
+                    <br />
+                    <h4>
+                        (3) Sondervereinbarungen
+                    </h4>
+                    <br />
+
+                    Ist für eine bestimmte Sicherheit ein anderer Bewertungsmaßstab
+                    als der realisierbare Wert oder ist eine andere Deckungsgrenze
+                    oder ist eine andere Grenze für die Freigabe von Sicherheiten
+                    vereinbart, so sind diese maßgeblich.
+                    17.Verwertung von Sicherheiten
+
+                    <br />
+                    <h4>
+                        (1) Wahlrecht der Bank
+                    </h4>
+                    <br />
+
+                    Wenn die Bank verwertet, hat sie unter mehreren Sicherheiten
+                    die Wahl. Sie wird bei der Verwertung und bei der Auswahl
+                    der zu verwertenden Sicherheiten auf die berechtigten Belange
+                    des Kunden und eines dritten Sicherungsgebers, der für die
+                    Verbindlichkeiten des Kunden Sicherheiten bestellt hat, Rücksicht
+                    nehmen.
+
+                    <br />
+                    <h4>
+                        (2) Erlösgutschrift nach dem Umsatzsteuerrecht
+                    </h4>
+                    <br />
+
+                    Wenn der Verwertungsvorgang der Umsatzsteuer unterliegt,
+                    wird die Bank dem Kunden über den Erlös eine Gutschrift erteilen,
+                    die als Rechnung für die Lieferung der als Sicherheit dienenden
+                    Sache gilt und den Voraussetzungen des Umsatzsteuerrechts
+                    entspricht.
+                    Kündigung
+                    18.Kündigungsrechte des Kunden
+
+                    <br />
+                    <h4>
+                        (1) Jederzeitiges Kündigungsrecht
+                    </h4>
+                    <br />
+
+                    Der Kunde kann die gesamte Geschäftsverbindung oder einzelne
+                    Geschäftsbeziehungen (zum Beispiel den Scheckvertrag),
+                    für die weder eine Laufzeit noch eine abweichende Kündigungsregelung
+                    vereinbart ist, jederzeit ohne Einhaltung einer Kündigungsfrist
+                    kündigen.
+
+                    <br />
+                    <h4>
+                        (2) Kündigung aus wichtigem Grund
+                    </h4>
+                    <br />
+
+                    Ist für eine Geschäftsbeziehung eine Laufzeit oder eine abweichende
+                    Kündigungsregelung vereinbart, kann eine fristlose
+                    Kündigung nur dann ausgesprochen werden, wenn hierfür ein
+                    wichtiger Grund vorliegt, der es dem Kunden, auch unter Berücksichtigung
+                    der berechtigten Belange der Bank, unzumutbar
+                    werden lässt, die Geschäftsbeziehung fortzusetzen.
+
+                    <br />
+                    <h4></h4>
+                    <br />
+
+                    (3) Gesetzliche Kündigungsrechte
+                    Gesetzliche Kündigungsrechte bleiben unberührt.
+                    19.Kündigungsrechte der Bank
+
+                    <br />
+                    <h4>
+                        (1) Kündigung unter Einhaltung einer Kündigungsfrist
+                    </h4>
+                    <br />
+
+                    Die Bank kann die gesamte Geschäftsverbindung oder einzelne
+                    Geschäftsbeziehungen, für die weder eine Laufzeit noch eine
+                    abweichende Kündigungsregelung vereinbart ist, jederzeit unter
+                    Einhaltung einer angemessenen Kündigungsfrist kündigen (zum
+                    Beispiel den Scheckvertrag, der zur Nutzung von Scheckvordrucken
+                    berechtigt). Bei der Bemessung der Kündigungsfrist wird
+                    die Bank auf die berechtigten Belange des Kunden Rücksicht
+                    nehmen. Für die Kündigung eines Zahlungsdiensterahmenvertrages
+                    (z. B. laufendes Konto oder Kartenvertrag) und eines
+                    Depots beträgt die Kündigungsfrist mindestens zwei Monate.
+
+                    <br />
+                    <h4>
+                        (2) Kündigung unbefristeter Kredite
+                    </h4>
+                    <br />
+
+                    Kredite und Kreditzusagen, für die weder eine Laufzeit noch eine
+                    abweichende Kündigungsregelung vereinbart ist, kann die Bank
+                    jederzeit ohne Einhaltung einer Kündigungsfrist kündigen. Die
+                    Bank wird bei der Ausübung dieses Kündigungsrechts auf die
+                    berechtigten Belange des Kunden Rücksicht nehmen.
+                    Soweit das Bürgerliche Gesetzbuch Sonderregelungen für die
+                    Kündigung eines Verbraucherdarlehensvertrages vorsieht, kann
+                    die Bank nur nach Maßgabe dieser Regelungen kündigen.
+
+                    <br />
+                    <h4>
+                        (3) Kündigung aus wichtigem Grund ohne Einhaltung
+                        einer Kündigungsfrist
+                    </h4>
+                    <br />
+
+                    Eine fristlose Kündigung der gesamten Geschäftsverbindung oder
+                    einzelner Geschäftsbeziehungen ist zulässig, wenn ein wichtiger
+                    Grund vorliegt, der der Bank, deren Fortsetzung auch unter Berücksichtigung
+                    der berechtigten Belange des Kunden unzumutbar
+                    werden lässt. Ein wichtiger Grund liegt insbesondere vor,
+                    – wenn der Kunde unrichtige Angaben über seine Vermögensverhältnisse
+                    gemacht hat, die für die Entscheidung der Bank
+                    über eine Kreditgewährung oder über andere mit Risiken für
+                    die Bank verbundene Geschäfte (zum Beispiel Aushändigung
+                    einer Zahlungskarte) von erheblicher Bedeutung waren; bei
+                    Verbraucherdarlehen gilt dies nur, wenn der Kunde für die Kreditwürdigkeitsprüfung
+                    relevante Informationen wissentlich
+                    vorenthalten oder diese gefälscht hat und dies zu einem Mangel
+                    der Kreditwürdigkeitsprüfung geführt hat, oder
+                    – wenn eine wesentliche Verschlechterung der Vermögensverhältnisse
+                    des Kunden oder der Werthaltigkeit einer Sicherheit
+                    eintritt oder einzutreten droht und dadurch die Rückzahlung
+                    des Darlehens oder die Erfüllung einer sonstigen Verbindlichkeit
+                    gegenüber der Bank – auch unter Verwertung einer hierfür
+                    bestehenden Sicherheit – gefährdet ist, oder
+                    – wenn der Kunde seiner Verpflichtung zur Bestellung oder Verstärkung
+                    von Sicherheiten nach Nummer 13 Absatz 2 dieser
+                    Geschäftsbedingungen oder aufgrund einer sonstigen Vereinbarung
+                    nicht innerhalb der von der Bank gesetzten angemessenen
+                    Frist nachkommt.
+                    Besteht der wichtige Grund in der Verletzung einer vertraglichen
+                    Pflicht, ist die Kündigung erst nach erfolglosem Ablauf einer zur
+                    Abhilfe bestimmten angemessenen Frist oder nach erfolgloser
+                    Abmahnung zulässig, es sei denn, dies ist wegen der Besonderheiten
+                    des Einzelfalles (§ 323 Absätze 2 und 3 des Bürgerlichen
+                    Gesetzbuches) entbehrlich.
+
+                    <br />
+                    <h4>
+                        (4) Kündigung von Verbraucherdarlehensverträgen bei
+                        Verzug
+                    </h4>
+                    <br />
+
+                    Soweit das Bürgerliche Gesetzbuch Sonderregelungen für die
+                    Kündigung wegen Verzuges mit der Rückzahlung eines Verbraucherdarlehensvertrages
+                    vorsieht, kann die Bank nur nach
+                    Maßgabe dieser Regelungen kündigen.
+
+                    <br />
+                    <h4>
+                        (5) Kündigung eines Basiskontovertrages
+                    </h4>
+                    <br />
+
+                    Einen Basiskontovertrag kann die Bank nur nach den zwischen
+                    der Bank und dem Kunden auf Grundlage des Zahlungskontengesetzes
+                    getroffenen Vereinbarungen und den Bestimmungen
+                    des Zahlungskontengesetzes kündigen.
+
+                    <br />
+                    <h4>
+                        (6) Abwicklung nach einer Kündigung
+                    </h4>
+                    <br />
+
+                    Im Falle einer Kündigung ohne Kündigungsfrist wird die Bank
+                    dem Kunden für die Abwicklung (insbesondere für die Rückzahlung
+                    eines Kredits) eine angemessene Frist einräumen,
+                    soweit nicht eine sofortige Erledigung erforderlich ist (zum Beispiel
+                    bei der Kündigung des Scheckvertrages die Rückgabe der
+                    Scheckvordrucke).
+                    Schutz der Einlagen
+                    20.Einlagensicherungsfonds
+
+                    <br />
+                    <h4>
+                        (1) Schutzumfang
+                    </h4>
+                    <br />
+
+                    Die Bank ist dem Einlagensicherungsfonds des Bundesverbandes
+                    deutscher Banken e.V. angeschlossen. Der Einlagensicherungsfonds
+                    sichert alle Verbindlichkeiten, die in der Bilanzposition
+                    „Verbindlichkeiten gegenüber Kunden“ auszuweisen sind.
+                    Hierzu zählen Sicht-, Termin- und Spareinlagen einschließlich
+                    der auf den Namen lautenden Sparbriefe. Die Sicherungsgrenze
+                    je Gläubiger beträgt bis zum 31. Dezember 2019 20 %, bis zum
+                    31. Dezember 2024 15 % und ab dem 1. Januar 2025 8,75 %
+                    des für die Einlagensicherung maßgeblichen haftenden Eigenkapitals
+                    der Bank. Für Einlagen, die nach dem 31. Dezember
+                    2011 begründet oder prolongiert werden, gelten, unabhängig
+                    vom Zeitpunkt der Begründung der Einlage, die jeweils neuen
+                    Sicherungsgrenzen ab den vorgenannten Stichtagen. Für Einlagen,
+                    die vor dem 31. Dezember 2011 begründet wurden, gelten
+                    die alten Sicherungsgrenzen bis zur Fälligkeit der Einlage
+                    oder bis zum nächstmöglichen Kündigungstermin. Diese
+                    Sicherungsgrenze wird dem Kunden von der Bank auf Verlangen
+                    bekannt gegeben. Sie kann auch im Internet unter
+                    www.bankenverband.de abgefragt werden. Sofern es sich bei
+                    der Bank um eine Zweigniederlassung eines Instituts aus einem
+                    anderen Staat des Europäischen Wirtschaftsraumes handelt, erbringt
+                    der Einlagensicherungsfonds Entschädigungsleistungen
+                    nur, wenn und soweit die Guthaben die Sicherungsgrenze der
+                    Heimatlandeinlagensicherung übersteigen. Der Umfang der
+                    Heimatlandeinlagensicherung kann im Internet auf der Webseite
+                    der jeweils zuständigen Sicherungseinrichtung abgefragt
+                    werden, deren Adresse dem Kunden auf Verlangen von der
+                    Bank mitgeteilt wird.
+
+                    <br />
+                    <h4>
+                        (2) Ausnahmen vom Einlegerschutz
+                    </h4>
+                    <br />
+
+                    Nicht geschützt sind Forderungen, über die die Bank Inhaberpapiere
+                    ausgestellt hat, wie z. B. Inhaberschuldverschreibungen
+                    und Inhabereinlagenzertifikate, sowie Verbindlichkeiten gegen-
+                    über Kreditinstituten.
+
+                    <br />
+                    <h4></h4>
+                    <br />
+
+                    (3) Ergänzende Geltung des Statuts des Einlagensicherungsfonds
+                    Wegen weiterer Einzelheiten des Sicherungsumfanges wird auf
+                    § 6 des Statuts des Einlagensicherungsfonds verwiesen, das
+                    auf Verlangen zur Verfügung gestellt wird.
+
+                    <br />
+                    <h4>
+                        (4) Forderungsübergang
+                    </h4>
+                    <br />
+
+                    Soweit der Einlagensicherungsfonds oder ein von ihm Beauftragter
+                    Zahlungen an einen Kunden leistet, gehen dessen
+                    Forderungen gegen die Bank in entsprechender Höhe mit allen
+                    Nebenrechten Zug um Zug auf den Einlagensicherungsfonds
+                    über.
+
+                    <br />
+                    <h4>
+                        (5) Auskunftserteilung
+                    </h4>
+                    <br />
+
+                    Die Bank ist befugt, dem Einlagensicherungsfonds oder einem von
+                    ihm Beauftragten alle in diesem Zusammenhang erforderlichen
+                    Auskünfte zu erteilen und Unterlagen zur Verfügung zu stellen.
+                    Ombudsmannverfahren
+                    21.Außergerichtliche Streitschlichtung
+                    Die Bank nimmt am Streitbeilegungsverfahren der Verbraucherschlichtungsstelle
+                    „Ombudsmann der privaten Banken“
+                    (www.bankenombudsmann.de) teil. Dort hat der Verbraucher
+                    die Möglichkeit, zur Beilegung einer Streitigkeit mit der Bank
+                    den Ombudsmann der privaten Banken anzurufen. Betrifft der
+                    Beschwerdegegenstand eine Streitigkeit über einen Zahlungsdienstevertrag
+                    (§ 675f des Bürgerlichen Gesetzbuches), können
+                    auch Kunden, die nicht Verbraucher sind, den Ombudsmann
+                    der privaten Banken anrufen. Näheres regelt die „Verfahrensordnung
+                    für die Schlichtung von Kundenbeschwerden im deutschen
+                    Bankgewerbe“, die auf Wunsch zur Verfügung gestellt
+                    wird oder im Internet unter www.bankenverband.de abrufbar
+                    ist. Die Beschwerde ist in Textform (z. B. mittels Brief, Telefax
+                    oder E-Mail) an die Kundenbeschwerdestelle beim Bundesverband
+                    deutscher Banken e. V., Postfach 04 03 07, 10062 Berlin,
+                    Fax: (030) 1663-3169, E-Mail: ombudsmann@bdb.de, zu richten.
+                    1) Bankarbeitstage sind alle Werktage außer: Sonnabende, 24. und 31. Dezember.
+                    2) International Bank Account Number (Internationale Bankkontonummer)
+                    3) Bank Identifier Code (Bank-Identifizierungs-Code )
+                    4) Zum Europäischen Wirtschaftsraum gehören derzeit: Belgien, Bulgarien, Dänemark,
+                    Deutschland, Estland, Finnland, Frankreich (einschl. Französisch-Guayana, Guadeloupe,
+                    Martinique, Mayotte, Réunion), Griechenland, Irland, Island, Italien, Kroatien, Lettland,
+                    Liechtenstein, Litauen, Luxemburg, Malta, Niederlande, Norwegen, Österreich, Polen,
+                    Portugal, Rumänien, Schweden, Slowakei, Slowenien, Spanien, Tschechische Republik,
+                    Ungarn, Vereinigtes Königreich von Großbritannien und Nordirland, Zypern.
+                    5) Zu den EWR-Währungen gehören derzeit: Euro, Britische Pfund Sterling, Bulgarische Lew,
+                    Dänische Krone, Isländische Krone, Kroatische Kuna, Schweizer Franken, Norwegische
+                    Krone, Polnische Zloty, Rumänische Leu, Schwedische Krone, Tschechische Krone,
+                    Ungarische Forint.
+
+                </div>
+            </div>
+            <form name="anmeldeformular" method="post" action="checked.html">
+                <div class="row">
+                    <input class="col-md-1" id="agb" name="agb" type="checkbox" value="1" onchange="acceptAGB();" />
+                    <p class="col-md-11"> Ich akzeptiere die allgemeinen Geschäftsbedinnungen der Deutschen Bank AG</p>
+                </div>
+                </form>
+                <div class="form-group row">
+                    <div class="col-sm-offset-2 col-sm-5">
+                        <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary ">Zurück</a>
+                    </div>
+                    <div class="col-sm-5" name="btnSubmit" id="btnSubmit" style="display: none" >
+                        <input type="submit" value="Bestätigen" class="btn btn-primary" />
+                    </div>
+                </div>
+</div>
     </section>
 }
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    /* <![CDATA[ */
+    function acceptAGB() {
+        if(document.getElementById("agb").checked) {
+            document.getElementById("btnSubmit").style = 'display: block;';
+        }
+        else {
+            document.getElementById("btnSubmit").style = 'display: none;';
+        }
+    }
+    /* ]]> */
+</script>
+
 }
