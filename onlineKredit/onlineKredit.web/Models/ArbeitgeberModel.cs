@@ -26,7 +26,7 @@ namespace onlineKredit.web.Models
         [Required(ErrorMessage = "Bitte Datum wählen, seit dem sie in dieser Firma beschäftigt sind.")]
         [DataType(DataType.Date)]
         [Display(Name = "Beschäftigt seit")]
-        // [DisplayFormat(DataFormatString ="{0:MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString ="{0:yyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BeschaeftigtSeit { get; set; }
 
 

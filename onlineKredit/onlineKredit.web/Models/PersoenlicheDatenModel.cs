@@ -42,6 +42,7 @@ namespace onlineKredit.web.Models
         [ValidBirthDate]
         [DataType(DataType.Date)]
         [Display(Name = "Geburtsdatum")]
+        [DisplayFormat(DataFormatString = "{0:yyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime GeburtsDatum { get; set; }
 
         [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]

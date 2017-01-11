@@ -23,21 +23,21 @@ namespace onlineKredit.logic
             Debug.Indent();
 
             Kunde neuerKunde = null;
-
+            
             try
             {
                 using (var context = new dbOnlineKredit())
                 {
                     neuerKunde = new Kunde()
                     {
-                        Vorname = "Anonym",
-                        Nachname = "Anonym",
+                        Vorname = "",
+                        Nachname = "",
                         Geschlecht = "m",
-                        Geburtsdatum = new DateTime(1989, 02, 12)
+                        Geburtsdatum = new DateTime(1900, 01, 01)
                     };
 
                     context.AlleKunden.Add(neuerKunde);
-
+                    
                     int anzahlZeilenBearbeitet = context.SaveChanges();
                     Debug.WriteLine($"{anzahlZeilenBearbeitet} Kunden angelegt!");
                 }

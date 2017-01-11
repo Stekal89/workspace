@@ -74,7 +74,6 @@ namespace onlineKredit.web.Controllers
                         return RedirectToAction("ZusammenFassung");
                 }
             }
-            
             /// falls der ModelState NICHT valid ist, bleibe hier und
             /// gib die Daten (falls vorhanden) wieder auf das UI
             return View(model);
@@ -232,6 +231,7 @@ namespace onlineKredit.web.Controllers
             model.AlleSchulabschlussAngabenWeb = alleSchulabschluesseAngabenWeb;
             model.AlleIdentifikationsArtAngabenWeb = alleIdentifikationsArtenAngabenWeb;
             model.AlleWohnartsAngabenWeb = alleWohnartenAngabenWeb;
+            model.GeburtsDatum = DateTime.Now;
             model.KundenID = int.Parse(Request.Cookies["kundenID"].Value);
 
             return model;
@@ -244,12 +244,12 @@ namespace onlineKredit.web.Controllers
             /// fügt dem die Daten für die Lookup-Tabellen hinzu.
             /// Id des Kunden wird auch mit übergeben
             PersoenlicheDatenModel model = new PersoenlicheDatenModel();
-            model = PersoenlicheDatenLookup(model); /// Lade LookupDaten für die Dropdownlist-Elemente
 
             /// Rufe Verwaltung mit Kunden ID auf
             /// Wenn es zu dieser KundenID Persönlichen Daten gibt
             /// gib diese zurück
             Kunde persoenlicheDaten = KonsumKreditVerwaltung.PersoenlicheDatenLaden(model.KundenID);
+            model = PersoenlicheDatenLookup(model); /// Lade LookupDaten für die Dropdownlist-Elemente
 
             if (persoenlicheDaten != null)
             {
@@ -305,6 +305,7 @@ namespace onlineKredit.web.Controllers
                     else
                         return RedirectToAction("ZusammenFassung");
                 }
+                return View(model);
             }
 
             List<TitelModel> alleTitelAngabenWeb = new List<TitelModel>();
@@ -724,7 +725,7 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
                                                                         model.IBAN,
@@ -768,7 +769,7 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("POST - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            if (ModelState.IsValid && !HomeController.alleDatenAngegeben)
+            if (ModelState.IsValid)
             {
                 if (KonsumKreditVerwaltung.KontoInformationenSpeichern(model.BIC,
                                                                         model.IBAN,
