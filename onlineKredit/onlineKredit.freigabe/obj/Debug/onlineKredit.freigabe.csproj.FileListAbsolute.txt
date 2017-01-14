@@ -2,6 +2,10 @@ C:\Workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.
 C:\Workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.pdb
 C:\Workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.dll
 C:\Workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.pdb
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.pdb
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.dll
+C:\Users\tstek\OneDrive\Documents\GitHub\workspace\workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.pdb
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.dll
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\bin\Debug\onlineKredit.freigabe.pdb
 C:\Users\tstek\OneDrive\Documents\GitHub\workspace\onlineKredit\onlineKredit.freigabe\obj\Debug\onlineKredit.freigabe.dll

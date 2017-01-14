@@ -344,6 +344,9 @@
     <Compile Include="Kredit.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="KreditKarte.cs">
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Kunde.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
@@ -370,6 +373,9 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schulabschluss.cs">
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblLogin.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Titel.cs">

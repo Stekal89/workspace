@@ -79,17 +79,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="AlleKontoDaten">
-      <EntityTypeMapping TypeName="dbOnlineKreditModel.KontoDaten">
-        <MappingFragment StoreEntitySet="tblKontoDaten">
-          <ScalarProperty Name="ID" ColumnName="IDKontoDaten" />
-          <ScalarProperty Name="BIC" ColumnName="BIC" />
-          <ScalarProperty Name="IBAN" ColumnName="IBAN" />
-          <ScalarProperty Name="HatKonto" ColumnName="HatKonto" />
-          <ScalarProperty Name="Bank" ColumnName="Bank" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="AlleKredite">
       <EntityTypeMapping TypeName="dbOnlineKreditModel.Kredit">
         <MappingFragment StoreEntitySet="tblKredit">
@@ -158,6 +147,36 @@
         <MappingFragment StoreEntitySet="tblWohnart">
           <ScalarProperty Name="ID" ColumnName="IDWohnart" />
           <ScalarProperty Name="Bezeichnung" ColumnName="Wohnart" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleKreditKarten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.KreditKarte">
+        <MappingFragment StoreEntitySet="tblKreditKarte">
+          <ScalarProperty Name="GueltigBis" ColumnName="GültigBis" />
+          <ScalarProperty Name="Nummer" ColumnName="Nummer" />
+          <ScalarProperty Name="Inhaber" ColumnName="Inhaber" />
+          <ScalarProperty Name="ID" ColumnName="IDKreditKarte" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblLogin">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.tblLogin">
+        <MappingFragment StoreEntitySet="tblLogin">
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="IDLogin" ColumnName="IDLogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AlleKontoDaten">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.KontoDaten">
+        <MappingFragment StoreEntitySet="tblKontoDaten">
+          <ScalarProperty Name="Bank" ColumnName="Bank" />
+          <ScalarProperty Name="HatKonto" ColumnName="HatKonto" />
+          <ScalarProperty Name="IBAN" ColumnName="IBAN" />
+          <ScalarProperty Name="BIC" ColumnName="BIC" />
+          <ScalarProperty Name="ID" ColumnName="IDKontoDaten" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

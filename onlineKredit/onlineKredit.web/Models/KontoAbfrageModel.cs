@@ -16,7 +16,7 @@ namespace onlineKredit.web.Models
         [HiddenInput(DisplayValue = false)]
         [Required]
         public int KundenID { get; set; }
-
+        
         public List<KontoAbfrageMoeglichkeitModel> AlleKontoAbfrageMoeglichkeitenAngaben { get; set; }
     }
 }

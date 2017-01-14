@@ -23,7 +23,7 @@ namespace onlineKredit.logic
             Debug.Indent();
 
             Kunde neuerKunde = null;
-            
+
             try
             {
                 using (var context = new dbOnlineKredit())
@@ -33,11 +33,11 @@ namespace onlineKredit.logic
                         Vorname = "",
                         Nachname = "",
                         Geschlecht = "m",
-                        Geburtsdatum = new DateTime(1900, 01, 01)
+                        Geburtsdatum = new DateTime(1991, 01, 01)
                     };
 
                     context.AlleKunden.Add(neuerKunde);
-                    
+
                     int anzahlZeilenBearbeitet = context.SaveChanges();
                     Debug.WriteLine($"{anzahlZeilenBearbeitet} Kunden angelegt!");
                 }
@@ -83,7 +83,7 @@ namespace onlineKredit.logic
                     {
                         if (aktKunde.Kredit == null)
                             aktKunde.Kredit = new Kredit();
-                        
+
                         /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
                         aktKunde.Kredit.GewuenschterKredit = (decimal)kreditBetrag;
                         aktKunde.Kredit.GewuenschteLaufzeit = laufzeit;
@@ -183,7 +183,7 @@ namespace onlineKredit.logic
                         aktKunde.FinanzielleSituation.UnterhaltsZahlungen = (decimal)unterhaltsZahlungen;
                         aktKunde.FinanzielleSituation.RatenZahlungen = (decimal)ratenVerpflichtungen;
                     }
-               
+
                     /// Speichere Finanzielle Situation (Änderungen) in die Datenbank
                     int anzahlZeilenBetroffen = context.SaveChanges();
                     erfolgreich = anzahlZeilenBetroffen >= 0;
@@ -903,9 +903,10 @@ namespace onlineKredit.logic
             {
                 List<KontoAbfrageMoeglichkeit> zwischenListe = new List<KontoAbfrageMoeglichkeit>()
                 {
-                    new KontoAbfrageMoeglichkeit() { ID = 1, Bezeichnung = "Vorhandenes Deutsche Bank AG Konto." },
-                    new KontoAbfrageMoeglichkeit() { ID = 2, Bezeichnung = "Neues Konto bei Deutsche Bank AG anlegen." },
-                    new KontoAbfrageMoeglichkeit() { ID = 3, Bezeichnung = "Anderes Konto verwenden." }
+                    new KontoAbfrageMoeglichkeit() { ID = 1, Bezeichnung = "Kreditkarte verwenden" },
+                    new KontoAbfrageMoeglichkeit() { ID = 2, Bezeichnung = "Vorhandenes Deutsche Bank AG Konto." },
+                    new KontoAbfrageMoeglichkeit() { ID = 3, Bezeichnung = "Neues Konto bei Deutsche Bank AG anlegen." },
+                    new KontoAbfrageMoeglichkeit() { ID = 4, Bezeichnung = "Anderes Konto verwenden." }
                 };
 
                 alleKontoAbfrageMoeglichkeitenAngabenBL = zwischenListe;
@@ -951,7 +952,13 @@ namespace onlineKredit.logic
                     if (aktKunde != null)
                     {
                         if (aktKunde.KontoDaten == null)
+                        {
+                            if (aktKunde.KreditKarte != null)
+                                aktKunde.KreditKarte = null;
+                            
                             aktKunde.KontoDaten = new KontoDaten();
+                        }
+                            
 
                         /// Weise Daten den aktuellen Kunden zu (Somit kann man vorhandene Daten auch ändern)
                         aktKunde.KontoDaten.ID = kundenID;
@@ -980,7 +987,7 @@ namespace onlineKredit.logic
 
             return erfolgreich;
         }
-        
+
         /// <summary>
         /// Liefert ALLE Kontodaten aus der Datenbank
         /// </summary>
@@ -1040,7 +1047,7 @@ namespace onlineKredit.logic
 
             /// In dieser 2 dimensionalen Liste, werden die BIC´s und die IBAN´s gespeichert.
             List<string> bicUndIban = new List<string>();
-            
+
             /* 
               __________________________________________________________________________________________________________
               Bestandteile des  |  Kurz-         |  Formatierung und Vergaben                          |  Beispiel
@@ -1083,7 +1090,7 @@ namespace onlineKredit.logic
                     leerzeichen++;
                     Debug.Unindent();
                 }
-                
+
                 bicUndIban.Add(bic);
                 bicUndIban.Add(iban);
             }
@@ -1153,8 +1160,8 @@ namespace onlineKredit.logic
                 Debugger.Break();
             }
 
-            
-            
+
+
             return neuesBankKonto;
         }
 
@@ -1221,7 +1228,7 @@ namespace onlineKredit.logic
                     leerzeichen++;
                 }
             }
-         
+
             return eingabeIBAN;
         }
 
@@ -1282,6 +1289,7 @@ namespace onlineKredit.logic
                        .Include("Wohnart")
                        .Include("Kredit")
                        .Include("KontoDaten")
+                       .Include("KreditKarte")
                        .Include("KontaktDaten")
                        .Include("KontaktDaten.Ort")
                        .Include("Land")
@@ -1308,6 +1316,103 @@ namespace onlineKredit.logic
         }
 
         #endregion
+
+        #region KreditKarte
+
+        /// <summary>
+        /// Speichert zu einer übergebenene ID_Kunde seine Kredit-Kartendaten ab.
+        /// </summary>
+        /// <param name="inhaber"></param>
+        /// <param name="nummer"></param>
+        /// <param name="gültigBis"></param>
+        /// <param name="idKunde"></param>
+        /// <returns>true wenn Eintragung gespeichert werden konnte und der Kunde existiert, ansonsten false</returns>
+        public static bool KreditKartenDatenSpeichern(string inhaber, string nummer, DateTime gültigBis, int idKunde)
+        {
+            Debug.WriteLine("KonsumKreditVerwaltung - KreditKartenDatenSpeichern");
+            Debug.Indent();
+
+            bool erfolgreich = false;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+
+                    /// speichere zum Kunden die Angaben
+                    Kunde aktKunde = context.AlleKunden.Where(x => x.ID == idKunde).FirstOrDefault();
+
+                    if (aktKunde != null)
+                    {
+                        if (aktKunde.KreditKarte == null)
+                        {
+                            if (aktKunde.KontoDaten != null)
+                                aktKunde.KontoDaten = null;
+                            
+                            aktKunde.KreditKarte = new KreditKarte();
+                        }
+                            
+
+                        aktKunde.KreditKarte.Inhaber = inhaber;
+                        aktKunde.KreditKarte.Nummer = nummer;
+                        aktKunde.KreditKarte.GueltigBis = gültigBis;
+                        aktKunde.KreditKarte.ID = idKunde;
+                    }
+
+                    int anzahlZeilenBetroffen = context.SaveChanges();
+                    erfolgreich = anzahlZeilenBetroffen >= 0;
+                    Debug.WriteLine($"{anzahlZeilenBetroffen} KreditKarten-Daten gespeichert!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KreditKartenDatenSpeichern");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            return erfolgreich;
+
+        }
+
+        /// <summary>
+        /// Liefert die KreditKartenDaten des Kunden
+        /// </summary>
+        /// <param name="kundenID">ID des vorhandenen Kunden</param>
+        /// <returns>KreditKartenDaten bei Fehler NULL</returns>
+        public static KreditKarte KreditKartenDatenLaden(int id)
+        {
+            Debug.WriteLine("KonsumKreditVerwaltung - KreditKartenDatenLaden");
+            Debug.Indent();
+
+            KreditKarte kkDaten = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    kkDaten = context.AlleKreditKarten.Where(x => x.ID == id).FirstOrDefault();
+                    Debug.WriteLine("KreditKartenDatenLaden geladen!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KreditKartenDatenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            return kkDaten;
+        }
+
+        #endregion
+
     }
 
     /// <summary>

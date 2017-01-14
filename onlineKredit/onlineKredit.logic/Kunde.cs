@@ -56,8 +56,6 @@ public partial class Kunde
 
     public virtual KontaktDaten KontaktDaten { get; set; }
 
-    public virtual KontoDaten KontoDaten { get; set; }
-
     public virtual Kredit Kredit { get; set; }
 
     public virtual Schulabschluss Schulabschluss { get; set; }
@@ -67,6 +65,12 @@ public partial class Kunde
     public virtual Titel Titel { get; set; }
 
     public virtual Wohnart Wohnart { get; set; }
+
+    public virtual KreditKarte KreditKarte { get; set; }
+
+    public virtual tblLogin Login { get; set; }
+
+    public virtual KontoDaten KontoDaten { get; set; }
 
 }
 

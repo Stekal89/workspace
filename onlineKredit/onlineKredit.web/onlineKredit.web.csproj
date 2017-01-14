@@ -398,6 +398,7 @@
     <Compile Include="Models\ArbeitgeberModel.cs" />
     <Compile Include="Models\DeutscheBankKontoInformationModel.cs" />
     <Compile Include="Models\KontoAbfrageModel.cs" />
+    <Compile Include="Models\KreditKartenModel.cs" />
     <Compile Include="Models\Lookup\KontoAbfrageMoeglichkeitenModel.cs" />
     <Compile Include="Models\Lookup\BeshaeftigungsArtModel.cs" />
     <Compile Include="Models\Lookup\BrancheModel.cs" />
@@ -534,6 +535,7 @@
     <Content Include="Views\KonsumKredit\HatDeutscheBankKontoInformation.cshtml" />
     <Content Include="Views\KonsumKredit\ZusammenFassung.cshtml" />
     <Content Include="Views\Freigabe\BewilligungsAusgabe.cshtml" />
+    <Content Include="Views\KonsumKredit\KreditKartenInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

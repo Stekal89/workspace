@@ -13,8 +13,7 @@
         <EntityTypeShape EntityType="dbOnlineKreditModel.FinanzielleSituation" Width="1.5" PointX="5.125" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.IdentifikationsArt" Width="1.5" PointX="3.25" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.KontaktDaten" Width="1.5" PointX="5.125" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbOnlineKreditModel.KontoDaten" Width="1.5" PointX="2.625" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbOnlineKreditModel.Kredit" Width="1.5" PointX="0.5" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Kredit" Width="2" PointX="0.5" PointY="13.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.Kunde" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.Land" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.Ort" Width="1.5" PointX="7.5" PointY="12.25" IsExpanded="true" />
@@ -29,13 +28,20 @@
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKIden__2A4B4B5E" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontak__FKOrt__2E1BDC42" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontak__IDKon__2D27B809" ManuallyRouted="false" />
-        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontoD__IDKon__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKredit__IDKre__3D5E1FD2" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKSchu__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKStaa__276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKTite__25869641" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKunde__FKWohn__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblOrt__FKLand__1273C1CD" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.KreditKarte" Width="1.5" PointX="5.75" PointY="15.5" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKredit__IDKre__4AB81AF0" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.28125" PointY="14.018616536458332" />
+          <ConnectorPoint PointX="4.28125" PointY="15.59375" />
+          <ConnectorPoint PointX="5.75" PointY="15.59375" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="dbOnlineKreditModel.KontoDaten" Width="1.5" PointX="2.5" PointY="15.75" />
+        <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontoD__IDKon__3A81B327" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

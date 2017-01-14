@@ -235,31 +235,64 @@
         <a href="@Url.Action("Arbeitgeber", "KonsumKredit")" class="btn btn-primary">Bearbeiten</a>
     </section>
 
-    @* Kontoinformation *@
-    <section class="input-fromular">
-        <h3 class="summary-view-header">Kontoinformationen:</h3>
-        <dl class="dl-horizontal detail-alignment">
-            <dt>
-                @Html.DisplayNameFor(model => model.BIC)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.BIC)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.IBAN)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.IBAN)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.BankInstitut)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.BankInstitut)
-            </dd>
-        </dl>
-        <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Kontoinformationen bearbeiten</a>
-    </section>
+    @if (Model.IBAN != null && Model.BIC != null && Model.BankInstitut != null)
+    {
+        @* Kontoinformation *@
+        <section class="input-fromular">
+            <h3 class="summary-view-header">Kontoinformationen:</h3>
+            <dl class="dl-horizontal detail-alignment">
+                <dt>
+                    @Html.DisplayNameFor(model => model.BIC)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BIC)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.IBAN)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.IBAN)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.BankInstitut)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.BankInstitut)
+                </dd>
+            </dl>
+            <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Bearbeiten</a>
+        </section>
+    }
+
+    @if (Model.KreditKartenInhaber != null && Model.KreditKartenNummer != null && Model.KreditKartenGueltigBis != null)
+    {
+        @* Kreditkartenangabe*@
+        <section class="input-fromular">
+            <h3 class="summary-view-header">Kreditkartenangabe:</h3>
+            <dl class="dl-horizontal detail-alignment">
+                <dt>
+                    @Html.DisplayNameFor(model => model.KreditKartenInhaber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.KreditKartenInhaber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.KreditKartenNummer)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.KreditKartenNummer)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.KreditKartenGueltigBis)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.KreditKartenGueltigBis)
+                </dd>
+            </dl>
+            <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Bearbeiten</a>
+        </section>
+    }
+
 
     <h2 class="form-heading">Einverständnis-Erklärung</h2>
     @using (Html.BeginForm("AngabeBestaetigung", "KonsumKredit", FormMethod.Post))

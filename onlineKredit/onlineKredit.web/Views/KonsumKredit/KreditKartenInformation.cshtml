@@ -1,0 +1,70 @@
+﻿@model onlineKredit.web.Models.KreditKartenModel
+
+@{
+    ViewBag.Title = "KreditKartenInformation";
+}
+
+<h2 class="form-heading">Ihre Kreditkartenangaben:</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.KundenID)
+
+    <div class="row" style="margin-top: 20px">
+        <div class="col-lg-offset-4 col-md-offset-4 col-lg-6 col-md-6">
+            Bitte füllen Sie die Angaben zu Ihrer Kreditkarte mit den Daten Ihrer gültigen Karte aus und Bestätigen Sie im Anschluss ihre Auswahl durch die Schaltfläche &quot;Bestätigen&quot;.
+        </div>
+    </div>
+    <br />
+
+    <section class="input-fromular">
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.KreditKartenInhaber, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KreditKartenInhaber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KreditKartenInhaber, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KreditKartenNummer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KreditKartenNummer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KreditKartenNummer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KreditKartenGueltigBis, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KreditKartenGueltigBis, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.KreditKartenGueltigBis, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <a href="@Url.Action("PersoenlicheDaten", "KonsumKredit")" class="btn btn-primary ">Zurück</a>
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" value="Bestätigen" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

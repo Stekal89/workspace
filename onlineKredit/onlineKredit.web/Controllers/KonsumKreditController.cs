@@ -540,6 +540,36 @@ namespace onlineKredit.web.Controllers
         #endregion
 
         #region KontoIformation
+        
+        /// <summary>
+        /// Fügt dem mitgegebenen PersoenlicheDaten Model die Daten von den Lookup-Tabellen
+        /// hinzu.
+        /// </summary>
+        /// <param name="model">ein AbfrageModel für Konto</param>
+        /// <returns>Lookuptabellendaten</returns>
+        private KontoAbfrageModel KontoAbfrageModelLookup(KontoAbfrageModel model)
+        {
+            List<KontoAbfrageMoeglichkeitModel> alleKontoAbfrageMoeglichkeitenWeb = new List<KontoAbfrageMoeglichkeitModel>();
+
+            /// Lade alle Kontoabfrage-Möglichkeiten aus der Businesslogic in 
+            /// die Liste "alleKontoAbfrageMoeglichkeitenWeb".
+            foreach (var kontoAbfrageMoeglichkeitWeb in KonsumKreditVerwaltung.KontoAbfrageMoeglichkeitenLaden())
+            {
+                alleKontoAbfrageMoeglichkeitenWeb.Add(new KontoAbfrageMoeglichkeitModel()
+                {
+                    ID = kontoAbfrageMoeglichkeitWeb.ID.ToString(),
+                    Bezeichnung = kontoAbfrageMoeglichkeitWeb.Bezeichnung
+                });
+            }
+
+            /// Erzeuge das Model und weise der Liste alle wichtigen Details zu (ID´s, Bezeichnungen)
+
+            model.AlleKontoAbfrageMoeglichkeitenAngaben = alleKontoAbfrageMoeglichkeitenWeb;
+            model.KundenID = int.Parse(Request.Cookies["kundenID"].Value);
+            
+
+            return model;
+        }
 
         /// <summary>
         /// Hier wird mittels Dropdown abgefragt, ob der Kunde:
@@ -556,25 +586,11 @@ namespace onlineKredit.web.Controllers
             Debug.WriteLine("GET - KonsumKreditController - KontoInformation");
             Debug.Unindent();
 
-            List<KontoAbfrageMoeglichkeitModel> alleKontoAbfrageMoeglichkeitenWeb = new List<KontoAbfrageMoeglichkeitModel>();
+            KontoAbfrageModel model = new KontoAbfrageModel();
 
-            /// Lade alle Kontoabfrage-Möglichkeiten aus der Businesslogic in 
-            /// die Liste "alleKontoAbfrageMoeglichkeitenWeb".
-            foreach (var kontoAbfrageMoeglichkeitWeb in KonsumKreditVerwaltung.KontoAbfrageMoeglichkeitenLaden())
-            {
-                alleKontoAbfrageMoeglichkeitenWeb.Add(new KontoAbfrageMoeglichkeitModel()
-                {
-                    ID = kontoAbfrageMoeglichkeitWeb.ID.ToString(),
-                    Bezeichnung = kontoAbfrageMoeglichkeitWeb.Bezeichnung
-                });
-            }
+            model = KontoAbfrageModelLookup(model);
 
-            /// Erzeuge das Model und weise der Liste alle wichtigen Details zu (ID´s, Bezeichnungen)
-            KontoAbfrageModel model = new KontoAbfrageModel()
-            {
-                AlleKontoAbfrageMoeglichkeitenAngaben = alleKontoAbfrageMoeglichkeitenWeb,
-                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
-            };
+           
 
             Debug.Unindent();
 
@@ -592,51 +608,108 @@ namespace onlineKredit.web.Controllers
 
             if (ModelState.IsValid)
             {
-                if (auswahl == 1)
+                switch (auswahl)
                 {
-                    Debug.WriteLine("Auswahl des Kontos:");
-                    Debug.Indent();
-                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
-                    Debug.WriteLine("Auswahl: \"Vorhandenes Konto der Deutschen Bank AG\"");
-                    Debug.Unindent();
+                    case 1:
+                        Debug.WriteLine("Auswahl des Kontos:");
+                        Debug.Indent();
+                        Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                        Debug.WriteLine("Auswahl: \"Vorhandenes Konto der Deutschen Bank AG\"");
+                        Debug.Unindent();
+                        return RedirectToAction("KreditKartenInformation");
 
-                    return RedirectToAction("HatDeutscheBankKontoInformation");
-                }
-                else if (auswahl == 2)
-                {
-                    Debug.WriteLine("Auswahl des Kontos:");
-                    Debug.Indent();
-                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
-                    Debug.WriteLine("Auswahl: \"Neues Konto bei Deutsche Bank AG anlegen.\"");
-                    Debug.Unindent();
+                    case 2:
+                        Debug.WriteLine("Auswahl des Kontos:");
+                        Debug.Indent();
+                        Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                        Debug.WriteLine("Auswahl: \"Vorhandenes Konto der Deutschen Bank AG\"");
+                        Debug.Unindent();
+                        return RedirectToAction("HatDeutscheBankKontoInformation");
 
-                    return RedirectToAction("NeuesDeutscheBankKontoInformation");
-                }
-                else if (auswahl == 3)
-                {
-                    Debug.WriteLine("Auswahl des Kontos:");
-                    Debug.Indent();
-                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
-                    Debug.WriteLine("Auswahl: \"Anderes Konto verwenden.\"");
-                    Debug.Unindent();
+                    case 3:
+                        Debug.WriteLine("Auswahl des Kontos:");
+                        Debug.Indent();
+                        Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                        Debug.WriteLine("Auswahl: \"Neues Konto bei Deutsche Bank AG anlegen.\"");
+                        Debug.Unindent();
 
-                    return RedirectToAction("AndereKontoInformation");
-                }
-                else
-                {
-                    Debug.WriteLine("Irgendetwas ist Schief gegangen....");
-                    Debug.Indent();
-                    Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
-                    Debug.Unindent();
-                    Debugger.Break();
+                        return RedirectToAction("NeuesDeutscheBankKontoInformation");
+
+                    case 4:
+                        Debug.WriteLine("Auswahl des Kontos:");
+                        Debug.Indent();
+                        Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                        Debug.WriteLine("Auswahl: \"Anderes Konto verwenden.\"");
+                        Debug.Unindent();
+
+                        return RedirectToAction("AndereKontoInformation");
+
+                    default:
+                        Debug.WriteLine("Irgendetwas ist Schief gegangen....");
+                        Debug.Indent();
+                        Debug.WriteLine("ID: " + model.ID_KontoAbfrage);
+                        Debug.Unindent();
+                        break;
                 }
             }
-
-
             Debug.Unindent();
+
+            model = KontoAbfrageModelLookup(model);
 
             return View(model);
         }
+
+        #region KreditKartenInformation
+        
+        [HttpGet]
+        public ActionResult KreditKartenInformation()
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KreditKartenInformation");
+            Debug.Unindent();
+
+            KreditKartenModel model = new KreditKartenModel()
+            {
+                KundenID = int.Parse(Request.Cookies["kundenID"].Value)
+            };
+
+            KreditKarte kreditKarte = KonsumKreditVerwaltung.KreditKartenDatenLaden(int.Parse(Request.Cookies["kundenID"].Value));
+
+            if (kreditKarte != null)
+            {
+                model.KreditKartenInhaber = kreditKarte.Inhaber;
+                model.KreditKartenNummer = kreditKarte.Nummer;
+                model.KreditKartenGueltigBis = kreditKarte.GueltigBis;
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult KreditKartenInformation(KreditKartenModel model)
+        {
+            Debug.Indent();
+            Debug.WriteLine("GET - KonsumKreditController - KreditKartenInformation");
+            Debug.Unindent();
+
+            if (ModelState.IsValid)
+            {
+                if (KonsumKreditVerwaltung.KreditKartenDatenSpeichern(model.KreditKartenInhaber, 
+                    model.KreditKartenNummer,
+                    model.KreditKartenGueltigBis,
+                    model.KundenID
+                    ))
+                {
+                    return RedirectToAction("Zusammenfassung");
+                }
+            }
+
+            return View(model);
+        }
+
+        #endregion
+
+        #region HatDeutscheBankKontoInformation
 
         /// <summary>
         /// Hier darf der User die Daten seines Vorhandenen Deutsche Bank AG - Kontos
@@ -657,7 +730,7 @@ namespace onlineKredit.web.Controllers
                 BankInstitut = "Deutsche Bank AG",
                 IstDeutscheBankKunde = true
             };
-
+            
             return View(model);
         }
 
@@ -704,7 +777,7 @@ namespace onlineKredit.web.Controllers
             List<string> bicUndIban = new List<string>();
 
             bicUndIban = KonsumKreditVerwaltung.BankKontoErzeugen();
-            
+
             DeutscheBankKontoInformationModel model = new DeutscheBankKontoInformationModel()
             {
                 BIC = bicUndIban[0],
@@ -716,7 +789,7 @@ namespace onlineKredit.web.Controllers
 
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult NeuesDeutscheBankKontoInformation(DeutscheBankKontoInformationModel model)
@@ -784,7 +857,8 @@ namespace onlineKredit.web.Controllers
 
             return View(model);
         }
-        
+        #endregion
+
         #endregion
 
         #region ZusammenFassung
@@ -843,9 +917,19 @@ namespace onlineKredit.web.Controllers
             model.BeschaeftigtSeit = (DateTime)aktKunde.Arbeitgeber.BeschaeftigtSeit;
 
             /// KontoInformation
-            model.BIC = aktKunde.KontoDaten.BIC;
-            model.IBAN = aktKunde.KontoDaten.IBAN;
-            model.BankInstitut = aktKunde.KontoDaten.Bank;
+            if (aktKunde.KontoDaten != null)
+            {
+                model.BIC = aktKunde.KontoDaten.BIC;
+                model.IBAN = aktKunde.KontoDaten.IBAN;
+                model.BankInstitut = aktKunde.KontoDaten.Bank;
+            }
+
+            if (aktKunde.KreditKarte != null)
+            {
+                model.KreditKartenInhaber = aktKunde.KreditKarte.Inhaber;
+                model.KreditKartenNummer = aktKunde.KreditKarte.Nummer;
+                model.KreditKartenGueltigBis = aktKunde.KreditKarte.GueltigBis;
+            }
 
             return View(model);
         }

@@ -139,6 +139,21 @@ namespace onlineKredit.web.Models
         public string BankInstitut { get; set; }
 
         #endregion
+
+        #region KreditKartenInformation
         
+        [Display(Name = "Kreditkarteninhaber")]
+        public string KreditKartenInhaber { get; set; }
+        
+        [Display(Name = "Kreditkartennummer")]
+        public string KreditKartenNummer { get; set; }
+        
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, ConvertEmptyStringToNull = true, DataFormatString = "MM.yyyy")]
+        [Display(Name = "gültig bis")]
+        public DateTime KreditKartenGueltigBis { get; set; }
+
+        #endregion
+
     }
 }

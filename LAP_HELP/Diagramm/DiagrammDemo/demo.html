@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<link class="include" rel="stylesheet" type="text/css" href="jquery.jqplot.min.css" />
+		<link rel="stylesheet" type="text/css" href="examples.min.css" />
+	</head>
+	<body>
+		<div id="chart1" style="height: 300px; width: 500px; position: relative;"></div>
+		<div id="pie1" style="margin-top:20px; margin-left:20px; width:200px; height:200px;"></div>
+
+		<script class="include" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script class="include" type="text/javascript" src="jquery.jqplot.min.js"></script>
+		<script class="include" type="text/javascript" src="jqplot.pieRenderer.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			  var plot1 = $.jqplot ('chart1', [[3,7,29,1,5,3,8,2,5]]);
+
+
+var plot2 = $.jqplot('pie1', [[['a',25],['b',14],['c',7]]], {
+        gridPadding: {top:0, bottom:38, left:0, right:0},
+        seriesDefaults:{
+            renderer:$.jqplot.PieRenderer, 
+            trendline:{ show:false }, 
+            rendererOptions: { padding: 8, showDataLabels: true }
+        },
+        legend:{
+            show:true, 
+            placement: 'outside', 
+            rendererOptions: {
+                numberRows: 1
+            }, 
+            location:'s',
+            marginTop: '15px'
+        }       
+    });
+			});
+		</script>
+	</body>
+</html>
+

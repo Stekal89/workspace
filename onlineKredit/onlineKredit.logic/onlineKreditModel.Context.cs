@@ -48,8 +48,6 @@ public partial class dbOnlineKredit : DbContext
 
     public DbSet<KontaktDaten> AlleKontaktDaten { get; set; }
 
-    public DbSet<KontoDaten> AlleKontoDaten { get; set; }
-
     public DbSet<Kredit> AlleKredite { get; set; }
 
     public DbSet<Kunde> AlleKunden { get; set; }
@@ -63,6 +61,12 @@ public partial class dbOnlineKredit : DbContext
     public DbSet<Titel> AlleTitel { get; set; }
 
     public DbSet<Wohnart> AlleWohnarten { get; set; }
+
+    public DbSet<KreditKarte> AlleKreditKarten { get; set; }
+
+    public DbSet<tblLogin> tblLogin { get; set; }
+
+    public DbSet<KontoDaten> AlleKontoDaten { get; set; }
 
 }
 
