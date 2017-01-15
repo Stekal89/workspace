@@ -420,6 +420,11 @@
       <End Role="Kunde" EntitySet="AlleKunden" />
       <End Role="tblKontoDaten" EntitySet="AlleKontoDaten" />
     </AssociationSet>
+    <EntitySet Name="AlleAdminLogins" EntityType="dbOnlineKreditModel.AdminLogin" />
+    <FunctionImport Name="pNeuenAdminEinfuegen">
+      <Parameter Name="benutzer" Mode="In" Type="String" />
+      <Parameter Name="passwort" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="KreditKarte">
     <Key>
@@ -487,4 +492,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="AdminLogin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Benutzername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Passwort" Type="Binary" MaxLength="16" FixedLength="false" />
+  </EntityType>
 </Schema>

@@ -17,6 +17,10 @@ using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
+using System.Linq;
+
 
 public partial class dbOnlineKredit : DbContext
 {
@@ -67,6 +71,25 @@ public partial class dbOnlineKredit : DbContext
     public DbSet<tblLogin> tblLogin { get; set; }
 
     public DbSet<KontoDaten> AlleKontoDaten { get; set; }
+
+    public DbSet<AdminLogin> AlleAdminLogins { get; set; }
+
+
+    public virtual int pNeuenAdminEinfuegen(string benutzer, string passwort)
+    {
+
+        var benutzerParameter = benutzer != null ?
+            new ObjectParameter("benutzer", benutzer) :
+            new ObjectParameter("benutzer", typeof(string));
+
+
+        var passwortParameter = passwort != null ?
+            new ObjectParameter("passwort", passwort) :
+            new ObjectParameter("passwort", typeof(string));
+
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pNeuenAdminEinfuegen", benutzerParameter, passwortParameter);
+    }
 
 }
 

@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="faf80493dcc0495aa5a21fe0ccdb7b7b" Name="Diagram1">
+      <Diagram DiagramId="faf80493dcc0495aa5a21fe0ccdb7b7b" Name="Diagram1" ZoomLevel="101">
         <EntityTypeShape EntityType="dbOnlineKreditModel.Arbeitgeber" Width="1.5" PointX="5.25" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbOnlineKreditModel.Beschaeftigungsart" Width="1.5" PointX="6.875" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbOnlineKreditModel.Branche" Width="1.5" PointX="5" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbOnlineKreditModel.Einstellungen" Width="1.5" PointX="7.625" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Beschaeftigungsart" Width="1.5" PointX="7.5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Branche" Width="1.5" PointX="6.125" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.Einstellungen" Width="1.5" PointX="2.625" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.Familienstand" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.FinanzielleSituation" Width="1.5" PointX="5.125" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbOnlineKreditModel.IdentifikationsArt" Width="1.5" PointX="3.25" PointY="5.625" IsExpanded="true" />
@@ -42,6 +42,7 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="dbOnlineKreditModel.KontoDaten" Width="1.5" PointX="2.5" PointY="15.75" />
         <AssociationConnector Association="dbOnlineKreditModel.FK__tblKontoD__IDKon__3A81B327" />
+        <EntityTypeShape EntityType="dbOnlineKreditModel.AdminLogin" Width="1.5" PointX="0.75" PointY="3.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

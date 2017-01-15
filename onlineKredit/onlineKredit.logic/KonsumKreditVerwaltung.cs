@@ -1413,6 +1413,110 @@ namespace onlineKredit.logic
 
         #endregion
 
+        #region AdministratorTool
+
+        /// <summary>
+        /// Ladet alle KundenDaten in eine Liste
+        /// </summary>
+        /// <returns>Liste aller Kunden</returns>
+        public static List<Kunde> KundenListeLaden()
+        {
+            Debug.Indent();
+            Debug.WriteLine("KonsumKreditVerwaltung - KundenListeLaden");
+            Debug.Indent();
+
+            List<Kunde> alleKunden = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleKunden = context.AlleKunden
+                         .Include("IdentifikationsArt")
+                       .Include("Familienstand")
+                       .Include("Schulabschluss")
+                       .Include("Titel")
+                       .Include("Wohnart")
+                       .Include("Kredit")
+                       .Include("KontoDaten")
+                       .Include("KreditKarte")
+                       .Include("KontaktDaten")
+                       .Include("KontaktDaten.Ort")
+                       .Include("Land")
+                       .Include("FinanzielleSituation")
+                       .Include("Arbeitgeber")
+                       .Include("Arbeitgeber.Branche")
+                       .Include("Arbeitgeber.Beschaeftigungsart")
+                    .OrderByDescending(x => x.ID)
+                    .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in KundenListeLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            Debug.Unindent();
+
+            return alleKunden;
+        }
+
+        /// <summary>
+        /// Ladet die letzten 10 KundenDaten in eine Liste
+        /// </summary>
+        /// <returns>Liste der letzten 10 Kunden</returns>
+        public static List<Kunde> LetzteKundenLaden()
+        {
+            Debug.WriteLine("KonsumKreditVerwaltung - LetzteKundenLaden");
+            Debug.Indent();
+
+            List<Kunde> alleKunden = null;
+
+            try
+            {
+                using (var context = new dbOnlineKredit())
+                {
+                    alleKunden = context.AlleKunden
+                    .Include("IdentifikationsArt")
+                    .Include("Familienstand")
+                    .Include("Schulabschluss")
+                    .Include("Titel")
+                    .Include("Wohnart")
+                    .Include("Kredit")
+                    .Include("KontoDaten")
+                    .Include("KreditKarte")
+                    .Include("KontaktDaten")
+                    .Include("KontaktDaten.Ort")
+                    .Include("Land")
+                    .Include("FinanzielleSituation")
+                    .Include("Arbeitgeber")
+                    .Include("Arbeitgeber.Branche")
+                    .Include("Arbeitgeber.Beschaeftigungsart")
+                    .OrderByDescending(x => x.ID)
+                    .Take(10)
+                    .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Fehler in LetzteKundenLaden");
+                Debug.Indent();
+                Debug.WriteLine(ex.Message);
+                Debug.Unindent();
+                Debugger.Break();
+            }
+
+            Debug.Unindent();
+            return alleKunden;
+        }
+
+        #endregion
+
     }
 
     /// <summary>

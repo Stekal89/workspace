@@ -180,5 +180,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="AlleAdminLogins">
+      <EntityTypeMapping TypeName="dbOnlineKreditModel.AdminLogin">
+        <MappingFragment StoreEntitySet="tblAdminLogin">
+          <ScalarProperty Name="Passwort" ColumnName="Passwort" />
+          <ScalarProperty Name="Benutzername" ColumnName="Benutzername" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="pNeuenAdminEinfuegen" FunctionName="dbOnlineKreditModel.Store.pNeuenAdminEinfuegen" />
   </EntityContainerMapping>
 </Mapping>

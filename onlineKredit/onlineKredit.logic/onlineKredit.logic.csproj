@@ -313,6 +313,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminLogin.cs">
+      <DependentUpon>OnlineKreditModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Arbeitgeber.cs">
       <DependentUpon>OnlineKreditModel.tt</DependentUpon>
     </Compile>

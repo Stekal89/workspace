@@ -1,0 +1,149 @@
+﻿@model IEnumerable<onlineKredit.web.Models.ZusammenFassungModel>
+
+@{
+    ViewBag.Title = "KreditAntraege";
+}
+
+<h2>KreditAnträge</h2>
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.GewuenschterBetrag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Laufzeit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vorname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nachname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GeburtsDatum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Familienstand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SchulAbschluss)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BeschaeftigtSeit)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GewuenschterBetrag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Laufzeit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vorname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nachname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeburtsDatum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Familienstand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SchulAbschluss)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BeschaeftigtSeit)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<h2>Statistik</h2>
+
+
+<link class="include" rel="stylesheet" type="text/css" href="~/content/css/jquery.jqplot.min.css" />
+<link rel="stylesheet" type="text/css" href="~/content/css/examples.min.css" />
+
+
+
+<div id="pie1" style="margin-top:20px; margin-left:80px; width:200px; height:200px;"></div>
+
+<script class="include" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script class="include" type="text/javascript" src="~/content/js/jquery.jqplot.min.js"></script>
+<script class="include" type="text/javascript" src="~/content/js/jqplot.pieRenderer.js"></script>
+<script type="text/javascript">
+        $(document).ready(function(){
+
+
+            @{
+
+                int unterFuenfTsd = 0;
+                int ueberFuenfTsdUndUnterZehnTsd = 0;
+                int ueberZehnTsd = 0;
+
+                foreach (var item in Model)
+                {
+                    if (item.GewünschterBetrag < 15000)
+                    {
+
+                        unterFuenfTsd++;
+                    }
+
+                    if (item.GewünschterBetrag > 15000 && item.GewünschterBetrag < 50000)
+                    {
+                        ueberFuenfTsdUndUnterZehnTsd++;
+                    }
+
+                    if (item.GewünschterBetrag > 50000)
+                    {
+                        ueberZehnTsd++;
+                    }
+                }
+              }
+
+        var plot2 = $.jqplot('pie1', [[[' kleiner 15000 ',@unterFuenfTsd],[' zwischen 15000 und 50000 ',@ueberFuenfTsdUndUnterZehnTsd],['größer 50000 ',@ueberZehnTsd]]], {
+             seriesColors: ['#5fa7ce','#5f87ce','#2a42e0'],
+            gridPadding: { top: 0, bottom: 38, left: 10, right: 0 },
+            seriesDefaults:{
+                renderer:$.jqplot.PieRenderer,
+                trendline:{ show:true },
+                rendererOptions: { padding: 8, showDataLabels: true }
+            },
+            legend:{
+                show:true,
+                placement: 'outside',
+                rendererOptions: {
+                    numberRows: 3
+                },
+                location:'s',
+                marginTop: '15px'
+            }
+        });
+        });
+</script>
+
+
+<br />
+<br />
+<br />*@
+
+
+
+
+
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

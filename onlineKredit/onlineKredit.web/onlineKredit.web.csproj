@@ -389,6 +389,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\FreigabeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KonsumKreditController.cs" />
@@ -398,7 +399,8 @@
     <Compile Include="Models\ArbeitgeberModel.cs" />
     <Compile Include="Models\DeutscheBankKontoInformationModel.cs" />
     <Compile Include="Models\KontoAbfrageModel.cs" />
-    <Compile Include="Models\KreditKartenModel.cs" />
+    <Compile Include="Models\KreditKarte\KreditKartenModel.cs" />
+    <Compile Include="Models\Administrator\LogInModel.cs" />
     <Compile Include="Models\Lookup\KontoAbfrageMoeglichkeitenModel.cs" />
     <Compile Include="Models\Lookup\BeshaeftigungsArtModel.cs" />
     <Compile Include="Models\Lookup\BrancheModel.cs" />
@@ -536,6 +538,8 @@
     <Content Include="Views\KonsumKredit\ZusammenFassung.cshtml" />
     <Content Include="Views\Freigabe\BewilligungsAusgabe.cshtml" />
     <Content Include="Views\KonsumKredit\KreditKartenInformation.cshtml" />
+    <Content Include="Views\Administration\Anmelden.cshtml" />
+    <Content Include="Views\Administration\KreditAntraege.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

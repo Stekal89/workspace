@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="dbOnlineKreditModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblAdminLogin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Benutzername" Type="nvarchar" MaxLength="50" />
+    <Property Name="Passwort" Type="varbinary" MaxLength="16" />
+  </EntityType>
   <EntityType Name="tblArbeitgeber">
     <Key>
       <PropertyRef Name="IDArbeitgeber" />
@@ -365,7 +373,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="pNeuenAdminEinfuegen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="benutzer" Type="nvarchar" Mode="In" />
+    <Parameter Name="passwort" Type="nvarchar" Mode="In" />
+  </Function>
   <EntityContainer Name="dbOnlineKreditModelStoreContainer">
+    <EntitySet Name="tblAdminLogin" EntityType="Self.tblAdminLogin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblArbeitgeber" EntityType="Self.tblArbeitgeber" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblBeschaeftigungsart" EntityType="Self.tblBeschaeftigungsart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblBranche" EntityType="Self.tblBranche" Schema="dbo" store:Type="Tables" />
