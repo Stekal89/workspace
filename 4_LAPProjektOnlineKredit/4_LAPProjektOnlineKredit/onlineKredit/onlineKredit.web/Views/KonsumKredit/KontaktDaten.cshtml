@@ -1,0 +1,124 @@
+﻿@model onlineKredit.web.Models.KontaktDatenModel
+@{
+    ViewBag.Title = "KontaktDaten";
+}
+
+
+<h2 class="form-heading">Ihre Kontakt Daten</h2>
+
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-offset-4 col-md-offset-4 col-lg-6 col-md-6">
+        Bitte füllen Sie das Formular mit Ihren persönlichen Daten aus, damit wir uns mit Ihnen in Verbindung setzen können. Wenn Sie Ihre Telefonnummer
+        angeben, werden wir uns in 1. Linie telefonisch mit Ihnen in Verbindung setzen, ansonsten per Mail. <b>Adressdaten müssen angegeben werden!</b>
+        Damit wir Sie im Falle des <b>"Nicht-Wollen"</b> der Telefonischen- bzw. Mail-Kontaktierung, wir Sie per Post-Sendung erreichen können.
+        Bestätigen Sie im Anschluss ihre Auswahl durch die Schaltfläche &quot;Bestätigen&quot;.
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.KundenID)
+
+    <section class="input-fromular">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Strasse, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Strasse, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Strasse, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Hausnummer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Hausnummer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Hausnummer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Stiege, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Stiege, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Stiege, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tuer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Tuer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Tuer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.FK_Ort, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+
+@*
+        Weil das so nicht funktioniert hat, hab ich mich entschieden im "KontaktDatenModel" eine neue Eigenschaft zu initialisieren,
+        die mir die Postleitzahl und den Ort als Textkette mitgibt. Im Controller werden alle Ortsangaben auf Gleichheit geprüft.
+        Bei Übereinstimmung übernimmt die Eigenschaft "FK_Ort", die "ID" des "AlleOrtsAngabenWeb" gespeicherte Objekt.
+
+             <input type="hidden" value="FK_Ort"/>
+        <input value="@Model.FK_Ort" id="FK_Ort" name="FK_Ort" type="text" list="orte" placeholder="bitte Ort eingeben..." data-val-required="Bitte Postleitzahl und Ort angeben." class="input-validation-error">
+         <datalist id="orte">
+             @foreach (var item in Model.AlleOrtsAngabenWeb)
+             {
+                 <option value="@item.ID">@item.PLZUndOrt"</option>
+             }
+         </datalist>
+*@
+
+                    <input value="@Model.PLZUndOrtInText" id="PLZUndOrtInText" name="PLZUndOrtInText" type="text" list="orte" placeholder="bitte Ort eingeben..." data-val-required="Bitte Postleitzahl und Ort angeben." class="input-validation-error">
+                    <datalist id="orte">
+                        @foreach (var item in Model.AlleOrtsAngabenWeb)
+                        {
+                            <option value="@item.PLZUndOrt"></option>
+                        }
+                    </datalist>
+                    @Html.ValidationMessageFor(model => model.PLZUndOrtInText, "", new { @class = "text-danger" })
+
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EMail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EMail, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EMail, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.TelefonNummer, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.TelefonNummer, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TelefonNummer, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <a href="@Url.Action("PersoenlicheDaten", "KonsumKredit")" class="btn btn-primary ">Zurück</a>
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" value="Bestätigen" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

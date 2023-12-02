@@ -1,0 +1,79 @@
+﻿@model onlineKredit.web.Models.FinanzielleSituationModel
+
+@{
+    ViewBag.Title = "FinanzielleSituation";
+}
+
+<h2 class="form-heading">Ihre Finanzielle Situation</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.KundenID)
+
+    <div class="row" style="margin-top: 20px">
+        <div class="col-lg-offset-4 col-md-offset-4 col-lg-6 col-md-6">
+            Bitte füllen Sie die Angaben zu Ihrer Finanziellen Situation (monatliches Einkommen, Wohnkosten, Einkünfte aus Alimenten, Unterhaltszahlungen und monatliche Ratenverpflichtungen) aus und Bestätigen Sie im Anschluss ihre Auswahl durch die Schaltfläche &quot;Bestätigen&quot;.
+        </div>
+    </div>
+            <br />
+
+    <section class="input-fromular">
+        <div class="form-horizontal">
+            
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.NettoEinkommen, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NettoEinkommen, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NettoEinkommen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Wohnkosten, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Wohnkosten, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Wohnkosten, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EinkuenfteAlimenteUnterhalt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EinkuenfteAlimenteUnterhalt, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EinkuenfteAlimenteUnterhalt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.UnterhaltsZahlungen, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UnterhaltsZahlungen, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UnterhaltsZahlungen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RatenVerpflichtungen, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.RatenVerpflichtungen, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RatenVerpflichtungen, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <a href="@Url.Action("KreditRahmen", "KonsumKredit")" class="btn btn-primary ">Zurück</a>
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" value="Bestätigen" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

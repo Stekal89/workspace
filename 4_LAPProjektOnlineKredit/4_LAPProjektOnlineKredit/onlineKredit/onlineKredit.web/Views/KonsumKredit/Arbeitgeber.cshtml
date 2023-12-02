@@ -1,0 +1,74 @@
+﻿@model onlineKredit.web.Models.ArbeitgeberModel
+@{
+    ViewBag.Title = "Arbeitgeber";
+}
+<h2 class="form-heading">Ihr Arbeitgeber</h2>
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-offset-4 col-md-offset-4 col-lg-6 col-md-6">
+        Bitte füllen Sie das Formular mit den Daten Ihres Arbeitgebers aus und
+        bestätigen Sie im Anschluss ihre Auswahl durch die Schaltfläche &quot;Bestätigen&quot;.
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.KundenID)
+
+    <section class="input-fromular">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Firma, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Firma, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Firma, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_BeschaeftigungsArt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @* Dropdownlist für Beschaeftigungsart *@
+                    @Html.DropDownListFor(model => model.ID_BeschaeftigungsArt, new SelectList(Model.AlleBeschaeftigungsArtAngabenWeb, "ID", "Bezeichnung"), "bitte wählen...")
+                    @Html.ValidationMessageFor(model => model.ID_BeschaeftigungsArt, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_Branche, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @* Dropdownliste für Branche *@
+                    @Html.DropDownListFor(model => model.ID_Branche, new SelectList(Model.AlleBranchenAngabenWeb, "ID", "Bezeichnung"), "bitte wählen...")
+                    @Html.ValidationMessageFor(model => model.ID_Branche, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BeschaeftigtSeit, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BeschaeftigtSeit, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BeschaeftigtSeit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <a href="@Url.Action("KontaktDaten", "KonsumKredit")" class="btn btn-primary ">Zurück</a>
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" value="Bestätigen" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

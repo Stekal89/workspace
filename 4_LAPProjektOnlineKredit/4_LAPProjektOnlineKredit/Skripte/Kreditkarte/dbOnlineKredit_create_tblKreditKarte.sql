@@ -1,0 +1,16 @@
+
+USE dbOnlineKredit
+GO
+
+CREATE TABLE tblKreditKarte
+(
+ IDKreditKarte INT PRIMARY KEY REFERENCES tblKunde NOT NULL,
+ Inhaber NVARCHAR(255)  NOT NULL,
+ Nummer NVARCHAR(255) NOT NULL,
+ [GültigBis] SMALLDATETIME NOT NULL
+)
+GO
+
+
+USE MASTER
+GO

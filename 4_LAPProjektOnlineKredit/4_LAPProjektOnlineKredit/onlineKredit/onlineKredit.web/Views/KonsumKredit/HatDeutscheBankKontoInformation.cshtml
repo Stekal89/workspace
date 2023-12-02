@@ -1,0 +1,70 @@
+﻿@model onlineKredit.web.Models.DeutscheBankKontoInformationModel
+@{
+    ViewBag.Title = "HatDeutscheBankKontoInformation";
+}
+<h2 class="form-heading">Vorhandenes Deutsche Bank-Konto verwenden</h2>
+<div class="row" style="margin-top: 20px">
+    <div class="col-lg-offset-4 col-md-offset-4 col-lg-6 col-md-6">
+        Bitte füllen Sie das Formular mit Ihren vorhandenen Kontodaten aus und
+        bestätigen Sie im Anschluss ihre Auswahl durch die Schaltfläche &quot;Bestätigen&quot;.
+    </div>
+</div>
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.KundenID)
+
+    <section class="input-fromular">
+        <div class="form-horizontal">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.BIC, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BIC, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BIC, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.IBAN, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @*<input onkeyup="whiteSpaceValidation(this.value)" id="validationIBAN" class="text-box single-line" data-val="true" data-val-length="Maximal 25 Zeichen" data-val-length-max="25" data-val-required="Bitte Ihre Bankleitzahl angeben." name="IBAN" type="text" value="" />
+                        <span class="field-validation-valid text-danger" data-valmsg-for="IBAN" data-valmsg-replace="true"></span>*@
+                    @Html.EditorFor(model => model.IBAN, new { htmlAttributes = new { @class = "form-control", id = "validationIBAN", onkeyup = "whiteSpaceValidation(this.value)" } })
+                    @Html.ValidationMessageFor(model => model.IBAN, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.BankInstitut, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <label>@Model.BankInstitut</label>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.KundenID, htmlAttributes: new { @class = "control-label col-md-2", @style = "display: none" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.KundenID, new { htmlAttributes = new { @class = "form-control", @style = "display: none" } })
+                    @Html.ValidationMessageFor(model => model.KundenID, "", new { @class = "text-danger", @style = "display: none" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <a type="button" href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary">Zurück</a>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <a href="@Url.Action("KontoVerfuegbar", "KonsumKredit")" class="btn btn-primary ">Zurück</a>
+                </div>
+                <div class="col-sm-5">
+                    <input type="submit" value="Bestätigen" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </section>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
